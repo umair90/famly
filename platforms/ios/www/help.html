@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+            <link href="js/slide.css" rel="stylesheet" media="screen">
+                    <link rel="stylesheet" type="text/css" href="js/modal.css" />
+                    <style>
+                        div {
+                            -webkit-touch-callout: none;
+                            -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                        }
+                        body{
+                            background: #545454;
+                            overflow:hidden;
+                        }
+                        * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                        
+                       
+                        .b
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            color:#FFF !important;
+                            height:40px !important;
+                        }
+                        .bttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:48px !important;
+                            height:30px !important;
+                        }
+
+                        .finish
+                        {
+                            position:absolute !important;
+                            top:71% !important;
+                            left:62% !important;
+                        }
+                        
+                        .skip
+                        {
+                            position:absolute !important;
+                            top:88% !important;
+                            left:42% !important;
+                        }
+                        /* slider container */
+                        .iosSlider {
+                            /* required */
+                            position: relative;
+                            top: 0;
+                            left: 0;
+                            overflow: hidden;
+                            
+                            
+                            width: 320px;
+                            height: 460px;
+                        }
+                        
+                        /* slider */
+                        .iosSlider .slider {
+                            /* required */
+                            width: 320px;
+                            height: 460px;
+                            
+                        }
+                        
+                        /* slide */
+                        .iosSlider .slider .slide {
+                            /* required */
+                            float: left;
+                            
+                            width: 320px;
+                            height: 430px;
+                        }
+                        </style>
+                
+                <script src="js/cordova.js"></script>
+                <script src="js/jquery.js"></script>
+                <script src="bootstrap/js/bootstrap.min.js"></script>
+                <script src="js/jquery.iosslider.js" type="text/javascript"></script>
+                
+                <script>
+                    
+                    function getUrlVars()
+                    {
+                        var vars = [], hash;
+                        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                        for(var i = 0; i < hashes.length; i++)
+                        {
+                            hash = hashes[i].split('=');
+                            vars.push(hash[0]);
+                            vars[hash[0]] = hash[1];
+                        }
+                        return vars;
+                    }
+                    
+                    function goHome(){
+                        var call =  getUrlVars()['call'];
+                        if(call == 1){
+                            window.open('index.html?suggest=1', '_self');
+                        }else{
+                            window.open('settings.html', '_self');
+                        }
+                    }
+                    
+                    function enableSlide() {
+                        
+                        $('.slider').append('<div class = "slide"><img src="img/guide/start_guide.png"/>'
+                                            +' <button class="btn b btn-small skip" onClick="goHome()">Skip</button> '
+                                            +'</div>'
+                                            +' <div class = "slide"><img src="img/guide/header_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/fullpost_guide.png"/></div>'
+                                       /*     +' <div class = "slide"><img src="img/guide/menu_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/notif_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/msg_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/post_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/share_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/comment_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/like_guide.png"/></div>' */
+                                            +' <div class = "slide"><img src="img/guide/slide_guide.png"/></div>'
+                                            +' <div class = "slide"><img src="img/guide/finish_guide.png"/>'
+                                            +' <button class="btn b btn-small finish" onClick="goHome()">Finish Tour</button> '
+                                            + '</div>');
+                        /* some custom settings */
+                        $('.iosSlider').iosSlider({
+                                                  snapToChildren: true,
+                                                  scrollbar: true,
+                                                  scrollbarHide: true,
+                                                  desktopClickDrag: true,
+                                                  scrollbarLocation: 'bottom',
+                                                  scrollbarHeight: '6px',
+                                                  scrollbarBackground: 'url(img/header_back.jpg) repeat 0 0',
+                                                  scrollbarBorder: '1px solid #000',
+                                                  scrollbarMargin: '0 30px 16px 30px',
+                                                  scrollbarOpacity: '0.75'
+                                                  });
+                        
+                    }
+                    </script>
+                
+    </head>
+    
+    <body onLoad="enableSlide()">
+        
+       
+        <!-- slider container -->
+        <div class = 'iosSlider'>
+            
+            <!-- slider -->
+            <div class = 'slider'>
+                
+                <!-- slides -->
+                
+                
+            </div>
+            
+        </div>
+        
+                
+    </body>
+    
+</html>

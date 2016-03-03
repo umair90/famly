@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+          <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">   
+            <style>
+                div {
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                }
+                body{
+                    background: url(img/back.jpg) repeat;
+                    overflow:hidden;
+                }
+                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                
+                .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                .bttn
+                {
+                    text-shadow:none !important;
+                    background:#F88E1E !important;
+                    font-weight:600 !important;
+                    width:90% !important;
+                    color:#FFF !important;
+                }
+                
+                .btttn
+                {
+                    text-shadow:none !important;
+                    background:#F88E1E !important;
+                    font-weight:600 !important;
+                    width:15% !important;
+                    color:#FFF !important;
+                }
+                
+                #wrapper {
+                    background: url(img/back.jpg) repeat;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    -webkit-transform: translate3d(0px, 0px, 0px);
+                    -webkit-transition: -webkit-transform 0.5s ease-in-out 0s;
+                    z-index: 999;
+                    padding-top: 70px;
+                    width:100%;
+                }
+                
+                
+                </style>
+            
+            <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+            <script src="js/cordova.js"></script>
+            <script src="js/jquery.js"></script>
+            <script src="js/jquery.blockUI.js"></script>
+            <script src="js/iscroll.js"></script>
+            <script src="bootstrap/js/bootstrap.min.js"></script>
+            <script src="js/sha1.js"></script>
+            
+            </head>
+    <body>
+       <script type="text/javascript" charset="utf-8" src="js/ajaxfileupload.js"></script>
+                                
+                    
+                    <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+                        
+                        
+                        <div class="tabback">
+                            <div class="tab navbar navbar-inverse navbar-fixed-top">
+                                <div style="width:25%; margin-left:4%;">
+                                    <button class="btn btn-small pull-left" id="back" onClick="back();">Cancel</button>
+                                </div>
+                                <div style="width:25%; margin-left:72%;">
+                                    <button class="btn btn-small pull-right" id="reg" onClick="save()">Save</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div> <!--panel -->
+                    
+                    <div id="wrapper">
+                        
+                        <div style="position: relative; float:left; width:96%; margin:2%">
+                            
+                            
+                            <ul class="nav nav-list">
+                                <li class="nav-header">About Me</li>
+                                <li><input id="abtme" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Education</li>
+                                <li><input id="edu" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Phone</li>
+                                <li><input id="phn" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Date Of Birth</li>
+                                <li><input id="dob" type="date" value="" style="width:95% !important"></li>
+                                
+                                <li class="nav-header">Religion</li>
+                                <li><input id="rlgn" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Interests</li>
+                                <li><input id="ints" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Hobbies</li>
+                                <li><input id="hobs" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Favourite Books</li>
+                                <li><input id="fbks" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Address</li>
+                                <li><input id="adrs" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">City</li>
+                                <li><input id="pcty" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">State</li>
+                                <li><input id="pstt" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Zipcode</li>
+                                <li><input id="pzpc" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Country</li>
+                                <li><input id="pcnt" type="text" value="" style="width:95%" placeholder="Add"></li>
+                                
+                                <li class="nav-header">Photo</li>
+                                <li><input id="fileToUpload" name="fileToUpload" type="file" value="" style="width:70%">
+                                <button class="btn btttn pull-right" onClick="ajaxFileUpload()"><i class="icon-arrow-up icon-white"></i></button></li>
+                                
+                            </ul>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <script>
+                        
+                        
+                        $(document).ready(function() {
+                                          $("#abtme").val(sessionStorage.getItem('abtme'));
+                                          $("#edu").val(sessionStorage.getItem('edu'));
+                                          $("#dob").val(sessionStorage.getItem('dob'));
+                                          $("#phn").val(sessionStorage.getItem('phn'));
+                                          $("#rlgn").val(sessionStorage.getItem('rlgn'));
+                                          $("#ints").val(sessionStorage.getItem('ints'));
+                                          $("#hobs").val(sessionStorage.getItem('hobs'));
+                                          $("#fbks").val(sessionStorage.getItem('fbks'));
+                                          $("#adrs").val(sessionStorage.getItem('adrs'));
+                                          $("#pcty").val(sessionStorage.getItem('pcty'));
+                                          $("#pstt").val(sessionStorage.getItem('pstt'));
+                                          $("#pzpc").val(sessionStorage.getItem('pzpc'));
+                                          $("#pcnt").val(sessionStorage.getItem('pcnt'));
+                                          });
+                        
+                        function ajaxFileUpload()
+                        {
+                            $.blockUI();
+                            var userId=sessionStorage.getItem('userid');
+                            //starting setting some animation when the ajax starts and completes
+                            
+                                                        
+                            $.ajaxFileUpload
+                            (
+                             {
+                             url:'http://famly.com/beta/public/ws/doajaxfileupload.php?user_id='+userId,
+                             secureuri:false,
+                             fileElementId:'fileToUpload',
+                             success: function (data)
+                             {
+                             //alert(data);
+                             $.unblockUI();
+                             //$("#progCont").slideUp();
+                             
+                             },
+                             error: function (data, status, e)
+                             {
+                             //$("#progCont").slideUp();
+                             navigator.notification.alert(e,null,"Message","OK");
+                             }
+                             }
+                             );
+                            
+                        }
+                        
+                        function back(){
+                            var id = sessionStorage.getItem('userid');
+                            window.open('profilePage.html?id='+id, '_self');
+                        }
+                        
+                        
+                        function save(){
+                        $.blockUI();
+                            
+                        var abtme = document.getElementById("abtme").value;
+                        var edu =  document.getElementById("edu").value;
+                        var dob =  document.getElementById("dob").value;
+                        var phn =  document.getElementById("phn").value;
+                        var rlgn = document.getElementById("rlgn").value;
+                        var ints = document.getElementById("ints").value;
+                        var hobs = document.getElementById("hobs").value;
+                        var fbks = document.getElementById("fbks").value;
+                        var adrs = document.getElementById("adrs").value;
+                        var pcty = document.getElementById("pcty").value;
+                        var pstt = document.getElementById("pstt").value;
+                        var pzpc = document.getElementById("pzpc").value;
+                        var pcnt = document.getElementById("pcnt").value;
+                           
+                        //    console.log(abtme+edu+dob+rlgn+ints+hobs+fbks+adrs+pcty+pstt+pcnt);
+                            
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        url='http://famly.com/beta/public/ws/updateProfile.php';
+                            $.get(url, {username: un, password: hash, about_me:encodeURIComponent(abtme), dob:dob, interests:ints, education:edu, hobbies:hobs, phone:phn, fav_books:fbks, religion:rlgn, address:adrs, city:pcty, state:pstt, zipcode:pzpc, country:pcnt},function(data){
+                                  //alert(data);
+                                       if (data==1){
+                                        back();
+                                       }
+                            });
+                            
+                        }
+                        
+                     
+                        
+                        
+                        
+                        </script>
+                    
+                    </body>
+</html>
+
+

@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                            <style>
+                                div {
+                                    -webkit-touch-callout: none;
+                                    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                                }
+                                body{
+                                    background: url(img/back.jpg) repeat;
+                                    overflow:hidden;
+                                }
+                                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                                .b
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    color:#FFF !important;
+                                }
+                                .bttn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:48px !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                                .btttn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:90% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                                .thead{
+                                    font-weight:600;
+                                    font-size:9px;
+                                }
+                                table{
+                                    position:relative;
+                                    float:left;
+                                    margin:5%;
+                                }
+                                .layout-slider { margin-top: 30px; width: 80%; }
+                                
+                                @media only screen and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+                                    .nmsg {
+                                        overflow:scroll; height:85%
+                                    }
+                                    .rmsg {
+                                        /* overflow:scroll; height:58% */
+                                        overflow:scroll; height:55%
+                                    }
+                                }
+                                @media only screen and (device-height: 480px){
+                                    .nmsg {
+                                        overflow:scroll; height:85%
+                                    }
+                                    .rmsg {
+                                        /* overflow:scroll; height:50% */
+                                        overflow:scroll; height:55%
+                                    }
+                                }
+                                
+                                #menu {
+                                    background: none repeat scroll 0 0 #333333;
+                                    bottom: 0;
+                                    opacity: 0;
+                                    overflow: auto;
+                                    position: fixed;
+                                    top: 0;
+                                    width: 70%;
+                                    z-index: 1;
+                                }
+                                #menu ul {
+                                    margin-left: 10px;
+                                    display: block;
+                                    height: 100%;
+                                    overflow-y: scroll;
+                                }
+                                #menu ul li a {
+                                    background:#333333;
+                                    border-bottom: 1px solid #222222;
+                                    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                                    color: #FFFFFF;
+                                    display: block;
+                                    font-weight: bold;
+                                    padding: 10px;
+                                    text-decoration: none;
+                                    text-shadow: 0 1px 0 #000000;
+                                }
+                                #menu ul li a.active {
+                                    background-color: #336C95;
+                                }
+                                
+                                .handler {
+                                    display: none;
+                                }
+                                #handler-left.handler:checked ~ #menu {
+                                    opacity: 1;
+                                    -webkit-transition: opacity 1s ease 0s;
+                                }
+                                #handler-left.handler:checked ~ #wrapper {
+                                    -webkit-transform: translate3d(70%, 0px, 0px);
+                                    position:fixed;
+                                }
+                                #handler-left.handler:not(:checked) ~ #menu {
+                                    opacity: 0;
+                                    -webkit-transition: opacity 10s ease 0s;
+                                }
+                                #handler-left.handler:checked ~ #toppanel {
+                                    -webkit-transform: translate3d(70%, 0px, 0px);
+                                }
+                                #wrapper {
+                                    background: url(img/back.jpg) repeat;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    -webkit-transform: translate3d(0px, 0px, 0px);
+                                    -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+                                    z-index: 999;
+                                    padding-top: 70px;
+                                    width:100%;
+                                }
+                               
+                                
+                                </style>
+
+                            <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+                            <script src="js/cordova.js"></script>
+                            <script src="js/jquery.js"></script>
+                            <script src="js/jquery.blockUI.js"></script>
+                            <script src="js/iscroll.js"></script>
+                            <script src="bootstrap/js/bootstrap.min.js"></script>
+                            <script src="js/sha1.js"></script>
+                            <script type="text/javascript" charset="utf-8" src="js/ajaxfileupload.js"></script>
+                                                        </head>
+    <body>
+        
+        <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+
+        
+        <input type="checkbox" name="handler-left" class="handler" id="handler-left" onclick="null" />
+        
+        <div id="menu">
+            <ul>
+                <li>
+                    <div class="form-search">
+                        <div class="input-append">
+                            <input id="search_name" type="text" class="span2 input-medium search-query" placeholder="Search">
+                                <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                </div>
+                    </div>
+                </li>
+                <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                
+                
+            </ul>
+        </div>
+        
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+            
+            <div id="panel3" class="panel3">
+                <div id="msgList"></div>
+                <div id="newMsgButton" style="display:none">
+                    <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-11px; height:25px; width:25px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>
+                </div>
+                
+                <div id="reply_post" style="display:none;">
+                    
+                    <div  class="input-append" style="margin-bottom:-7px; margin-top:-6px">
+                        <textarea id="repText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingRep(event)"></textarea>
+                        <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                         <button id="rib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                         <button id="rvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                         </div>-->
+                    </div>
+                    <div id="attachRepLink" class="input-append" style="padding-bottom:1%; display:none">
+                        <input id="repLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                        <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                    </div>
+                    <div id="repImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                        <img id="repImage" style="width:100%; height:100%; overflow:hidden">
+                            </div>
+                    <div id="repVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                        <video id="repVid" style="width:100%; height:100%; overflow:hidden">
+                            </div>
+                    <div style="margin-left:50%">
+                        <button class="btn" type="button" onClick="emptyRep(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                        <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="replyMsg()">
+                            Send
+                        </button>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+            
+            <div id="panel4" style=" z-index:999 !important">
+                
+                <div class="input-append" style="padding-top:5%; margin-bottom:-5px">
+                    <textarea id="statText" rows="5" placeholder="What do you want to share?" type="text" style="font-size:15px; width:79%; margin-top:4%" onkeypress="linkingStat(event)"></textarea>
+                    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                        <button id="sib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                        <button id="svb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                        <a id="locList" class="btn btn-large" type="button" style="width:0px;" href="#pop"><div style="height:14px; width:16px"><img src="img/location_post.png" style="margin-top:-10px; margin-left:-15px; "></div></a>
+                        <!--     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button> -->
+                    </div>
+                    
+                </div>
+                <div id="attachStatLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                    <input id="statLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                </div>
+                <div id="statImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <img id="statImage" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div id="statVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <video id="statVid" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div style=" padding-top:1%; margin-left:38%">
+                    <button class="btn" type="button" onClick="emptyStat(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                    <div class="btn-group">
+                        <button id="updt" class="btn" style="color:#BDBDBD; font-weight:600; z-index:999 !important">Update</button>
+                        <button id="updtView" class="btn">
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="progress progress-striped active" id="progCont" style="margin-left:5%; margin-top:5px; width:90%; display:none">
+                    <div id="prgbar" class="bar" style="width: 100%;"></div>
+                </div>
+                <div id="postview" class="layout-slider" style="margin-left:10%; display:none">
+                    <input id="Slider2" type="slider" name="price" value="1;10" />
+                </div>
+                <script>
+                    $("#Slider2").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                    </script>
+                &nbsp;
+            </div>
+            
+            
+            <div id="panel7">
+                <div id="recp" style="padding-top:3%; padding-bottom:1%">
+                    <input id="msgRecp" placeholder="To" type="text" style="font-size:15px; width:90%"/>
+                </div>
+                <div class="input-append" style="margin-bottom:-5px">
+                    
+                    <textarea id="msgText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingMsg(event)"></textarea>
+                    <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                     <button id="mib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                     <button id="mvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                     <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                     </div>-->
+                    
+                </div>
+                <div id="attachMsgLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                    <input id="msgLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png"/ style="margin-top:-4px"></div></button>
+                </div>
+                <div id="msgImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <img id="msgImage" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div id="msgVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <video id="msgVid" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div style=" padding-top:1%; padding-left:50%">
+                    <button class="btn" type="button" onClick="emptyMsg(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                    <button class="btn" type="button" onClick="sendMsg()" style="color:#BDBDBD; font-weight:600">Send</button>
+                </div>
+                &nbsp;
+            </div>
+            
+            <div id="panel8" class="panel9">
+                <div id="notifList"></div>
+            </div>
+            
+            <div class="tabback">
+            <div class="tab navbar navbar-inverse navbar-fixed-top">
+                <div style="position:absolute; left:2px; top:-3px">
+                    <div class="btn-group">
+                        <button class="btn bttn" onClick="check()"><div style="height:20px; width:20px"><img src="img/settings.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                        <!--     <button class="btn bttn" onClick="window.open('me.html', '_self');"><div style="height:30px; width:30px"><img src="img/me.jpg"  style="margin-top:-5px; margin-left:-22px; "></div></button> 
+                        <button class="btn bttn" onClick="showPanel(8)"><div style="height:30px; width:30px"><img id="notifImg" src="img/notif.jpg" style="margin-top:-5px; margin-left:-8px; "></div></button>-->
+                    </div>
+                </div>
+                <div id="clos" style="background:transparent; width:30%; height:70%; margin-left:35%">&nbsp;</div>
+              <!--  <div style="position:absolute; right:2px; top:-3px">
+                    <div class="btn-group">
+                        <button class="btn bttn" onClick="showPanel(3)"><div style="height:30px; width:30px"><img src="img/messages.jpg" style="margin-top:-5px; margin-left:-8px; "></div></button>
+                        <button class="btn bttn" onClick="showPanel(4)"><div style="height:30px; width:30px"><img src="img/updates.jpg"  style="margin-top:-5px; margin-left:-8px; "></div></button>
+                        <!--   <button class="btn bttn" onClick="showPanel(5)"><div style="height:30px; width:30px"><img src="img/view.jpg" style="margin-top:-5px; margin-left:-22px; "></div></button> 
+                    </div>
+                </div> -->
+                
+            </div>
+            </div>
+                
+        </div> <!--panel -->
+                
+        <div id="wrapper">
+        
+            <div align="center" style="position: relative; float:left; width:100%">
+    
+                <div id="message" style="margin-top:80px; margin-left:4%; display:none">
+                    <div  class="alert alert-info">
+                        <button type="button" class="close" onClick="hideAlert1()">&times;</button>
+                        <strong>Error!</strong> <span id="incorrect"> </span>
+                    </div>
+                </div>
+                
+                <div id="message2" style="margin-top:140px; margin-left:4%; display:none">
+                    <div  class="alert alert-info">
+                        <button type="button" class="close" onClick="hideAlert2()">&times;</button>
+                        <strong>Error!</strong> <span id="incorrect2"> </span>
+                    </div>
+                </div>
+                
+                <hr style="margin-left:5%; width:90%;">
+                
+                <input class="btn btttn" type="button" onClick="unameToggle()" value="Change Name" />
+                
+                <div id="unameUpdate" style="display:none">
+                    <table class="table table-bordered">
+                        <tr id="n1">
+                            <td class="thead">Firstname</td>
+                            <td class="tdata"><input id="fname" type="text" value="" style="width:85%"></td>
+                        </tr>
+                        <tr id="n2">
+                            <td class="thead">Lastname</td>
+                            <td class="tdata"><input id="lname" type="text" value="" style="width:85%"></td>
+                        </tr>
+                    </table>
+                   <button class="btn" onClick="save1()" style="color:#BDBDBD !important; font-weight:600 !important; width:90%">Save</button>
+                </div>
+                
+                <hr style="margin-left:5%; width:90%;">
+                
+                <button class="btn btttn" onClick="passToggle()">Change Password</button>
+                <div id="passUpdate" style="display:none">
+                    <table class="table table-bordered">
+                        <tr id="Password1">
+                            <td class="thead">Current</td>
+                            <td class="tdata"><input id="oPass" type="password" value="" style="width:85%"></td>
+                        </tr>
+                        <tr id="Password2">
+                            <td class="thead">New</td>
+                            <td class="tdata"><input id="nPass" type="password" value="" style="width:85%"></td>
+                        </tr>
+                        <tr id="Password3">
+                            <td class="thead">Confirm</td>
+                            <td class="tdata"><input id="cPass" type="password" value="" style="width:85%"></td>
+                        </tr>
+                    </table>
+                    <button class="btn" onClick="save2()" style="color:#BDBDBD !important; font-weight:600 !important; width:90%">Save</button>
+                </div>
+                
+                <hr style="margin-left:5%; width:90%;">
+                
+                <button class="btn btttn" onClick="genToggle()">Change Gender</button>
+                <div id="genUpdate" style="display:none">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="thead" style="padding-left:10%;">
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                        Male
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        Female
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <button class="btn" onClick="save3()" style="color:#BDBDBD !important; font-weight:600 !important; width:90%">Save</button>
+                </div>
+                
+                <hr style="margin-left:5%; width:90%;">
+                
+                <button class="btn btttn" onClick="imgToggle()" style="width:80%">Change Image</button>
+                <div align="center" id="imgUpdate" style="display:none;">
+                    <p></p>
+                    <div align="center" style="overflow:hidden; width:60%"><input id="fileToUpload" type="file" size="35" name="fileToUpload" class="input"></input></div>
+                    <p></p>
+                    <div class="progress progress-striped active" id="progCont" style="margin-left:5%; margin-top:5px; width:90%; display:none">
+                        <div id="prgbar" class="bar" style="width: 100%;"></div>
+                    </div>
+                    <button class="btn" onClick="ajaxFileUpload()" style="color:#BDBDBD !important; font-weight:600 !important; width:90%">Save</button>
+                </div>
+               
+                <hr style="margin-left:5%; width:90%;">
+                
+                <button class="btn btttn" onClick="visToggle()" style="width:80%">Change Visibility</button>
+                <div align="center" id="visUpdate" style="display:none;">
+                    <p></p>
+                        <div class="layout-slider">
+                            <input id="Slider1" type="slider" name="price" value="1;10" />
+                        </div>
+                        <script>
+                            $("#Slider1").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                        </script>
+                    <p></p>
+                    <p></p>
+                    <button class="btn" onClick="filter()" style="color:#BDBDBD !important; font-weight:600 !important; width:90%">Save</button>
+                </div>
+                
+                <hr style="margin-left:5%; width:90%;">
+            </div>
+            
+
+       <!--     <div style="width:20%; margin-left:0%; margin-top:5%"><button class="btn btn-small pull-left bttn" id="back" onClick="javascript:back();">Cancel</button></div>
+            
+            <div style="width:20%; margin-left:74%; margin-top:5%"><button class="btn btn-small pull-right bttn" id="save" onClick="save()" >Save</button></div>
+            -->
+
+        </div>
+        
+        <script>
+
+            var panelOpened = 4;
+            
+            function check(){
+                if(document.getElementById("handler-left").checked)
+                document.getElementById("handler-left").checked=false
+                else
+                document.getElementById("handler-left").checked=true
+            }
+            
+            function prof(){
+                var id = sessionStorage.getItem('userid');
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+            
+            function jour(){
+                var id = sessionStorage.getItem('userid');
+                window.open('journals.html?jid='+id, '_self');
+                
+            }
+            
+            function filter(){
+                sessionStorage['lower']=$('#visUpdate #lower').html();
+                sessionStorage['higher']=$('#visUpdate #higher').html();
+                $("#visUpdate").slideUp();
+            }
+            
+            function linkingStat(evt) {
+                evt = (evt) ? evt : event;
+                var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                ((evt.which) ? evt.which : 0));
+                if (charCode == 62){
+                    $("#attachStatLink").slideDown();
+                    //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                }
+                if (charCode == 60){
+                    //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                }
+                if (charCode == 64){
+                    /*   $("#textarea1").autocomplete({
+                     source: ["ActionScript",
+                     "AppleScript",
+                     "Asp",
+                     "BASIC",
+                     "C",
+                     "C++",
+                     "Clojure",
+                     "COBOL",
+                     "ColdFusion",
+                     "Erlang",
+                     "Fortran",
+                     "Groovy",
+                     "Haskell",
+                     "Java",
+                     "JavaScript",
+                     "Lisp",
+                     "Perl",
+                     "PHP",
+                     "Python",
+                     "Ruby",
+                     "Scala",
+                     "Scheme"]
+                     }); */
+                }
+                
+            }
+            
+            function linkingRep(evt) {
+                evt = (evt) ? evt : event;
+                var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                ((evt.which) ? evt.which : 0));
+                if (charCode == 62){
+                    $("#attachRepLink").slideDown();
+                    //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                }
+                if (charCode == 60){
+                    //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                }
+                
+            }
+            
+            function linkingMsg(evt) {
+                evt = (evt) ? evt : event;
+                var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                ((evt.which) ? evt.which : 0));
+                if (charCode == 62){
+                    $("#attachMsgLink").slideDown();
+                    //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                }
+                if (charCode == 60){
+                    //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                }
+                
+            }
+            
+            function emptyStat(evt) {
+                if($("#statImageDiv").is(":visible")){
+                    $('#statImageDiv').slideUp();
+                    sessionStorage['imgAtch'] = "";
+                    $("#svb").removeAttr("disabled");
+                    $("#progCont").slideUp();
+                }
+                if($("#statVidDiv").is(":visible")){
+                    $('#statVidDiv').slideUp();
+                    sessionStorage['vidAtch'] = "";
+                    $("#sib").removeAttr("disabled");
+                    $("#progCont").slideUp();
+                }
+                $("#statText").val("");
+                $("#statLink").val("");
+                $("#attachStatLink").slideUp();
+                $("div[id^=panel]").slideUp(400);
+            }
+            
+            function emptyRep(evt) {
+                if($("#repImageDiv").is(":visible")){
+                    $('#repImageDiv').slideUp();
+                    sessionStorage['imgAtch'] = "";
+                    $("#rvb").removeAttr("disabled");
+                }
+                if($("#repVidDiv").is(":visible")){
+                    $('#repVidDiv').slideUp();
+                    sessionStorage['vidAtch'] = "";
+                    $("#rib").removeAttr("disabled");
+                }
+                $("#repText").val("");
+                $("#repLink").val("");
+                $("#attachRepLink").slideUp();
+                $("div[id^=panel]").slideUp(400);
+            }
+            
+            function emptyMsg(evt) {
+                if($("#msgImageDiv").is(":visible")){
+                    $('#msgImageDiv').slideUp();
+                    sessionStorage['imgAtch'] = "";
+                    $("#mvb").removeAttr("disabled");
+                }
+                if($("#msgVidDiv").is(":visible")){
+                    $('#msgVidDiv').slideUp();
+                    sessionStorage['vidAtch'] = "";
+                    $("#mib").removeAttr("disabled");
+                }
+                $("#msgRecp").val("")
+                $("#msgText").val("");
+                $("#msgLink").val("");
+                $("#attachMsgLink").slideUp();
+                $("div[id^=panel]").slideUp(400);
+            }
+            
+            function showBrowser(){
+                var ref = window.open('http://www.bing.com', '_blank', 'location=yes');
+                ref.addEventListener('loadstop', iabStop);
+                ref.addEventListener('exit', iabClose);
+            }
+            
+            function iabStop(event){
+                sessionStorage['url'] = event.url;
+            }
+            
+            function iabClose(event){
+                if($("#attachStatLink").is(":visible"))
+                $("#statLink").val(sessionStorage.getItem('url'));
+                else if($("#attachRepLink").is(":visible"))
+                $("#repLink").val(sessionStorage.getItem('url'));
+                else if($("#attachMsgLink").is(":visible"))
+                $("#msgLink").val(sessionStorage.getItem('url'));
+            }
+            
+            
+            $(document).ready(function() {
+                              userList();
+                              
+                              $("#search_name").autocomplete({
+                                                             source: fname,
+                                                             minLength: 0,
+                                                             select: function(event, ui) {
+                                                             //assign value back to the form element
+                                                             if(ui.item){
+                                                             $(event.target).val(ui.item.value);
+                                                             names=ui.item.value;
+                                                             }
+                                                             searchedUser();
+                                                             }
+                                                             }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li class="list_item_container"></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+                              
+                              
+                              });
+            
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function searchedUser(){
+                
+                var indexArray= new Array();
+                var index;
+                for(i=0;i<fname.length;i++){
+                    if(names==fname[i]){
+                        index=i;
+                    }
+                }
+                var id=fid[index];
+                var picture=fpic[index];
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+
+            function search(){
+                
+                var full_name = $("#search_name").val();
+                window.open('searchResults.html?name='+full_name, '_self');
+            }
+            
+            
+            $.blockUI();
+            
+            var errors = "";
+            var errors2 = "";
+            function getPhoto(){
+                
+              
+                
+            }
+            
+            function onSuccess(imageData) {
+                var image = document.getElementById('myImage');
+                image.src = imageData;
+                //image.src = "data:image/jpeg;base64," + imageData;
+                //alert(imageData)
+
+            }
+            
+            function onFail(message) {
+                alert('Failed because: ' + message);
+            }
+            
+            function validatefirstName(name){
+                var valid=true;
+                var filter=/^[a-zA-Z ]+$/;
+                var test_bool = filter.test(name);
+                if(test_bool==false){
+                    //$("#message").attr("style","display:inline;");
+                    //$("#incorrect").text("First Name must contain alphabets");
+                    errors += "<br>First Name must only contain alphabets";
+                    valid=false;
+                }
+                
+                console.log("firstname validated");
+                return valid;
+                
+                
+            }
+            
+            function validatePassword(pass){
+                if(pass.length<6){
+                    //$("#message").attr("style","display:inline;");
+                    errors2 += "<br>Password must contain atleast 6 characters";
+                    return false;
+                }
+                
+                console.log("Password validated");
+                return true;
+                
+            }
+            
+            function validatelastName(name){
+                var valid=true;
+                var filter=/^[a-zA-Z ]+$/;
+                var test_bool = filter.test(name);
+                if(test_bool==false){
+                    //$("#message").attr("style","display:inline;");
+                    //$("#incorrect").text("Last Name must contain alphabets");
+                    errors += "<br>Last Name must contain alphabets";
+                    valid=false;
+                }
+                console.log("lastname validated");
+                return valid;
+            }
+            
+            function imgToggle(){
+                $("#imgUpdate").slideToggle();
+                
+            }
+            
+            function visToggle(){
+                $("#visUpdate").slideToggle();
+                $.scrollTo( "#Slider1", 800, {queue:true} );
+                
+            }
+            
+            function passToggle(){
+                $("#passUpdate").slideToggle();
+                
+            }
+            
+            function genToggle(){
+                $("#genUpdate").slideToggle();
+                
+            }
+            
+            function unameToggle(){
+                $("#unameUpdate").slideToggle();
+               //$("#username").val(sessionStorage.getItem('username'));
+                $("#fname").val(sessionStorage.getItem('fname'));
+                $("#lname").val(sessionStorage.getItem('lname'));
+                // $("#Password3").slideToggle();
+                
+            }
+            
+            function save1(){
+            
+                var fn = document.getElementById('fname').value;
+                var ln = document.getElementById('lname').value;
+                var fnValid=validatefirstName(fn);
+                var lnValid=validatelastName(ln);
+               // var userNameValid=validateUsername(un);
+                 if( fn == "" )
+                {
+                    //$("#message").attr("style","display:inline;");
+                    //$("#incorrect").text("First Name is required");
+                    errors += "<br>First Name is required";
+                }
+                else if( ln == "" )
+                {
+                    //$("#message").attr("style","display:inline;");
+                    //$("#incorrect").text("Last Name is required");
+                    errors += "<br>Last Name is required";
+                }
+                else if( fnValid==false )
+                {
+                    console.log("It shouldnt login, firstname is invalid")
+                    // errors2 += "<br>Invalid Username  !";
+                }
+                else if( lnValid==false )
+                {
+                    console.log("It shouldnt login, lastname is invalid")
+                    // errors2 += "<br>Invalid Username  !";
+                }else{
+                    var un=sessionStorage.getItem('username');
+                    var hash=sessionStorage.getItem('password');
+                    url='http://famly.com/beta/public/ws/changeName.php';
+                    $.post(url, {username: un, password: hash, firstName:fn ,lastName:ln },function(data){
+                           if (data==1){
+                           sessionStorage['fname']=fn;
+                           sessionStorage['lname']=ln;
+                           }
+                           });
+                    if($("#message").is(":visible"))
+                    $("#message").slideUp();
+                    $("#unameUpdate").slideToggle();
+                    
+                }if (errors != ""){
+                    $("#message").slideDown();
+                    $("#incorrect").html(errors);
+                    errors = "";
+                }
+                
+            }
+                        
+            function save2(){
+                
+                var old_pw = document.getElementById('oPass').value;
+                var new_pw = document.getElementById('nPass').value;
+                var confirm_pw = document.getElementById('cPass').value;
+                var hash_old_pw=SHA1(old_pw);
+                var hash_new_pw=SHA1(new_pw);
+                var hash_confirm_pw=SHA1(confirm_pw);
+                var passwordValid=validatePassword(new_pw);
+                
+                if(passwordValid==false)
+                {
+                    errors2 += "<br>Invalid Password!";
+                }
+                else if (hash_old_pw!=sessionStorage.getItem('password')){
+                    errors2 += "<br>Old Password Doesn't match !";
+                    
+                }
+                else if (hash_confirm_pw!=hash_new_pw){
+                    errors2 += "<br>New Password Doesn't match !";
+                    
+                }
+                else if(old_pw == "")
+                {
+                    errors2 += "<br>Current Password is required !";
+                }
+                else if(new_pw == "")
+                {
+                    errors2 += "<br>New Password is required !";
+                }
+                else if(confirm_pw == "")
+                {
+                    errors2 += "<br>New Password doesn't match !";
+                }
+                
+                else{
+                    var un=sessionStorage.getItem('username');
+                    url='http://famly.com/beta/public/ws/changePassword.php';
+                    $.post(url,{username:un,password:hash_old_pw,newPass:hash_new_pw},function(data){
+                           if (data==1){
+                           sessionStorage['password']=hash_new_pw;
+                           }
+                           });
+                    if($("#message2").is(":visible"))
+                    $("#message2").slideUp();
+                    $("#passUpdate").slideToggle();
+                    
+                }
+                
+                if (errors2 != ""){
+                    $("#message2").slideDown();
+                    $("#incorrect2").html(errors2);
+                    errors2 = "";
+                }
+            }
+
+            
+            function save3(){
+                
+                var gen = "Male";
+                if(document.getElementById("optionsRadios2").checked==true)
+                {
+                    gen = "Female";
+                }
+                
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                url='http://famly.com/beta/public/ws/changeGender.php';
+                $.post(url, {username: un, password: hash, gender:gen },function(data){
+                       if (data==1){
+                       sessionStorage['gender']=gen;
+                       }
+                       });
+            }
+
+            
+            function back(){
+                $.blockUI();
+                window.location.href="index.html";
+                //$.unblockUI();
+                
+            }
+            
+            function goAlb(){
+                var id = sessionStorage.getItem('userid');
+                window.open('album.html?id='+id, '_self');
+                
+            }
+            
+         
+            </script>
+
+    </body>
+</html>
+
+

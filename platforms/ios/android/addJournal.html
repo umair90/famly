@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+		<script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>    
+           <link href="js/slide.css" rel="stylesheet" media="screen">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                            
+                            <style>
+                                body{
+                                    background: url(img/back.jpg) repeat;
+                                }
+                                .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                                .thead{
+                                    font-weight:600;
+                                    font-size:9px;
+                                }
+                                input{
+                                    
+                                    width:95%;
+                                }
+                                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                                #wrapper{
+                                    padding-top:25%;
+                                }
+                                </style>
+                            <script src="js/cordova.js"></script>
+                            <script src="js/jquery.js"></script>
+                            <script src="js/jquery.blockUI.js"></script>
+                            <script src="bootstrap/js/bootstrap.min.js"></script>
+                            <script src="js/sha1.js"></script>
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+    </head>
+
+    <body>
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="tabback">
+        <div class="tab navbar navbar-inverse navbar-fixed-top">
+            <div style="width:25%; margin-left:4%;">
+                <button class="btn btn-small pull-left" id="back" onClick="javascript:back();">Cancel</button>
+            </div>
+            <div style="width:25%; margin-left:72%;">
+                <button class="btn btn-small pull-right" id="reg" onClick="javascript:save()">Save</button>
+            </div>
+            
+        </div>
+        </div>
+        </div>
+        <div id="wrapper">
+                <table class="table table-striped">
+                    
+                    <tr>
+                        <td class="thead">Journal Title</td>
+                        <td class="tdata"><input id="textinput1" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Journal Type</td>
+                        <td class="tdata">
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios" id="etype1" value="option1" checked>
+                                    Private
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios" id="etype2" value="option2">
+                                    Public
+                            </label>
+                            <input id="textinput2" type="text" placeholder="Invite Members" style="margin-top:1%; display:none">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Note</td>
+                        <td class="tdata"><textarea id="textinput3" rows=5 type="text" style="width:95%"></textarea></td>
+                    </tr>
+                   
+                </table>
+         </div>
+        <script>
+            
+            var eventType = "Private";
+            
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            
+            if(curr_month.toString().length == 1){
+                curr_month = "0"+curr_month
+            }
+            
+            $(document).ready(function() {
+                              
+                              userList();
+                              
+                              $('.radio').click(function() {
+                                                
+                                                if($('#etype1').is(':checked'))
+                                                {
+                                                    $("#textinput2").attr("style","margin-top:2%; display:none");
+                                                    eventType = "Private";
+                                                }
+                                                else if($('#etype2').is(':checked'))
+                                                {
+                                                    $("#textinput2").attr("style","margin-top:2%; display:inline");
+                                                    eventType = "Public";
+                                                }
+                                                
+                                                });
+                              
+                              $("#textinput2").bind( "keydown", function( event ) {
+                                                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                                                        $( this ).data( "autocomplete" ).menu.active ) {
+                                                    event.preventDefault();
+                                                    }
+                                                    })
+                              .autocomplete({
+                                            minLength: 0,
+                                            source: function( request, response ) {
+                                            // delegate back to autocomplete, but extract the last term
+                                            response( $.ui.autocomplete.filter(
+                                                                               fname, extractLast( request.term ) ) );
+                                            },
+                                            focus: function() {
+                                            // prevent value inserted on focus
+                                            return false;
+                                            },
+                                            select: function( event, ui ) {
+                                            var terms = split( this.value );
+                                            // remove the current input
+                                            terms.pop();
+                                            // add the selected item
+                                            terms.push( ui.item.value );
+                                            inviteeList += fid[fname.indexOf(ui.item.value)]+",";
+                                            // add placeholder to get the comma-and-space at the end
+                                            terms.push("");
+                                            this.value = terms.join(",");
+                                            return false;
+                                            }
+                                            }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+
+                              
+                              });
+           
+           
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function split( val ) {
+                return val.split( /,\s*/ );
+            }
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+            
+            
+            function save(){
+                url='http://famly.com/beta/public/ws/createJournal.php';
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var jtitle=document.getElementById('textinput1').value;
+                var note=document.getElementById('textinput3').value;
+               // var start_date=document.getElementById('textinput4').value;
+                //var end_date=document.getElementById('textinput5').value;
+                                
+                $.get(url,{username:un, password:hash, title:jtitle, description:encodeURIComponent(note), visible_to:eventType}, function(data){
+                      //alert(data);
+                      back();
+                      
+                });
+            }
+            
+            function back(){
+                $.blockUI();
+                var id = sessionStorage.getItem('userid');
+                window.location.href='journals.html?jid='+id;
+            }
+            
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+          
+            
+            </script>
+    </body>
+</html>
+
+

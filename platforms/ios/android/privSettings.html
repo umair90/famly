@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            
+                            <style>
+                                div {
+                                    -webkit-touch-callout: none;
+                                    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                                }
+                                body{
+                                    background: url(img/back.jpg) repeat;
+                                    overflow:hidden;
+                                }
+                                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                                .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                                .layout-slider { margin-top: 30px; width: 80%; }
+                                
+                                #wrapper {
+                                    background: url(img/back.jpg) repeat;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    -webkit-transform: translate3d(0px, 0px, 0px);
+                                    -webkit-transition: -webkit-transform 0.5s ease-in-out 0s;
+                                    z-index: 999;
+                                    padding-top: 100px;
+                                    width:100%;
+                                }
+                               
+                            </style>
+
+                            <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+                            <script src="js/cordova-2.3.0.js"></script>
+                            <script src="js/jquery.js"></script>
+                            <script src="js/jquery.blockUI.js"></script>
+                            <script src="js/iscroll.js"></script>
+                            <script src="bootstrap/js/bootstrap.min.js"></script>
+                            <script src="js/sha1.js"></script>
+                                                        </head>
+    <body>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+
+        
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+            
+            <div class="tabback">
+                <div class="tab navbar navbar-inverse navbar-fixed-top">
+                    <div style="width:25%; margin-left:4%;">
+                        <button class="btn btn-small pull-left" id="back" onClick="back();">Cancel</button>
+                    </div>
+                    <div style="width:25%; margin-left:72%;">
+                        <button class="btn btn-small pull-right" id="reg" onClick="save()">Save</button>
+                    </div>
+                    
+                </div>
+            </div>
+                
+        </div> <!--panel -->
+                
+        <div id="wrapper">
+        
+            <div style="position: relative; float:left; width:96%; margin:2%">
+               
+                
+                <ul class="nav nav-list">
+                    <li class="nav-header">Profile Visibilty</li>
+                    <li>
+                        <div align="center" style="position: relative; float:left; width:100%;">
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios" id="ptype1" value="option1" checked>
+                                    Private
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios" id="ptype2" value="option2">
+                                    Public
+                            </label>
+
+                        </div>
+                    </li>
+                    <li class="nav-header">Stream Visibilty</li>
+                    <li>
+                        <div align="center" style="position: relative; float:left; width:100%;">
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios2" id="ptype3" value="option1" checked>
+                                    Private
+                                    </label>
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios2" id="ptype4" value="option2">
+                                    Public
+                                    </label>
+                            
+                        </div>
+                    </li>
+                </ul>
+              </div>
+            
+             <div style="position: relative; float:left; width:96%; margin:2% 8% 2% 2%">
+                 
+                <ul class="nav nav-list">
+                    <li class="nav-header">Filter Posts</li>
+                    <li>
+                        <div align="center" class="layout-slider" style="margin-left:20%; position: relative; float:left; width:60%;">
+                        <input id="Slider2" type="slider" value="-5;5" />
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+
+        </div>
+        
+        <script>
+            
+            var profile_status = "0", post_status = "0";
+            var url='http://famly.com/beta/public/ws/privacySettings.php';
+            var uid=sessionStorage.getItem('userid');
+            
+            $(document).ready(function() {
+                              $("#Slider2").slider({ from: -5, to: 5, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                              
+                              if(localStorage.prof == "0" || !localStorage.prof)
+                              {
+                              $('#ptype1').attr('checked', 'checked');
+                              }
+                              else if(localStorage.prof == "1")
+                              {
+                              $('#ptype2').attr('checked', 'checked');
+                              }
+                              
+                              if(localStorage.post == "0" || !localStorage.post)
+                              {
+                              $('#ptype3').attr('checked', 'checked');
+                              }
+                              else if(localStorage.post == "1")
+                              {
+                              $('#ptype4').attr('checked', 'checked');
+                              }
+
+                              
+                              });
+            
+            $('.radio').click(function() {
+                              
+                              if($('#ptype1').is(':checked'))
+                              {
+                              profile_status = "0";
+                              }
+                              else if($('#ptype2').is(':checked'))
+                              {
+                              profile_status = "1";
+                              }
+                              
+                              if($('#ptype3').is(':checked'))
+                              {
+                              post_status = "0";
+                              }
+                              else if($('#ptype4').is(':checked'))
+                              {
+                              post_status = "1";
+                              }
+                              
+                              });
+            
+            function back(){
+                window.open('settings.html', '_self');
+            }
+            
+            function save(){
+                $.blockUI();
+                localStorage.lower = $('#lower').html();
+                localStorage.higher = $('#higher').html();
+                localStorage.prof = profile_status;
+                localStorage.post = post_status;
+                //alert(localStorage.lower+' '+localStorage.higher);
+                //alert(profile_status+' '+post_status);
+                $.get(url, {userId:uid, profile_status:profile_status,  stream_status:post_status},function(data){
+                       
+                       if(data==1){
+                       back();
+                       }
+                       
+                       
+                       });
+            }
+            
+        </script>
+
+    </body>
+</html>
+
+

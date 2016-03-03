@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                <link rel="stylesheet" href="js/calendar.css" media="screen">
+                    <link rel="stylesheet" type="text/css" href="js/modal.css" />
+                <style>
+                    div {
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                    }
+                    body{
+                        background: url(img/back.jpg) repeat;
+                        overflow:hidden;
+                    }
+                    * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                    .b
+                    {
+                        text-shadow:none !important;
+                        background:#F88E1E !important;
+                        font-weight:600 !important;
+                        color:#FFF !important;
+                    }
+                    .bttn
+                    {
+                        text-shadow:none !important;
+                        background:#F88E1E !important;
+                        font-weight:600 !important;
+                        width:48px !important;
+                        height:30px !important;
+                        color:#FFF !important;
+                    }
+                    .btttn
+                    {
+                        text-shadow:none !important;
+                        background:#F88E1E !important;
+                        font-weight:600 !important;
+                        width:100% !important;
+                        height:30px !important;
+                        color:#FFF !important;
+                        margin-top: -5px;
+                    }
+                    
+                    .button_addEve
+                    {
+                        background-image: url(img/addEve.png); /* 16px x 16px */
+                        background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                    }
+                    
+                    .button_home
+                        {
+                            background-image: url(img/home.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        .button_menu
+                        {
+                            background-image: url(img/settings.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        
+                    .dbn
+                    {
+                        text-shadow:none !important;
+                        background:#F88E1E !important;
+                        font-weight:600 !important;
+                        width:95% !important;
+                        height:25px !important;
+                        color:#FFF !important;
+                        font-size:16px;
+                    }
+                    .btttn a{
+                        color:#FFF !important;
+                    }
+                    .thead{
+                        font-weight:600;
+                        font-size:9px;
+                    }
+                    .lbl{
+                        float:left;
+                        position:relative;
+                        width:25%;
+                        font-size:12px;
+                        color:#F88E1E;
+                        font-weight:600;
+                        line-height: 20px;
+                    }
+                    
+                    .det{
+                        float:left;
+                        position:relative;
+                        width:60%;
+                        font-size:16px;
+                        text-align:left;
+                        color:#999;
+                        font-weight:600;
+                        line-height: 20px;
+                    }
+                    .eventized {
+                        background: #12B6E9 !important;
+                    }
+                    
+                    .layout-slider { margin-top: 30px; width: 80%; }
+                        
+                        #eve {
+                            background: none repeat 0 0 #333333;
+                            float: left;
+                            position: relative;
+                            width: 100%;
+                            height: 100%;
+                            z-index: 2;
+                            display: block;
+                            margin-bottom:0px;
+                            overflow: scroll;
+                            
+                        }
+                  
+                    #eve ul {
+                        margin-left:0px;
+                        overflow-y: scroll;
+                        float: left;
+                        position: relative;
+                        width:100%;
+                    }
+                    #eve ul li a{
+                        background:#333333;
+                        border-bottom: 1px solid #222222;
+                        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                        color: #FFFFFF;
+                        display: block;
+                        font-weight: bold;
+                        text-decoration: none;
+                        padding: 4% 4%;
+                    }
+                    
+                     #menu {
+                            background: none repeat scroll 0 0 #333333;
+                            bottom: 0;
+                            overflow: auto;
+                            position: fixed;
+                            top: 0;
+                            width: 70%;
+                            z-index: 1;
+                        }
+                        #menu ul {
+                            margin-left: 10px;
+                            display: block;
+                            height: 100%;
+                            overflow-y: scroll;
+                        }
+                        #menu ul li a {
+                            background:#333333;
+                            border-bottom: 1px solid #222222;
+                            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                            color: #FFFFFF;
+                            display: block;
+                            font-weight: bold;
+                            padding: 10px;
+                            text-decoration: none;
+                            text-shadow: 0 1px 0 #000000;
+                        }
+                        #menu ul li a.active {
+                            background-color: #336C95;
+                        }
+                    
+                    
+                    
+                    #wrapper {
+                        background: url(img/back.jpg) repeat;
+                        position: absolute;
+                        top:0;
+                        left:0;
+                        bottom:0;
+                        right:0;
+                        z-index: 9998;
+                        padding-top: 100px;
+                        width:100%;
+                    }
+
+                    #calendar{
+                        width:95%;
+                        float: left;
+                        position: relative;
+                        padding:2%;
+                    }
+                    
+                    #elist{
+                        padding-left: 2%;
+                        padding-right: 2%;
+                        font-weight: 600;
+                        margin-top: 30px;
+                        background: #F0F0F5;
+                        display: inline-block;
+                        height: 90%;
+                        width: 95%;
+                        float: left;
+                        position: relative;
+                        overflow: scroll;
+                        
+                    }
+                    #elist p{
+                        width: 100%;
+                        float: left;
+                        position: relative;
+                    }
+                    
+                    </style>
+                
+                <script src="js/jquery.js"></script>
+                <script src="js/cordova.js"></script>
+                <script src="js/jquery.blockUI.js"></script>
+                <script src="bootstrap/js/bootstrap.min.js"></script>
+                <script type="text/javascript" charset="utf-8" src="js/ajaxfileupload.js"></script>
+                    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+                </head>
+    <body>
+        
+        <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+                
+                
+                
+                <div id="menu">
+                    <ul>
+                        <li>
+                            <div class="form-search">
+                                <div class="input-append">
+                                    <input id="search_name" type="text" class="span2 input-medium search-query" placeholder="Search">
+                                        <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                        </div>
+                            </div>
+                        </li>
+                        <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                        <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                        <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                        <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                        <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                        <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                        <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                        <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                        <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                    </ul>
+                </div>
+                
+                <div id="toppanel" style="position:fixed !important; z-index:9999">
+         
+                    <div class="tabback">
+                        <div class="tab">
+                            <div style="position:absolute; left:2px; top:1px ">
+                                <div class="btn-group">
+                                    <button id="menuShow" class="btn button_menu" onClick="slide()"></button>
+                                </div>
+                            </div>
+                            <div id="clos" style="background:transparent; width:50%; height:90%; margin-left:35%">&nbsp;</div>
+                            <div style="position:absolute; right:2px; top:1px">
+                                <div class="btn-group">
+                                    <button class="btn button_addEve" onClick="add()"></button>
+                                    <button class="btn button_home" onClick="goHome()"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div> <!--panel -->
+                
+                <a href="#x" class="overlay" id="evedet"></a>
+                <div class="popup">
+                    <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Event Detail</div>
+                    <div id="elist">
+                        
+                    </div>
+                    <a class="close" href="#close"></a>
+                    <a class="btn dbn" onClick="delEvent()" href="#close">Deactivate</a>
+                </div>
+                
+                <div id="wrapper">
+                    <div id="calendar" align="center"></div>
+                    
+                    <script src="js/jquery-ui-datepicker.min.js"></script>
+                    <script>
+                        
+                        var activeDates = JSON.parse(localStorage["theDates"]);
+                        function highlightEve(month, year){
+                            var k = 0;
+                            if(month.toString().length == 1){
+                                month = '0'+month;
+                            }
+                            url3 = 'http://famly.com/beta/public/ws/getEventsByMonth.php';
+                            var un = sessionStorage.getItem('username');
+                            var hash = sessionStorage.getItem('password');
+                            $.get(url3,{username:un, password:hash, date:month+'-'+year}, function(data){
+                                  //alert(data);
+                                  data3 = $.parseJSON(data);
+                                  $(data3).each(function(i,val){
+                                                var s = parseInt(val.event_start_date.substring(0,10).substring(8,10));
+                                                var e = parseInt(val.event_end_date.substring(0,10).substring(8,10));
+                                                for(var d = s; d <= e; d++){
+                                                var ds = d;
+                                                if(d.toString().length == 1){
+                                                    ds = '0'+d;
+                                                }
+                                                activeDates[k]=year+'-'+month+'-'+ds;
+                                                k++;
+                                                }
+                                                });
+                                  });
+                        }
+                        
+                        $('#calendar').datepicker({
+                                                  dateFormat: 'yy-mm-dd',
+                                                  inline: true,
+                                                  firstDay: 1,
+                                                  //showOtherMonths: true,
+                                                  dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                                                  onSelect: function(dateText, inst) {
+                                                    sessionStorage['selectedDate'] = dateText;
+                                                    $("#eveList").empty();
+                                                    eventDetail(dateText);
+                                                  },
+                                                  
+                                                  onChangeMonthYear: function(year, month, inst){
+                                                    //activeDates = [];
+                                                    highlightEve(month, year);
+                                                  },
+                                                  
+                                                  beforeShowDay: function(date) {
+                                                  var edates;
+                                                  var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+                                                  if(m.toString().length == 1){
+                                                    edates = y + '-0' + (m+1) + '-' + d;
+                                                    if(d.toString().length == 1){
+                                                        edates = y + '-0' + (m+1) + '-0' + d;
+                                                    }
+                                                  }
+                                                  else{
+                                                    edates = y + '-' + (m+1) + '-' + d;
+                                                    if(d.toString().length == 1){
+                                                        edates = y + '-' + (m+1) + '-0' + d;
+                                                    }
+                                                  }
+                                                  for (i = 0; i < activeDates.length; i++) {
+                                                    if($.inArray(edates , activeDates) != -1) {
+                                                        return [true, 'eventized', ''];
+                                                    }
+                                                    else
+                                                        return [true];
+                                                  }
+                                            }
+                                });
+                        </script>
+                    
+                    
+                        <div id="eve">
+                            <ul id="eveList">
+                            </ul>
+                        </div>
+                    
+                </div>
+                
+                <script>
+                    
+                    var d = new Date();
+                    var curr_date = d.getDate();
+                    var curr_month = d.getMonth()+1;
+                    var curr_year = d.getFullYear();
+                    //sessionStorage["eveDate"] = curr_year + "-" + curr_month + "-" + curr_date;
+                    
+                    if(curr_date.toString().length == 1){
+                        curr_date = "0"+curr_date;
+                    }
+                    if(curr_month.toString().length == 1){
+                        curr_month = "0"+curr_month;
+                    }
+                    
+                    function eventDetail(edt){
+                        url3 = 'http://famly.com/beta/public/ws/getEventByDate.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $("#eveList").empty();
+                       $.get(url3,{username:un,password:hash,date:edt}, function(data){
+                              //alert(edt+" "+data);
+                              data3 = $.parseJSON(data);
+                              $(data3).each(function(i,val){
+                                           var t = val.event_start_date.split(' ');
+                                            var time = t[1].substring(0, 5);
+                                            var where = val.event_venue+', '+val.event_city+', '+val.event_state+', '+val.event_country;
+                                            $("#eveList").append('<li onClick="popEve('+val.id+',\''+val.event_title+'\',\''+val.event_start_date+'\',\''+val.event_end_date+'\',\''+where+'\',\''+val.event_description+'\')"><a href="#evedet"><i class="icon-time icon-white"></i> '+time+'&nbsp;&nbsp;&nbsp;'+val.event_title+'<i class="pull-right icon-bell icon-white"></i></a></li>');
+                                          
+                                            });
+                              
+                              });
+                    }
+                    
+                    function popEve(evid, title, start, end, loc, desc){
+                        
+                        sessionStorage['selectedEvent'] = evid;
+                        url3 = 'http://famly.com/beta/public/ws/getEventUsers.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $.get(url3,{username:un, password:hash, event_id:evid}, function(data){
+                              if (data != null){
+                              $("#iwa").empty();
+                              data3 = $.parseJSON(data);
+                              $(data3).each(function(i,val){
+                                        $("#iwa").append('<div style="position:relative; float:left; height:48px !important; width:48px !important;"> '
+                                                    + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.event_user_picture +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                                + '  </div> ');
+                                            
+                                            });
+                               }
+                              });
+                        
+                        $("#elist").empty();
+                        $("#elist").append(' <p> <span class="lbl">Name: </span> <span class="det">'+title+'</span></p>'
+                                          + ' <p> <span class="lbl">Start: </span> <span class="det">'+start+'</span></p>'
+                                          + ' <p> <span class="lbl">End: </span> <span class="det">'+end+'</span></p>'
+                                          + ' <p> <span class="lbl">Location: </span> <span class="det">'+loc+'</span></p>'
+                                          + ' <p> <span class="lbl">Description: </span> <span class="det">'+decodeURIComponent(desc)+'</span></p>'
+                                          + ' <p> <span class="lbl">Approvals: </span> <span class="det" id="iwa">No Approvals Yet' 
+                                           
+                                        /*   +'<div style="position:relative; float:left; height:50px !important; width:50px !important;"> '
+                                           + '  <img src="img/demo_dp.jpg" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                           +'<span style="position:relative; float:left; overflow:hidden; font-size:9px">Thomas Eaton</span><p></p><p></p><p></p><p></p>'
+                                           + '  </div> '
+                                         */  
+                                         
+                                           + ' </span></p>'
+                        );
+                    }
+                    
+                    function delEvent(){
+                        url3 = 'http://famly.com/beta/public/ws/deleteEvent.php';
+                        var un = sessionStorage.getItem('username');
+                        var hash = sessionStorage.getItem('password');
+                        var sevid = sessionStorage.getItem('selectedEvent');
+                        $.get(url3,{username:un, password:hash, event_id:sevid}, function(data){
+                             
+                              highlightEve(curr_month, curr_year);
+                              eventDetail(sessionStorage.getItem('selectedDate'));
+                              });
+                    }
+                    
+                    function check(){
+                        if(document.getElementById("handler-left").checked)
+                        document.getElementById("handler-left").checked=false
+                        else
+                        document.getElementById("handler-left").checked=true
+                    }
+                    
+                    function goHome(){
+                        
+                        window.location.href='index.html';
+                        
+                    }
+                    
+                    function prof(){
+                        var id = sessionStorage.getItem('userid');
+                        window.location.href='profilePage.html?id='+id;
+                        
+                    }
+                    
+                    function jour(){
+                        var id = sessionStorage.getItem('userid');
+                        window.location.href='journals.html?jid='+id;
+                        
+                    }
+                    
+                    function goAlb(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('album.html?id='+id, '_self');
+                        
+                    }
+                    
+                    function add(){
+            
+                        window.location.href='addEvent.html';
+                        
+                    }
+                    
+                    $(document).ready(function() {
+                                      
+                                      
+                                      highlightEve(curr_month, curr_year);
+                                      eventDetail(curr_year + "-" + curr_month + "-" + curr_date);
+                                      userList();
+                                      
+                                      $("#search_name").autocomplete({
+                                                                     source: fname,
+                                                                     minLength: 0,
+                                                                     select: function(event, ui) {
+                                                                     //assign value back to the form element
+                                                                     if(ui.item){
+                                                                     $(event.target).val(ui.item.value);
+                                                                     names=ui.item.value;
+                                                                     }
+                                                                     searchedUser();
+                                                                     }
+                                                                     }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li class="list_item_container"></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      
+                                      });
+                    
+                    var fname = new Array();
+                    var fid= new Array();
+                    var fpic= new Array();
+                    var names;
+                    function userList(){
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userId=sessionStorage.getItem('userid');
+                        url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                        $.get(url2,{}, function(data){
+                              
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            fname[i]=val.name;
+                                            //alert(fname[i]);
+                                            fid[i]=val.id;
+                                            fpic[i]=val.picture;
+                                            // alert(fid[i]);
+                                            });
+                              
+                              });
+                        
+                    }
+                    
+                    function searchedUser(){
+                        
+                        var indexArray= new Array();
+                        var index;
+                        for(i=0;i<fname.length;i++){
+                            if(names==fname[i]){
+                                index=i;
+                            }
+                        }
+                        var id=fid[index];
+                        var picture=fpic[index];
+                        window.location.href='profilePage.html?id='+id;
+                        
+                    }
+                    
+                    function search(){
+                        
+                        var full_name = $("#search_name").val();
+                        window.location.href='searchResults.html?name='+full_name;
+                    }
+                                        
+                    function slide(){
+                if ($("#toppanel").hasClass('isSlided') && $("#wrapper").hasClass('isSlided')){
+        			$("#toppanel").animate({"left":"0px"}, "fast").removeClass('isSlided');
+             		$("#wrapper").animate({"left":"0px"}, "fast").removeClass('isSlided');
+    			} else {
+        			$("#toppanel").animate({"left":"70%"}, "fast").addClass('isSlided');
+             		$("#wrapper").animate({"left":"70%"}, "fast").addClass('isSlided');
+    			}
+            		
+           	   }
+                    </script>
+                
+                </body>
+</html>
+
+

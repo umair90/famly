@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+		<script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>       
+            <link href="js/slide.css" rel="stylesheet" media="screen">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                
+                <style>
+                    body{
+                        background: url(img/back.jpg) repeat;
+                    }
+                    .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                    .thead{
+                        font-weight:600;
+                        font-size:9px;
+                    }
+                    * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                    
+                    #textinput2 #textinput4{
+                        width: 30% !important;
+                    }
+                    #wrapper{
+                        padding-top:25%;
+                    }
+                    </style>
+                
+                <script src="js/cordova.js"></script>
+                <script src="js/jquery.js"></script>
+                <script src="js/jquery.blockUI.js"></script>
+                <script src="bootstrap/js/bootstrap.min.js"></script>
+                <script src="js/sha1.js"></script>
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+                
+                </head>
+    
+    <body>
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="tabback">
+        <div class="tab navbar navbar-inverse navbar-fixed-top">
+            <div style="width:25%; margin-left:4%;">
+                <button class="btn btn-small pull-left" id="back" onClick="javascript:back();">Cancel</button>
+            </div>
+            <div style="width:25%; margin-left:72%;">
+                <button class="btn btn-small pull-right" id="reg" onClick="javascript:save()">Save</button>
+            </div>
+            
+        </div>
+        </div>
+        
+        </div>
+        <div id="wrapper">
+            <table class="table table-striped">
+                
+                <tr>
+                    <td class="thead">Person Name</td>
+                    <td class="tdata"><input id="textinput1" type="text" style="width:95%"></td>
+                </tr>
+                <tr>
+                    <td class="thead">Years</td>
+                    <td class="tdata"><input id="textinput2" type="text" placeholder="From" style="width:40%"> -
+                    <input id="textinput4" type="text" placeholder="To" style="width:40%"></td>
+                </tr>
+                <tr>
+                    <td class="thead">Memo Note</td>
+                    <td class="tdata"><textarea id="textinput3" rows=5 type="text" style="width:95%"></textarea></td>
+                </tr>
+                
+            </table>
+        </div>
+        <script>
+            
+            
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            
+            $(document).ready(function() {
+                              
+                              userList();
+                              
+                              $("#textinput1").autocomplete({
+                                                            source: fname,
+                                                            minLength: 0,
+                                                            select: function(event, ui) {
+                                                            //assign value back to the form element
+                                                            if(ui.item){
+                                                            $(event.target).val(ui.item.value);
+                                                            names=ui.item.value;
+                                                            }
+                                                            }
+                                                            }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li class="list_item_container"></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+                              
+                              });
+            
+            
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function split( val ) {
+                return val.split( /,\s*/ );
+            }
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+            
+            
+            function save(){
+                url='http://famly.com/beta/public/ws/addMemorial.php';
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var name=document.getElementById('textinput1').value;
+                var note=document.getElementById('textinput3').value;
+                var yb=document.getElementById('textinput2').value;
+                var yp=document.getElementById('textinput4').value;
+                
+                var full_name = name.split(" ");
+                var memberId = fid[fname.indexOf(name)];
+                
+                $.get(url,{username:un, password:hash, first_name:full_name[0], last_name:full_name[1], user_id:memberId, dop:yp, dob:yb, desc:encodeURIComponent(note)}, function(data){
+                      //alert(data);
+                      window.location.href='tributes.html';
+                      
+                      });
+            }
+            
+            function back(){
+                $.blockUI();
+                window.location.href='tributes.html';
+            }
+            
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+            
+            
+            </script>
+    </body>
+</html>
+
+

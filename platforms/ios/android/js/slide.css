@@ -1,0 +1,187 @@
+/*
+Name: Sliding Login Panel with jQuery 1.3.2
+Author: Jeremie Tisseau
+Author URI: http://web-kreation.com/
+Date: March 26, 2009
+Version: 1.0
+
+	Copyright 2009 Jeremie Tisseau
+	"Sliding Login Panel with jQuery 1.3.2" is distributed under the GNU General Public License version 3:
+	http://www.gnu.org/licenses/gpl-3.0.html
+*/
+
+/***** clearfix *****/
+.clear {clear: both;height: 0;line-height: 0;}
+.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+.clearfix {height: 1%;}
+.clearfix {display: block;}
+
+/* Panel Tab/button */
+.tab {
+  	background: url(../img/famly_logo.png) no-repeat center top ;
+    background-size: contain;
+    height:70px;
+    border:none;
+	position: relative;
+    margin-top:0px;
+    z-index: 9999999 !important;
+}
+
+.tabback {
+  	background: url(../img/header_bg_2.png) repeat-x left top ;
+    background-size: contain;
+    height:40px;
+    border:none;
+	position: relative;
+    margin-top:0px;
+    z-index: 9999999 !important;
+}
+
+.tab a.open, .tab a.close {
+	height: 25px;
+	line-height: 20px !important;
+	padding-left: 30px !important;
+	cursor: pointer;
+	display: block;
+	width: 100px;
+	position: relative;
+	top: 9px;
+}
+
+
+
+/* sliding panel */
+.panel3 {
+	width: 100%;
+	height: 400px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+    }
+
+.panel9 {
+	width: 100%;
+	height: 400px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: auto;
+	position: relative;
+	z-index: 999999;
+	display: none;
+    border:none;
+    }
+
+#toppanel {
+    position: absolute;   /*Panel will overlap  content */
+    /*position: relative;*/   /*Panel will "push" the content down */
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background:transparent;
+    border:none;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -webkit-transition: -webkit-transform 0.5s ease-in-out 0s;
+}
+.p3 {
+	width: 100%;
+	height: 300px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+    }
+#panel {
+	width: 100%;
+	height: 270px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+}
+#panel2 {
+	width: 100%;
+	height: 50px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+}
+
+#panel4 {
+	width: 100%;
+	height: auto;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+}
+#panel5 {
+	width: 100%;
+	height: 80px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+}
+#panel7 {
+	width: 100%;
+	height: 250px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	display: none;
+    border:none;
+    z-index:10000
+}
+.panel6 {
+	width: 100%;
+	height: 300px;
+	color: #999999;
+	background: #DEDEDE;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+}
+.panel8 {
+	width: 100%;
+	height: 110px;
+	color: #999999;
+	background: #F88E1E;
+	overflow: hidden;
+	position: relative;
+	z-index: 999;
+	display: none;
+    border:none;
+}
+
+

@@ -1,0 +1,498 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+           <link rel="stylesheet" type="text/css" href="js/modal.css" /> 
+            
+            <link href="js/slide.css" rel="stylesheet" media="screen">
+                <script src="bootstrap/js/bootstrap.min.js"></script>
+                <script src="js/jquery.blockUI.js"></script>
+                <script src="js/jquery.js" type="text/javascript"></script>
+                <script src="js/cordova.js"></script>
+                <script src="js/iscroll.js"></script>
+                <script src="js/keyboard_toolbar_remover.js"></script>
+                    <style>
+                        
+                        div {
+                            -webkit-touch-callout: none;
+                            -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                        }
+                        body{
+                            background: url(img/me_bk.jpg) repeat;
+                        }
+                        * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                        
+                        .layout-slider { margin-top: 30px; width: 80%; }
+                      
+                        .bttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:48px !important;
+                            height:30px !important;
+                        }
+                       
+                        
+                        #wrapper {
+                            background: url(img/me_bk.jpg) repeat;
+                            position: relative;
+                            float:left;
+                            -webkit-transform: translate3d(0px, 0px, 0px);
+                            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+                            width:100%;
+                            height:380px;
+                            margin-top:40px;
+                        }
+                        
+                        #comms {
+                            position: relative;
+                            float:left;
+                            width:100%;
+                            
+                            
+                            
+                        }
+                        
+                        #commPanel{
+                            background: url(img/me_bk.jpg) repeat;
+                            padding: none !important;
+                            height:35px;
+                        }
+                        
+                        </style>
+                    
+                    </head>
+    <body>
+        
+        <script>
+            var userid= sessionStorage.getItem("userid");
+            var name = sessionStorage.getItem("fname")+" "+sessionStorage.getItem("lname");
+            var dp = sessionStorage.getItem("dp");
+            var pid = getUrlVars()["id"];
+            
+            var toolbar = cordova.require('cordova/plugin/keyboard_toolbar_remover');
+            toolbar.hide();
+            
+            var myScroll;
+            setTimeout(function () {
+                       myScroll = new iScroll('wrapper');
+                       }, 1000);
+            
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+            
+            function cancelSubmit(event) {
+                event.preventDefault(); // cancel default form submit
+                console.log("called")
+                return false;
+            }
+            
+            
+            
+            $(document).ready(function() {
+                              userList();
+                              
+                              showTributes(pid);
+                              
+                              $("#comms").click(function(){
+                                             $("input").blur();
+                                             });
+
+                              
+                              $("#search_name").autocomplete({
+                                                             source: fname,
+                                                             minLength: 0,
+                                                             select: function(event, ui) {
+                                                             //assign value back to the form element
+                                                             if(ui.item){
+                                                             $(event.target).val(ui.item.value);
+                                                             names=ui.item.value;
+                                                             }
+                                                             searchedUser();
+                                                             }
+                                                             }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li class="list_item_container"></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+                              
+                              function split( val ) {
+                              return val.split( /,\s*/ );
+                              }
+                              function extractLast( term ) {
+                              return split( term ).pop();
+                              }
+                              $("#msgRecp").bind( "keydown", function( event ) {
+                                                 if ( event.keyCode === $.ui.keyCode.TAB &&
+                                                     $( this ).data( "autocomplete" ).menu.active ) {
+                                                 event.preventDefault();
+                                                 }
+                                                 })
+                              .autocomplete({
+                                            minLength: 0,
+                                            source: function( request, response ) {
+                                            // delegate back to autocomplete, but extract the last term
+                                            response( $.ui.autocomplete.filter(
+                                                                               fname, extractLast( request.term ) ) );
+                                            },
+                                            focus: function() {
+                                            // prevent value inserted on focus
+                                            return false;
+                                            },
+                                            select: function( event, ui ) {
+                                            var terms = split( this.value );
+                                            // remove the current input
+                                            terms.pop();
+                                            // add the selected item
+                                            terms.push( ui.item.value );
+                                            // add placeholder to get the comma-and-space at the end
+                                            terms.push("");
+                                            this.value = terms.join(",");
+                                            return false;
+                                            }
+                                            }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+
+                            });
+            
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function searchedUser(){
+                
+                var indexArray= new Array();
+                var index;
+                for(i=0;i<fname.length;i++){
+                    if(names==fname[i]){
+                        index=i;
+                    }
+                }
+                var id=fid[index];
+                var picture=fpic[index];
+                sessionStorage['sid'] = fid[index];
+                sessionStorage['sname'] =fname[index];
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+
+            function search(){
+                
+                var full_name = $("#search_name").val();
+                window.open('searchResults.html?name='+full_name, '_self');
+            }
+ 
+            function prof(){
+                var id = sessionStorage.getItem('userid');
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+            
+            function jour(){
+                var id = sessionStorage.getItem('userid');
+                window.open('journals.html?jid='+id, '_self');
+                
+            }
+           
+            function goBack(){
+                window.open('memorials.html', '_self');
+            }
+            
+            function timeDifference(current, previous) {
+                
+                var msPerMinute = 60 * 1000;
+                var msPerHour = msPerMinute * 60;
+                var msPerDay = msPerHour * 24;
+                var msPerMonth = msPerDay * 30;
+                var msPerYear = msPerDay * 365;
+                
+                var elapsed = current - previous;
+                
+                if (elapsed < msPerMinute) {
+                    if(Math.round(elapsed/1000)==1){
+                        return 'A few second ago';
+                    }
+                    else{
+                        return ' A few seconds ago';
+                    }
+                    
+                }
+                
+                else if (elapsed < msPerHour) {
+                    if(Math.round(elapsed/msPerMinute)==1){
+                        return  Math.round(elapsed/msPerMinute) + ' minute ago';
+                    }
+                    else{
+                        return  Math.round(elapsed/msPerMinute) + ' minutes ago';
+                    }
+                }
+                
+                else if (elapsed < msPerDay ) {
+                    if(Math.round(elapsed/msPerHour)==1){
+                        return  Math.round(elapsed/msPerHour) + ' hour ago';
+                    }
+                    else{
+                        return  Math.round(elapsed/msPerHour) + ' hours ago';
+                    }
+                }
+                
+                else if (elapsed < msPerMonth) {
+                    if(Math.round(elapsed/msPerDay)==1){
+                        return  Math.round(elapsed/msPerDay) + ' day ago';
+                    }
+                    else{
+                        return  Math.round(elapsed/msPerDay) + ' days ago';
+                    }
+                }
+                
+                else if (elapsed < msPerYear) {
+                    if(Math.round(elapsed/msPerMonth)==1){
+                        return  Math.round(elapsed/msPerMonth) + ' month ago';
+                    }
+                    else{
+                        return  Math.round(elapsed/msPerMonth) + ' months ago';
+                    }
+                }
+                
+                else {
+                    if(Math.round(elapsed/msPerYear)==1){
+                        return Math.round(elapsed/msPerYear) + ' year ago';
+                    }
+                    else{
+                        return  Math.round(elapsed/msPerYear) + ' years ago';
+                    }
+                }
+            }
+            
+            var parseMonth = function (value) {
+                
+                switch (value) {
+                    case "Jan":
+                    return "01";
+                    case "Feb":
+                    return "02";
+                    case "Mar":
+                    return "03";
+                    case "Apr":
+                    return "04";
+                    case "May":
+                    return "05";
+                    case "Jun":
+                    return "06";
+                    case "Jul":
+                    return "07";
+                    case "Aug":
+                    return "08";
+                    case "Sep":
+                    return "09";
+                    case "Oct":
+                    return "10";
+                    case "Nov":
+                    return "11";
+                    case "Dec":
+                    return "12";
+                    default:
+                    return value;
+                }};
+
+            function showTributes(postid){
+            
+                var currentDate = new Date();
+                var now = currentDate.toUTCString();
+                //alert(now);
+                var date = now.split(",");
+                var Cdatefinal=date[0]+" "+date[1];
+                var Cdatefinal1=date[1];
+                var Cdatefinal2=Cdatefinal1.split(" ");
+                var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                var time=Cdatefinal2[4].split(":");
+                var posthour = time[0];
+                var postminute = time[1];
+                var postsecond = time[2];
+                var month=parseMonth(Cdatefinal2[2]);
+                month=month-1;
+                var day=Cdatefinal2[1];
+                var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                var picture=sessionStorage.getItem('dp');
+                url3 = 'http://famly.com/beta/public/ws/getTributes.php';
+                //$("#clist").empty();
+                $("#tribs").empty();
+                
+                $("#commPanel").append('<div style="position:relative; float:left; width:100%">'
+                                       + ' <div style="position:relative; float:left; height:25px !important; width:25px !important; box-shadow:none; margin:1%"> '
+                                       + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ picture +'" style="width:100%; height:100%; overflow:hidden " class="pull-left" > '
+                                       + '  </div> '
+                                       + '  <form onsubmit="cancelSubmit(event)" style="position:relative; float:left; width:80%"> '
+                                       + ' <div class="input-append">'
+                                       + '<input id="appendedInputButton'+postid+'" type="text" placeholder="Add Tribute" style="position:relative; float:left; width:88%">'
+                                       + '<button onClick="addTribute('+postid+')" class="btn bttn"><i class="icon-ok icon-white"></i></button>'
+                                       + '  </div>'
+                                       + '  </form> '
+                                       + '  </div>');
+                
+                $.get(url3,{postId:postid}, function(data){
+                      //alert(data);
+                      data4 = $.parseJSON(data);
+                      $(data4).each(function(i,val){
+                                    var postDate=val.created_at;
+                                    var date = postDate.split("-");
+                                    var postyyyy = date[0];
+                                    var postmm = date[1]-1;
+                                    var day_time = date[2];
+                                    var day = day_time.split(" ");
+                                    var postdd= day[0];
+                                    var postTime=day[1];
+                                    var time=postTime.split(":");
+                                    var posthour = time[0];
+                                    var postminute = time[1];
+                                    var postsecond = time[2];
+                                    var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                    var timeTrack=timeDifference(ddddd,postDateTime);
+                                    $("#tribs").append('<div style="position:relative; float:left; z-index:2; background: #F0F0F5; width:100%; margin-bottom:2px">'
+                                                       + ' <div style="position:absolute; height:30px !important; width:30px !important; box-shadow:none; margin:2% 1% 1% 1%"> '
+                                                       + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ val.created_by_profile_picture +'" style="width:100%; height:100%; overflow:hidden  " class="pull-left" > '
+                                                       + '  </div> '
+                                                       + '  <div align="left" style="margin-left:18%">'
+                                                       + '  <p style="color:#12B6E9; font-size:12px; font-weight:600;">'+ val.created_by_username +'</p>'
+                                                       + '  <p style="color:#999; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                       + ' <p style="color:#000; line-height:1.5; font-size:13px; width:98%; text-align:left; margin-top:-10px">'+val.tribute_desc+'</p>'
+                                                       + '  </div>'
+                                                       + '  </div>');
+                                    
+                                    })
+                      
+                     
+                      
+                      });
+                setInterval(function () {
+                            myScroll.refresh();
+                            }, 200);
+            }
+            
+            
+            function addTribute(id){
+                url='http://famly.com/beta/public/ws/addTribute.php';
+                var user_trib =document.getElementById("appendedInputButton"+id).value;
+                document.getElementById("appendedInputButton"+id).value="";
+                var picture=sessionStorage.getItem('dp');
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userid=sessionStorage.getItem('userid');
+                var full_name=sessionStorage.getItem('fullname');
+                $.get(url,{username:un, password:hash, memorial_id:id, desc:user_trib, gift_id:0}, function(data){
+                      
+                      if(data==1){
+                      document.getElementById("appendedInputButton"+id).value="";
+                      }
+                      });
+                //$("#newComm"+id).remove();
+                $("#tribs").append('<div id="comment" style="position:relative; float:left; z-index:2; background: #F0F0F5; width:100%; margin-bottom:2px">'
+                                   + ' <div style="position:absolute; height:30px !important; width:30px !important; box-shadow:none; margin:2% 1% 1% 1%"> '
+                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ picture +'" style="width:100%; height:100%; overflow:hidden"/> '
+                                   + '  </div> '
+                                   + '  <div align="left" style="margin-left:18%">'
+                                   + '  <p style="color:#12B6E9; font-size:12px; font-weight:600;">'+full_name+'</p>'
+                                   + '  <p style="color: #999; font-size:12px; margin-top:-15px;">Just now</p>'
+                                   + ' <p style="color:#000; line-height:1.5; font-size:12px; width:98%; text-align:left; margin-top:-10px">' + user_trib + '</p>'
+                                   + '  </div>'
+                                   + '  </div>');
+                
+                myScroll.refresh();
+                
+            }
+            
+            
+            </script>
+        
+         <div id="toppanel" class="navbar navbar-inverse navbar-fixed-top">
+            
+             
+            <div class="tabback">
+                <div class="tab2 navbar navbar-inverse navbar-fixed-top">
+                    <div style="position:absolute; left:2px; top:-3px">
+                        <div class="btn-group">
+                            <button class="btn bttn" onClick="goBack()"><div style="height:20px; width:20px"><img src="img/bk.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                            <!--     <button class="btn bttn" onClick="window.open('me.html', '_self');"><div style="height:30px; width:30px"><img src="img/me.jpg"  style="margin-top:-5px; margin-left:-22px; "></div></button>
+                             <button class="btn bttn" onClick="showPanel(8)"><div style="height:30px; width:30px"><img id="notifImg" src="img/notif.jpg" style="margin-top:-5px; margin-left:-8px; "></div></button>-->
+                        </div>
+                    </div>
+                    <div id="clos" align="center" style="width:30%; height:25px; background:transparent; margin-left:35%; color:#fff; font-size:16px; font-weight:600; padding-top:5px">Tributes</div>
+                    <div style="position:absolute; right:2px; top:-3px">
+                        <div class="btn-group">
+                          <!--  <button class="btn bttn" onClick="goHome()"><div style="height:20px; width:20px"><img src="img/home.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                             <button class="btn bttn" onClick="showPanel(4)"><div style="height:30px; width:30px"><img src="img/updates.jpg"  style="margin-top:-5px; margin-left:-8px; "></div></button>
+                             <button class="btn bttn" onClick="showPanel(5)"><div style="height:30px; width:30px"><img src="img/view.jpg" style="margin-top:-5px; margin-left:-22px; "></div></button> -->
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+                
+        <div id="wrapper">
+            <div id="tribs">
+            </div>
+            
+        </div>    
+        
+        <div id="commPanel" class="navbar navbar-fixed-bottom">
+        </div>
+        
+    </body>
+    
+</html>
+

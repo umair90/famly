@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+            <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+        </script>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                <link href="js/slide.css" rel="stylesheet">
+                    
+                    <style>
+                        body{
+                            background: #DEDEDE;
+                            
+                        }
+                        .b
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:48% !important;
+                            color:#FFF !important;
+                        }
+                        .fb
+                        {
+                            text-shadow:none !important;
+                            color:#3b5998 !important;
+                            font-weight:600 !important;
+                            width:48% !important;
+                            
+                        }
+                        .tw
+                        {
+                            text-shadow:none !important;
+                            color:#00acee !important;
+                            font-weight:600 !important;
+                            width:48% !important;
+                            
+                        }
+                        .gm
+                        {
+                            text-shadow:none !important;
+                            color:#db4a39 !important;
+                            font-weight:600 !important;
+                            width:48% !important;
+                            margin-top:1%;
+                            
+                        }
+                        .lk
+                        {
+                            text-shadow:none !important;
+                            color:#0e76a8 !important;
+                            font-weight:600 !important;
+                            width:48% !important;
+                            margin-top:1%;
+                        }
+                        *
+                        {
+                            -webkit-tap-highlight-color: rgba(0,0,0,0);
+                        }
+                        
+                        #wrapper {
+                            margin-top:20%;
+                            
+                            width:100%;
+                            position:relative;
+                            float:left;
+                        }
+                        #innerWrap {
+                            width:95%;
+                            position:relative;
+                            float:left;
+                            margin-left:2%;
+							margin-right:2%;
+                        }
+
+                        input{
+                            width:95%;
+                        }
+                        </style>
+                    
+                    <script src="js/cordova.js"></script>
+                    <script src="js/jquery.js"></script>
+                    <script src="js/jquery.blockUI.js"></script>
+                    <script src="bootstrap/js/bootstrap.min.js"></script>
+                    <script src="js/sha1.js"></script>
+                    <script type="text/javascript" src="js/PushNotification.js"></script>
+                    <script>
+                        
+                        $(function(){
+                          document.addEventListener("deviceready", onLocReady, false);
+                          })
+                        
+                        function onLocReady() {
+                            navigator.geolocation.getCurrentPosition(onSuccessLoc, onErrorLoc);     
+                        }
+                        
+                        sessionStorage['lat'] = '---';
+                        sessionStorage['lng'] = '---';
+                        sessionStorage['currLoc'] = '---';
+                        
+                        
+                        function onSuccessLoc(position) {
+                            sessionStorage['lat'] = position.coords.latitude;
+                            sessionStorage['lng'] = position.coords.longitude;
+                            var ltlg = position.coords.latitude+","+position.coords.longitude;
+                            var fadd;
+                         /*   $.get("http://maps.googleapis.com/maps/api/geocode/xml", { latlng: ltlg, sensor:'false'}, function(xml){
+                                  $(xml).find( "formatted_address" ).each(function(){
+                                                                          fadd = '';
+                                                                          fadd = $(this).text();
+                                                                          return false;
+                                                                          });
+                                  var addr = fadd.split(",");
+                                  var adl = addr.length;
+                                  //alert(addr[adl-3]+","+addr[adl-1]);
+                                  if(addr[adl-1] == ''){
+                                    sessionStorage['currLoc'] = (addr[adl-3])
+                                  }
+                                  else if(addr[adl-3] == ''){
+                                    sessionStorage['currLoc'] = (addr[adl-1])
+                                  }
+                                  else
+                                    sessionStorage['currLoc'] = (addr[adl-3]+","+addr[adl-1]);
+                                  }); */
+                            $.get("http://maps.googleapis.com/maps/api/geocode/json", { latlng: ltlg, sensor:'false'}, function(data){
+                                  data2 = JSON.stringify(data.results);
+                                  data3 = JSON.parse(data2);
+                                  $(data3).each(function(i,val){
+                                                if(val.types[0] == 'locality' || val.types[0] == 'administrative_area_level_1'){
+                                                console.log(val.formatted_address);
+                                                sessionStorage['currLoc'] = val.formatted_address;
+                                                return false;
+                                                }
+                                            });
+                                  });
+                        }
+                        
+                        function onErrorLoc(error) {
+                            console.log('code: '    + error.code    + '\n' +
+                                        'message: ' + error.message + '\n');
+                        }
+                        
+                        
+                        </script>
+                    </head>
+    <body onload="onLoad()">
+        
+        <div class="tabback navbar navbar-inverse navbar-fixed-top">
+            <div class="tab navbar navbar-inverse navbar-fixed-top">
+            </div>
+        </div>
+      
+        
+     <div id="wrapper" >
+        <div id="message" style=" display:none; position:relative; float:left; width:100%">
+            <div  class="alert alert-info">
+                <button type="button" class="close" onClick="hideAlert1()">&times;</button>
+                <strong>Error!</strong> <span id="incorrect"> </span>
+            </div>
+        </div>
+       
+       <div id="innerWrap" align="center">
+           <div style="background:#F88E1E; color:#FFF; font-weight:900; font-size:16px; padding-top:1%; padding-bottom:1%; border-radius: 0.3em 0.3em 0em 0em;">Sign In Using </div>
+           <div id="loginDiv" class="well">
+               <div>
+                   <button class="btn fb" onClick="javascript:showBrowser(1)"><img src="img/facebook.png" height="22px" width="22px"> Facebook</button>
+               
+                   <button class="btn tw" onClick="javascript:showBrowser(2)"><img src="img/twitter.png" height="22px" width="22px"> &nbsp; &nbsp;Twitter </button>
+                   
+                   <button class="btn gm" onClick="javascript:showBrowser(3)"><img src="img/google.png" height="22px" width="22px"> &nbsp; &nbsp;Gmail &nbsp;&nbsp;&nbsp;&nbsp;</button>
+               
+                   <button class="btn lk" onClick="javascript:showBrowser(4)"><img src="img/linkedin.png" height="22px" width="22px"> &nbsp;&nbsp;LinkedIn</button>
+               </div>
+        </div>
+        
+        <div style="position:relative; float:left; width:100%;  margin-top:2%" align="center">
+        	<div class="well" align="center">
+                <div>
+                    <input type="text" id="inputUname" placeholder="Username">
+                
+                    <input type="password" id="inputPassword" placeholder="Password">
+                </div>
+           
+                <div align="center">
+                    
+                    <button class="btn b" id="reg" onClick="javascript:reg()"> Register </button>
+                    <button class="btn b" id="signin" onClick="javascript:getCredentials()"> Sign In</button>
+                
+                </div>
+           	</div>
+           </div>
+         </div>
+        </div> 
+ <script>
+     
+     function showBrowser(sid){
+     	
+         var ref;
+         
+         if(sid == 1){
+             ref = window.open('http://famly.com/beta/public/hybridauth/examples/signin_signup/index.php?route=authentications/authenticatewith/facebook&type=mobile', '_blank', 'location=yes');
+             
+         }else if(sid == 2){
+             ref = window.open('http://famly.com/beta/public/hybridauth/examples/signin_signup/index.php?route=authentications/authenticatewith/twitter&type=mobile', '_blank', 'location=yes');
+             
+         }else if(sid == 3){
+             ref = window.open('http://famly.com/beta/public/hybridauth/examples/signin_signup/index.php?route=authentications/authenticatewith/google&type=mobile', '_blank', 'location=yes');
+             
+         }else if(sid == 4){
+             ref = window.open('http://famly.com/beta/public/hybridauth/examples/signin_signup/index.php?route=authentications/authenticatewith/linkedin&type=mobile', '_blank', 'location=yes');
+         }
+         
+         ref.addEventListener('loadstop', function(event){
+                              //alert(event.url);
+                              if (event.url == 'http://famly.com/beta/public/hybridauth/examples/signin_signup/index.php?route=home/usersession'){
+                              
+                              $.get(event.url,{}, function(data){
+                                    //$.blockUI();
+                                    data2 = $.parseJSON(data);
+                                    sessionStorage['un'] = data2.user_name;
+                                    sessionStorage['pw'] = data2.password;
+                                    signIn(sessionStorage.getItem('un'), sessionStorage.getItem('pw'));
+                                    //alert(data2.user_name+' , '+data2.password);
+                                    
+                                    });
+                              ref.close();
+                              }
+                              });
+         //ref.addEventListener('exit', iabClose);
+         
+     }
+     
+            function onLoad() {
+                document.addEventListener("deviceready", onDeviceReady, false);
+                
+            }
+            function onDeviceReady() {
+                // Now safe to use the Cordova API
+                
+                var pn = window.plugins.pushNotification;
+               
+                pn.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+                
+                // result contains any error description text returned from the plugin call
+                function errorHandler (error) {
+                    console.log('error = '+error)
+                }
+                
+                function tokenHandler (result) {
+                    // Your iOS push server needs to know the token before it can push to this device
+                    // here is where you might want to send it the token for later use.
+                    console.log('device token = '+result)
+                }
+                // iOS
+                function onNotificationAPN(event) {
+                    if (event.alert) {
+                        navigator.notification.alert(event.alert);
+                    }
+                    
+                    if (event.sound) {
+                        var snd = new Media(event.sound);
+                        snd.play();
+                    }
+                    
+                    if (event.badge) {
+                        pushNotification.setApplicationIconBadgeNumber(successHandler, event.badge);
+                    }
+                }
+                
+            }
+     
+            function internetConn(){
+                var networkState = navigator.network.connection.type;
+                
+                var states = {};
+                if(networkState == Connection.NONE){
+                  navigator.notification.alert("You are not connected to the internet",null,"Network Error","OK");
+                }else{ 
+                    getCredentials();
+                }
+                
+            }
+     
+     
+     
+     function getCredentials(){
+         var un = document.getElementById( 'inputUname' ).value;
+         var pw = SHA1(document.getElementById( 'inputPassword' ).value);
+         signIn(un,pw);
+         
+     }
+     function signIn(un,pw){
+         $.blockUI();
+         
+         if(un=="" || pw==""){
+             $("#message").slideDown();
+             $("#incorrect").html("<br>Username/Password Empty");
+             $.unblockUI();
+             return;
+         }
+         
+         url='http://famly.com/beta/public/ws/login.php';
+         $.post(url, {username: un, password: pw, lat: sessionStorage.getItem('lat'), long: sessionStorage.getItem('lng')},function(data){
+                //alert(data);
+                if(data==false){
+                $("#message").slideDown();
+                $("#incorrect").html("<br>Incorrect Username/Password");
+                $.unblockUI();
+                }else{
+                if($("#message").is(":visible"))
+                $("#message").slideUp();
+                data4 = $.parseJSON(data);
+                $(data4).each(function(i,val){
+                              //alert(data);
+                              sessionStorage['username'] =val.user_name;
+                              sessionStorage['password']=val.password;
+                              sessionStorage['userid']=val.id;
+                              sessionStorage['fname']=val.first_name;
+                              sessionStorage['lname']=val.last_name;
+                              sessionStorage['email']=val.email;
+                              sessionStorage['gender']=val.gender;
+                              sessionStorage['fullname']=val.full_name;
+                              sessionStorage['dp']=val.picture;
+                              
+                              if(!localStorage.lower){
+                              localStorage.lower=-5;
+                              localStorage.higher=5;
+                              }
+                              
+                              
+                              if(val.token == 1){
+                              window.open('help.html?call=1', '_self');
+                              }else{
+                              window.open('index.html?suggest=0', '_self');
+                              }
+                              
+                              });
+                }
+                });
+         
+     }
+     
+     
+            function reg(){
+                $.blockUI();
+                window.location.href = 'register.html';
+                //$.unblockUI();
+                
+            }
+     
+            function hideAlert1(){
+                $("#message").slideToggle();
+                errors = "";
+            }
+            </script>
+    </body>
+</html>

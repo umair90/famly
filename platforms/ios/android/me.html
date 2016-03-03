@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+            <link href="js/slide.css" rel="stylesheet" media="screen">
+                    <link rel="stylesheet" type="text/css" href="js/modal.css" />
+                    <style>
+                        div {
+                            -webkit-touch-callout: none;
+                            -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                        }
+                        body{
+                            background: url(img/me_bk.jpg) repeat;
+                            overflow:hidden;
+                        }
+                        * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                        
+                       
+                        .b
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            color:#FFF !important;
+                        }
+                        .bttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:48px !important;
+                            height:30px !important;
+                        }
+
+                        .button_home
+                        {
+                            background-image: url(img/home.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        .button_menu
+                        {
+                            background-image: url(img/settings.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        
+                        .layout-slider { margin-top: 30px; width: 80%; }
+                        
+                        .det_info{
+                            width:98%;
+                            text-align:left;
+                            margin-top:-10px;
+                            color:#999;
+                            font-size:11px;
+                            font-weight:600
+                        }
+                        /* slider container */
+                        .iosSlider {
+                            /* required */
+                            position:relative;
+                            float:left;
+                            overflow: hidden;
+                            display: none;
+                            width: 100%;
+                            height: auto;
+                        }
+                        
+                        /* slider */
+                        .iosSlider .slider {
+                            /* required */
+                            width: 120px;
+                            height: 200px;
+                            
+                            
+                        }
+                        
+                        /* slide */
+                        .iosSlider .slider .slide {
+                            /* required */
+                            float: left;
+                            width: 220px;
+                            height: auto;
+                        }
+                        
+                        DIV.list_item_container {
+                            height:5px !important;
+                        }
+                        DIV.image {
+                            float: left;
+                            position:relative;
+                            padding:0% 3% 0% 3%;
+                        }
+                        
+                        .main_canvas{
+                            
+                            width:100%;
+                             float:left;
+                             }
+                        
+                        .detail_box_area{
+                            
+                            background: url(img/me_bk.jpg) repeat;
+                            position: relative;
+                            float:left;
+                            width:100%;
+                        }
+                        .minus_row{
+                            position:relative;
+                            width:100%;
+                            float:left;
+                        }
+                        .blue_content_box{
+                            
+                            width:100%;
+                            float:left;
+                            position:relative;      
+                        }
+                        .plus_row{
+                            position:relative;
+                            width:100%;
+                            float:left;
+                                  
+                        }
+                        @media only screen and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:58% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        @media only screen and (device-height: 480px){
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:50% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        
+                        #menu {
+                            background: none repeat scroll 0 0 #333333;
+                            bottom: 0;
+                            overflow: auto;
+                            position: fixed;
+                            top: 0;
+                            width: 70%;
+                            z-index: 1;
+                        }
+                        #menu ul {
+                            margin-left: 10px;
+                            display: block;
+                            height: 100%;
+                            overflow-y: scroll;
+                        }
+                        #menu ul li a {
+                            background:#333333;
+                            border-bottom: 1px solid #222222;
+                            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                            color: #FFFFFF;
+                            display: block;
+                            font-weight: bold;
+                            padding: 10px;
+                            text-decoration: none;
+                            text-shadow: 0 1px 0 #000000;
+                        }
+                        #menu ul li a.active {
+                            background-color: #336C95;
+                        }
+                        
+                        
+                        #wrapper {
+                            background: url(img/me_bk.jpg) repeat;
+                            position: absolute;
+                            top:0;
+                            left:0;
+                            bottom:0;
+                            right:0;
+                            z-index: 9998;
+                            padding-top: 100px;
+                            width:100%;
+                        }
+
+                        </style>
+                    
+                                        
+    </head>
+    
+    <body>
+        
+        <script src="js/cordova.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.blockUI.js"></script>
+        <script src="js/jquery.iosslider.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+        
+        <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+        
+        
+        <div id="menu">
+            <ul>
+                <li>
+                    <div class="form-search">
+                        <div class="input-append">
+                            <input id="search_name" type="text" class="span2 input-medium search-query" placeholder="Search">
+                                <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                </div>
+                    </div>
+                </li>
+                <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                
+            </ul>
+        </div>
+        
+            <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+                    
+                    <div id="panel3" class="panel3">
+                        <div id="msgList"></div>
+                        <div id="newMsgButton" style="display:none">
+                            <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-11px; height:25px; width:25px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>
+                        </div>
+                        
+                        <div id="reply_post" style="display:none;">
+                            
+                            <div  class="input-append" style="margin-bottom:-7px; margin-top:-6px">
+                                <textarea id="repText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingRep(event)"></textarea>
+                                <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                                 <button id="rib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                 <button id="rvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                 <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                                 <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                                 </div>-->
+                            </div>
+                            <div id="attachRepLink" class="input-append" style="padding-bottom:1%; display:none">
+                                <input id="repLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                                <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                            </div>
+                            <div id="repImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                <img id="repImage" style="width:100%; height:100%; overflow:hidden">
+                                    </div>
+                            <div id="repVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                <video id="repVid" style="width:100%; height:100%; overflow:hidden">
+                                    </div>
+                            <div style="margin-left:50%">
+                                <button class="btn" type="button" onClick="emptyRep(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                                <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="replyMsg()">
+                                    Send
+                                </button>
+                            </div>
+                            &nbsp;
+                        </div>
+                    </div>
+                    
+                    <div id="panel4" style=" z-index:999 !important">
+                        
+                        <div class="input-append" style="padding:3%; margin-bottom:-5px">
+                            <textarea id="statText" rows="5" placeholder="What do you want to share?" type="text" style="font-size:15px; width:82%; margin-top:4%" onkeypress="linkingStat(event)"></textarea>
+                            <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                                <button id="sib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                <button id="svb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                <a id="locList" class="btn btn-large" type="button" style="width:0px;" href="#pop"><div style="height:14px; width:16px"><img src="img/location_post.png" style="margin-top:-10px; margin-left:-15px; "></div></a>
+                                <!--     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                                 <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button> -->
+                            </div>
+                            
+                        </div>
+                        <div id="attachStatLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                            <input id="statLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                            <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                        </div>
+                        <div id="statImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                            <img id="statImage" style="width:100%; height:100%; overflow:hidden">
+                                </div>
+                        <div id="statVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                            <video id="statVid" style="width:100%; height:100%; overflow:hidden">
+                                </div>
+                        <div style=" padding-top:1%; margin-left:38%">
+                            <button class="btn" type="button" onClick="emptyStat(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                            <div class="btn-group">
+                                <button id="updt" class="btn" style="color:#BDBDBD; font-weight:600; z-index:999 !important">Update</button>
+                                <button id="updtView" class="btn">
+                                    <span class="caret"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="progress progress-striped active" id="progCont" style="margin-left:5%; margin-top:5px; width:90%; display:none">
+                            <div id="prgbar" class="bar" style="width: 100%;"></div>
+                        </div>
+                        <div id="postview" class="layout-slider" style="margin-left:10%; display:none">
+                            <input id="Slider2" type="slider" name="price" value="1;10" />
+                        </div>
+                        <script>
+                            $("#Slider2").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                            </script>
+                        &nbsp;
+                    </div>
+                    
+                    <div id="panel5">
+                        <div class="content clearfix" align="center">
+                            <div class="layout-slider">
+                                <input id="Slider1" type="slider" name="price" value="1;10" />
+                            </div>
+                            <script>
+                                $("#Slider1").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                                
+                                </script>
+                            
+                        </div>
+                    </div>
+                    
+                    <div id="panel7">
+                        <div id="recp" style="padding-top:3%; padding-bottom:1%">
+                            <input id="msgRecp" placeholder="To" type="text" style="font-size:15px; width:90%"/>
+                        </div>
+                        <div class="input-append" style="margin-bottom:-5px">
+                            
+                            <textarea id="msgText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingMsg(event)"></textarea>
+                            <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                             <button id="mib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                             <button id="mvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                             <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                             <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                             </div>-->
+                            
+                        </div>
+                        <div id="attachMsgLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                            <input id="msgLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                            <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png"/ style="margin-top:-4px"></div></button>
+                        </div>
+                        <div id="msgImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                            <img id="msgImage" style="width:100%; height:100%; overflow:hidden">
+                                </div>
+                        <div id="msgVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                            <video id="msgVid" style="width:100%; height:100%; overflow:hidden">
+                                </div>
+                        <div style=" padding-top:1%; padding-left:50%">
+                            <button class="btn" type="button" onClick="emptyMsg(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                            <button class="btn" type="button" onClick="sendMsg()" style="color:#BDBDBD; font-weight:600">Send</button>
+                        </div>
+                        &nbsp;
+                    </div>
+                    
+                    <div id="panel8" class="panel9">
+                        <div id="notifList"></div>
+                    </div>
+                    
+                <div class="tabback">
+                    <div class="tab navbar navbar-inverse navbar-fixed-top">
+                        <div style="position:absolute; left:2px; top:-3px">
+                            <div class="btn-group">
+                                <button id="menuShow" class="btn button_menu" onClick="slide()"></button>
+                            </div>
+                        </div>
+                        <div id="clos" style="background:transparent; width:50%; height:90%; margin-left:35%">&nbsp;</div>
+                        <div style="position:absolute; right:2px; top:-3px">
+                            <div class="btn-group">
+                                <button class="btn button_home" onClick="goHome()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                </div>
+           
+                <a href="#x" class="overlay" id="pop"></a>
+                <div class="popup">
+                    <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Check In</div>
+                    <div id="plist">
+                    </div>
+                    <a class="close" href="#close"></a>
+                </div>
+                
+            <div id="wrapper">
+            <div class="detail_box_area">
+                <div id="atree" class="minus_row">
+                </div>
+                <div id="treeview" class="blue_content_box">
+                    
+                </div>
+                <div id="btree" class="plus_row">
+                </div>
+            </div>
+            </div>
+    
+                <script>
+                    
+                    var summary;
+                    var panelOpened = 4;
+                    var uid = sessionStorage.getItem('userid');
+                    var name = sessionStorage.getItem("fname")+" "+sessionStorage.getItem("lname");
+                    
+                    $("#locList").click(function () {
+                                        $("#plist").append('<ul id="places" class="nav nav-tabs nav-stacked">'
+                                                           +'</ul>');
+                                        
+                                        var ll = sessionStorage.getItem('lat')+','+sessionStorage.getItem('lng');
+                                        url2='https://api.foursquare.com/v2/venues/search?ll='+ll+'&oauth_token=Z43OVSOUCMXIQLR0D1RRAXQBCUO05VYRRWZLFAR1QZF5BMKV&v=20130410';
+                                        $.get(url2,{}, function(data){
+                                              data2 = JSON.stringify(data.response.venues);
+                                              data3 = JSON.parse(data2);
+                                              $(data3).each(function(i,val){
+                                                            addrs = val.location.address+', ';
+                                                            cty = val.location.city;
+                                                            if(val.location.address == null)
+                                                            addrs = ' ';
+                                                            if(val.location.city == null)
+                                                            cty = ' ';
+                                                            $("#places").append('<li onClick="checkIn(\''+val.name+'\')"><a href="#close">'+val.name+'<p style="font-size:12px; color: #BCBEBD">'+addrs+cty+'</p></a></li>');
+                                                            });
+                                              
+                                              });
+                                        
+                                        });
+                    
+              function slide(){
+                if ($("#toppanel").hasClass('isSlided') && $("#wrapper").hasClass('isSlided')){
+        			$("#toppanel").animate({"left":"0px"}, "fast").removeClass('isSlided');
+             		$("#wrapper").animate({"left":"0px"}, "fast").removeClass('isSlided');
+    			} else {
+        			$("#toppanel").animate({"left":"70%"}, "fast").addClass('isSlided');
+             		$("#wrapper").animate({"left":"70%"}, "fast").addClass('isSlided');
+    			}
+            		
+           	   }
+                    
+                    function checkIn(name){
+                        document.getElementById('statText').value = "I am at "+name;
+                    }
+                    
+                    
+                    function check(){
+                        if(document.getElementById("handler-left").checked)
+                        document.getElementById("handler-left").checked=false
+                        else
+                        document.getElementById("handler-left").checked=true
+                    }
+                    
+                    
+                    function linkingStat(evt) {
+                        evt = (evt) ? evt : event;
+                        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                        ((evt.which) ? evt.which : 0));
+                        if (charCode == 62){
+                            $("#attachStatLink").slideDown();
+                            //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 60){
+                            //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 64){
+                            /*   $("#textarea1").autocomplete({
+                             source: ["ActionScript",
+                             "AppleScript",
+                             "Asp",
+                             "BASIC",
+                             "C",
+                             "C++",
+                             "Clojure",
+                             "COBOL",
+                             "ColdFusion",
+                             "Erlang",
+                             "Fortran",
+                             "Groovy",
+                             "Haskell",
+                             "Java",
+                             "JavaScript",
+                             "Lisp",
+                             "Perl",
+                             "PHP",
+                             "Python",
+                             "Ruby",
+                             "Scala",
+                             "Scheme"]
+                             }); */
+                        }
+                        
+                    }
+                    
+                    function linkingRep(evt) {
+                        evt = (evt) ? evt : event;
+                        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                        ((evt.which) ? evt.which : 0));
+                        if (charCode == 62){
+                            $("#attachRepLink").slideDown();
+                            //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 60){
+                            //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        
+                    }
+                    
+                    function linkingMsg(evt) {
+                        evt = (evt) ? evt : event;
+                        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                        ((evt.which) ? evt.which : 0));
+                        if (charCode == 62){
+                            $("#attachMsgLink").slideDown();
+                            //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 60){
+                            //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        
+                    }
+                    
+                    function emptyStat(evt) {
+                        if($("#statImageDiv").is(":visible")){
+                            $('#statImageDiv').slideUp();
+                            sessionStorage['imgAtch'] = "";
+                            $("#svb").removeAttr("disabled");
+                            $("#progCont").slideUp();
+                        }
+                        if($("#statVidDiv").is(":visible")){
+                            $('#statVidDiv').slideUp();
+                            sessionStorage['vidAtch'] = "";
+                            $("#sib").removeAttr("disabled");
+                            $("#progCont").slideUp();
+                        }
+                        $("#statText").val("");
+                        $("#statLink").val("");
+                        $("#attachStatLink").slideUp();
+                        $("div[id^=panel]").slideUp(400);
+                    }
+                    
+                    function emptyRep(evt) {
+                        if($("#repImageDiv").is(":visible")){
+                            $('#repImageDiv').slideUp();
+                            sessionStorage['imgAtch'] = "";
+                            $("#rvb").removeAttr("disabled");
+                        }
+                        if($("#repVidDiv").is(":visible")){
+                            $('#repVidDiv').slideUp();
+                            sessionStorage['vidAtch'] = "";
+                            $("#rib").removeAttr("disabled");
+                        }
+                        $("#repText").val("");
+                        $("#repLink").val("");
+                        $("#attachRepLink").slideUp();
+                        $("div[id^=panel]").slideUp(400);
+                    }
+                    
+                    function emptyMsg(evt) {
+                        if($("#msgImageDiv").is(":visible")){
+                            $('#msgImageDiv').slideUp();
+                            sessionStorage['imgAtch'] = "";
+                            $("#mvb").removeAttr("disabled");
+                        }
+                        if($("#msgVidDiv").is(":visible")){
+                            $('#msgVidDiv').slideUp();
+                            sessionStorage['vidAtch'] = "";
+                            $("#mib").removeAttr("disabled");
+                        }
+                        $("#msgRecp").val("")
+                        $("#msgText").val("");
+                        $("#msgLink").val("");
+                        $("#attachMsgLink").slideUp();
+                        $("div[id^=panel]").slideUp(400);
+                    }
+                    
+                    function showBrowser(){
+                        var ref = window.open('http://www.bing.com', '_blank', 'location=yes');
+                        ref.addEventListener('loadstop', iabStop);
+                        ref.addEventListener('exit', iabClose);
+                    }
+                    
+                    function iabStop(event){
+                        sessionStorage['url'] = event.url;
+                    }
+                    
+                    function iabClose(event){
+                        if($("#attachStatLink").is(":visible"))
+                        $("#statLink").val(sessionStorage.getItem('url'));
+                        else if($("#attachRepLink").is(":visible"))
+                        $("#repLink").val(sessionStorage.getItem('url'));
+                        else if($("#attachMsgLink").is(":visible"))
+                        $("#msgLink").val(sessionStorage.getItem('url'));
+                    }
+                    $("#clos").click(function(){
+                                     if($("div[id=panel5]").is(":visible")){
+                                     sessionStorage['lower']=$('#panel5 #lower').html();
+                                     sessionStorage['higher']=$('#panel5 #higher').html();
+                                     userStream();
+                                     $("div#panel5").slideUp(400);
+                                     } else if($("div[id=panel4]").is(":visible")){
+                                     userStream();
+                                     $("div#panel4").slideUp(400);
+                                     }
+                                     else if ($("div[id^=panel]").is(":visible")){
+                                     $("div[id^=panel]").slideUp(400);
+                                     }
+                                     else{
+                                     if(panelOpened == 3)
+                                     {
+                                     showMsgs();
+                                     }
+                                     else if(panelOpened == 8)
+                                     {
+                                     showNotifs();
+                            
+                                     }
+                                     $("div[id=panel"+panelOpened+"]").slideDown(400);
+                                     }
+                                     });
+                    
+                    function showPanel(id){
+                        if ($("div[id^=panel]").is(":visible")){
+                            $("div[id^=panel]").slideUp(400);
+                        }
+                        if(id == 3)
+                        {
+                            showMsgs();
+                        }
+                        else if(id == 8)
+                        {
+                            showNotifs();
+                            
+                        }
+                        
+                        if ($("#panel"+id).is(":visible")){
+                            $("#panel"+id).slideUp(400);
+                        }else{
+                            if(id==3){
+                                $("#panel"+id).slideDown(400);
+                            }
+                            else{
+                                
+                                $("#panel"+id).slideDown(400);
+                                
+                            }
+                        }
+                    }
+                    
+                    function timeDifference(current, previous) {
+                        
+                        var msPerMinute = 60 * 1000;
+                        var msPerHour = msPerMinute * 60;
+                        var msPerDay = msPerHour * 24;
+                        var msPerMonth = msPerDay * 30;
+                        var msPerYear = msPerDay * 365;
+                        
+                        var elapsed = current - previous;
+                        
+                        if (elapsed < msPerMinute) {
+                            if(Math.round(elapsed/1000)==1){
+                                return 'A few second ago';
+                            }
+                            else{
+                                return ' A few seconds ago';
+                            }
+                            
+                        }
+                        
+                        else if (elapsed < msPerHour) {
+                            if(Math.round(elapsed/msPerMinute)==1){
+                                return  Math.round(elapsed/msPerMinute) + ' minute ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerMinute) + ' minutes ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerDay ) {
+                            if(Math.round(elapsed/msPerHour)==1){
+                                return  Math.round(elapsed/msPerHour) + ' hour ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerHour) + ' hours ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerMonth) {
+                            if(Math.round(elapsed/msPerDay)==1){
+                                return  Math.round(elapsed/msPerDay) + ' day ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerDay) + ' days ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerYear) {
+                            if(Math.round(elapsed/msPerMonth)==1){
+                                return  Math.round(elapsed/msPerMonth) + ' month ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerMonth) + ' months ago';
+                            }
+                        }
+                        
+                        else {
+                            if(Math.round(elapsed/msPerYear)==1){
+                                return Math.round(elapsed/msPerYear) + ' year ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerYear) + ' years ago';
+                            }
+                        }
+                    }
+                    
+                    var parseMonth = function (value) {
+                        
+                        switch (value) {
+                            case "Jan":
+                            return "01";
+                            case "Feb":
+                            return "02";
+                            case "Mar":
+                            return "03";
+                            case "Apr":
+                            return "04";
+                            case "May":
+                            return "05";
+                            case "Jun":
+                            return "06";
+                            case "Jul":
+                            return "07";
+                            case "Aug":
+                            return "08";
+                            case "Sep":
+                            return "09";
+                            case "Oct":
+                            return "10";
+                            case "Nov":
+                            return "11";
+                            case "Dec":
+                            return "12";
+                            default:
+                            return value;
+                        }};
+                    
+                    setInterval(function() {
+                                var un=sessionStorage.getItem('username');
+                                var hash=sessionStorage.getItem('password');
+                                // Do something every 1 min
+                                $.get(url2,{username: un, password: hash}, function(data){
+                                      data2 = $.parseJSON(data);
+                                      $(data2).each(function(i,val){
+                                                    if(parseInt(val.pending_count) > 0){
+                                                    $("#notifImg").attr("src","img/notif_new.jpg");
+                                                    //alert(val.pending_count);
+                                                    }
+                                                    });
+                                      });
+                                }, 60000);
+                    
+                    function showNotifs(){
+                        url2 = 'http://famly.com/beta/public/ws/pendingRequestNotification.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $("#notifList").empty();
+                        //$("#panel3").attr("class","panel3");
+                        var currentDate = new Date()
+                        var day = currentDate.getDate()
+                        var month = currentDate.getMonth()
+                        var year = currentDate.getFullYear()
+                        var currentTime = new Date()
+                        var hours = currentTime.getHours()
+                        var minutes = currentTime.getMinutes()
+                        var seconds = currentTime.getSeconds()
+                        var currentDateTime= new Date(year,month,day,hours,minutes,seconds,00);
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              //alert(data);
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            //alert(val.sender_name);
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            
+                                            var postDateTime=new Date(postyyyy,postmm,postdd);
+                                            
+                                            var timeTrack=timeDifference(currentDateTime,postDateTime);
+                                            if(val.is_relation_accepted == 'Pending'){
+                                            $("#notifList").append('<div id="not'+val.id+'" style="position:relative; float:left; width:100%; background: #FFF; margin-bottom:2%"> '
+                                                                   + ' <div style="position:relative; float:left; height:60px !important; width:60px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.sender_picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                   + '  </div> '
+                                                                   + ' <div align="center" style="width:50%; padding:5px; position:relative; float:left"> '
+                                                                   + '  <p style="color:#12B6E9; font-weight:600">'+val.sender_name +'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px;">Added You As '+val.relation_name+'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                                   +'  </div> '
+                                                                   + ' <div class="btn-group btn-group-vertical" style="position:relative; float:right"> '
+                                                                   + ' <button class="btn" type="button" onClick="invitation('+val.id+','+val.user_id+',0,\''+val.relation_name+'\')" style="color:#BDBDBD; font-weight:600">Reject</button> '
+                                                                   + '  <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="invitation('+val.id+','+val.user_id+',1,\''+val.relation_name+'\')"> '
+                                                                   + '  Accept '
+                                                                   + '  </button> '
+                                                                   + '  </div> '
+                                                                   + '  </div>');
+                                            }
+                                            
+                                            });
+                              
+                              });
+                        showEventNotifs();
+                    }
+                    
+                    function invitation(nid, sid, stat, relName){
+                        var st;
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var gen=sessionStorage.getItem('gender');
+                        
+                        if (stat == 1)
+                        st = 'Accepted';
+                        else
+                        st = 'Ignore';
+                        
+                        url2 = 'http://famly.com/beta/public/ws/respondInvite.php';
+                        $.get(url2,{username:un, password:hash, status:st, sender_id:sid, relationName:relName, gender:gen}, function(data){
+                              //alert(data);
+                              $("#not"+nid).remove();
+                              });
+                    }
+                    
+                    function replyMsg(){
+                        url2 = 'http://famly.com/beta/public/ws/postReply.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var user_reply = document.getElementById("repText").value;
+                        var id=sessionStorage.getItem('friendId');
+                        //alert("reply Msg"+id);
+                        var picture=sessionStorage.getItem('dp');
+                        var full_name=sessionStorage.getItem('fullname');
+                        $.get(url2,{username: un, password: hash,friendId:id,message:user_reply},function(data){
+                              
+                              });
+                        //$("#reply_post").remove();
+                        if (user_reply != ""){
+                            $("#msgList").append('<div style="background: #FFF; border:1px solid">'
+                                                 + ' <div style="height:40px !important; width:40px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+picture+'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                 + '  </div> '
+                                                 + '  <div align="left" style="margin-left:20%; margin-top:-40px">'
+                                                 + '  <p style="color:#12B6E9; font-weight:600;">'+full_name+'</p>'
+                                                 + '  <p style="color: #BCBEBD; font-size:10px; margin-top:-15px;">Just now</p>'
+                                                 + ' <p style="width:98%; text-align:left; margin-top:-10px; color:#000">'+ user_reply +'</p>'
+                                                 + '  </div>'
+                                                 + '  </div>');
+                        }
+                        document.getElementById("repText").value="";
+                        
+                    }
+                    
+                    function continueMsg(id){
+                        url2 = 'http://famly.com/beta/public/ws/postMessages.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userId=sessionStorage.getItem('userid');
+                        sessionStorage['friendId'] =id;
+                        //alert("continueMessage"+sessionStorage['friendId'])
+                        $("div#stream").show();
+                        $("div#panel3").slideUp(400);
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        //alert(now);
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        //$("#panel3").attr("class","p3");
+                        $("#msgList").empty();
+                        $("#newMsgButton").attr("style","padding-top:5%; margin-bottom:-5px; padding-left:80%; height:15%; display:none");
+                        $("#reply_post").attr("style","display:inline");
+                        $("#msgList").removeClass("nmsg");
+                        $("#msgList").addClass("rmsg");
+                        // setInterval(function(){
+                        $.get(url2,{username: un, password: hash,friendId:id}, function(data){
+                              data3 = $.parseJSON(data);
+                              $(data3).each(function(i,val){
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            if(!$("#chat"+val.id).is(":visible")){
+                                            $("#msgList").append('<div id="chat'+val.id+'" style="background: #FFF; border:1px solid">'
+                                                                 + ' <div style="height:40px !important; width:40px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                 + '  </div> '
+                                                                 + ' <div id="realPic'+val.id+'" style=" height:15%; width:15%; margin-left:85.5%; margin-top:-50px"><img src="img/level.png"/></div>'
+                                                                 + ' <div id="realNum'+val.id+'" style="margin-top:-40px; margin-left:93%; color:#FFF; font-weight:600">+'+val.relation_level+'</div>'
+                                                                 + '  <div  align="left" style="margin-left:20%; margin-top:-20px">'
+                                                                 + '  <p style="color:#12B6E9; font-weight:600;">'+ val.full_name +'</p>'
+                                                                 + '  <p id="timeChat'+val.id+'" style="color: #BCBEBD; font-size:10px; margin-top:-15px;">'+timeTrack+', Chicago</p>'
+                                                                 + ' <p style="width:98%; text-align:left; margin-top:-10px; color:#000">'+ val.message +'</p>'
+                                                                 + '  </div>'
+                                                                 + '  </div>');
+                                            if(val.relation_level==0 || val.sender_id == userId){
+                                            // $("#realNum"+val.id).hide();
+                                            $("#realPic"+val.id).hide();
+                                            }}else{
+                                            $("#timeChat"+val.id).html(timeTrack);
+                                            }
+                                            
+                                            })
+                              
+                              });
+                        
+                        $("div#panel3").slideDown(400);
+                        // }, 500);
+                    }
+                    
+                    function newMessage(){
+                        $("div#stream").show();
+                        $("div#panel3").slideUp(400);
+                        $("div#panel7").slideDown(400);
+                        //alert("newMessage");
+                    }
+                    
+                    function sendMsg(){
+                        var sender=document.getElementById('msgRecp').value;
+                        var names=sender.split(",");
+                        
+                        var message=document.getElementById('msgText').value;
+                        var indexArray= new Array();
+                        var k=0;
+                        
+                        // var members;
+                        for(i=0;i<fname.length;i++){
+                            for(j=0;j<names.length;j++){
+                                if(names[j]==fname[i]){
+                                    // alert(i);
+                                    indexArray[k]=i;
+                                    k=k+1;
+                                }
+                            }
+                        }
+                        
+                        var index;
+                        var members=new Array();
+                        for(m=0;m<indexArray.length;m++){
+                            index=indexArray[m];
+                            members[m]=fid[index];
+                            
+                        }
+                        
+                        var memberstoSend=members.toString();
+                        if(message!=""){
+                            var un=sessionStorage.getItem('username');
+                            var hash=sessionStorage.getItem('password');
+                            //alert(fname[index]);
+                            url2 ='http://famly.com/beta/public/ws/sendMultipleMessage.php';
+                            $.get(url2,{members:memberstoSend,username:un,password:hash,message:message}, function(data){
+                                  if(data==1){
+                                  document.getElementById('msgRecp').value="";
+                                  document.getElementById('msgText').value="";
+                                  $("div[id^=panel]").slideUp(400);
+                                  }
+                                  });
+                        }
+                        
+                        
+                    }
+                    
+                    function showMsgs(){
+                        url2 = 'http://famly.com/beta/public/ws/messages.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $("#msgList").empty();
+                        $("#reply_post").attr("style","display:none");
+                        $("#msgList").removeClass("rmsg");
+                        $("#msgList").addClass("nmsg");
+                        $("#newMsgButton").attr("style","position:absolute; margin-top:3%; margin-left:90%; display:inline");
+                        //$("#panel3").attr("class","panel3");
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        //alert(now);
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              //alert(data);
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            $("#msgList").append('<div class="swipe" style="background: #FFF; border:1px solid" id="msg'+i+'" onClick="continueMsg('+ val.sender_id +')">'
+                                                                 + ' <div style="height:40px !important; width:40px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                 + '  </div> '
+                                                                 + ' <div id="realPic'+val.id+'" style="height:15%; width:15%; margin-left:85.5%; margin-top:-50px"><img src="img/level.png"/></div>'
+                                                                 + ' <div id="realNum'+val.id+'" style="margin-top:-40px; margin-left:93%; color:#FFF; font-weight:600">+'+val.relation_level+'</div>'
+                                                                 + '  <div align="left" style="margin-left:20%; margin-top:-20px">'
+                                                                 + '  <p style="color:#12B6E9; font-weight:600;">'+ val.full_name +'</p>'
+                                                                 + '  <p style="color: #BCBEBD; font-size:10px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                                 + ' <p style="width:98%; text-align:left; margin-top:-10px; color:#000">'+ val.message + '</p>'
+                                                                 + '  </div>'
+                                                                 + '  </div>');
+                                            if(val.relation_level==0){
+                                            // $("#realNum"+val.id).hide();
+                                            $("#realPic"+val.id).hide();
+                                            }
+                                            
+                                            
+                                            });
+                              
+                              /*     $("#panel3").append('<div style="padding-top:5%; margin-bottom:-5px; padding-left:80%; position:absolute">'
+                               +'  <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-13px; height:30px; width:30px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>'
+                               + ' </div>'
+                               + '  &nbsp;'); */
+                              });
+                        
+                    }
+                    
+                    function attachURL(txt, lnk){
+                        var id = sessionStorage.getItem('link');
+                        var anchor = '<a id="sharedLink'+id+'" name="'+ lnk +'" onClick="showLink('+id+')">'+ txt.match(/\>(.*?)\</)[1] +'</a>'
+                        txt = txt.replace(/\>(.*?)\</, anchor);
+                        return txt;
+                    }
+                    
+                    $(function ($) {
+                      $("#updtView").click(function () {
+                                           //$("#updt").unbind("click");
+                                           $("#postview").slideToggle();
+                                           });
+                      
+                      $("#updt").click(function () {
+                                       var stat=document.getElementById('statText').value;
+                                       if (stat == "") { stat = " ";}
+                                       var status = stat;
+                                       if($("#attachStatLink").is(":visible") && $("#statLink").val() != ""){
+                                       
+                                       if (!sessionStorage['link']) {
+                                       sessionStorage['link'] = 0;
+                                       } else {
+                                       sessionStorage['link']++;
+                                       }
+                                       status = attachURL(stat, $("#statLink").val());
+                                       
+                                       }
+                                       if($("#statImageDiv").is(":visible")){
+                                       uploadImg(sessionStorage.getItem('imgAtch'), status);
+                                       return;
+                                       }
+                                       else if($("#statVidDiv").is(":visible")){
+                                       uploadVid(sessionStorage.getItem('vidAtch'), status);
+                                       return;
+                                       }
+                                       console.log(status);
+                                       var lower_range=parseInt($('#panel4 #lower').html());
+                                       var higher_range=parseInt($('#panel4 #higher').html());
+                                       var range=lower_range+','+higher_range;
+                                       //alert(range);
+                                       url3 = 'http://famly.com/beta/public/ws/updateStatus.php';
+                                       var un=sessionStorage.getItem('username');
+                                       var hash=sessionStorage.getItem('password');
+                                       var crloc = sessionStorage.getItem('currLoc');
+                                       console.log(un+hash+crloc);
+                                       if(document.getElementById('statText').value!=""){
+                                       $.get(url3,{username:un,password:hash,type:"Text",statusUpdate:encodeURIComponent(status),location:crloc,range:range}, function(data){
+                                             document.getElementById('statText').value="";
+                                             $("div[id^=panel]").slideUp(400);
+                                             });
+                                       
+                                       }
+                                       });
+                      });
+                    
+                    $(document).ready(function() {
+                                      userList();
+                                      
+                                      $("#search_name").autocomplete({
+                                                                     source: fname,
+                                                                     minLength: 0,
+                                                                     select: function(event, ui) {
+                                                                     //assign value back to the form element
+                                                                     if(ui.item){
+                                                                     $(event.target).val(ui.item.value);
+                                                                     names=ui.item.value;
+                                                                     }
+                                                                     searchedUser();
+                                                                     }
+                                                                     }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li class="list_item_container"></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      function split( val ) {
+                                      return val.split( /,\s*/ );
+                                      }
+                                      function extractLast( term ) {
+                                      return split( term ).pop();
+                                      }
+                                      $("#msgRecp").bind( "keydown", function( event ) {
+                                                         if ( event.keyCode === $.ui.keyCode.TAB &&
+                                                             $( this ).data( "autocomplete" ).menu.active ) {
+                                                         event.preventDefault();
+                                                         }
+                                                         })
+                                      .autocomplete({
+                                                    minLength: 0,
+                                                    source: function( request, response ) {
+                                                    // delegate back to autocomplete, but extract the last term
+                                                    response( $.ui.autocomplete.filter(
+                                                                                       fname, extractLast( request.term ) ) );
+                                                    },
+                                                    focus: function() {
+                                                    // prevent value inserted on focus
+                                                    return false;
+                                                    },
+                                                    select: function( event, ui ) {
+                                                    var terms = split( this.value );
+                                                    // remove the current input
+                                                    terms.pop();
+                                                    // add the selected item
+                                                    terms.push( ui.item.value );
+                                                    // add placeholder to get the comma-and-space at the end
+                                                    terms.push("");
+                                                    this.value = terms.join(",");
+                                                    return false;
+                                                    }
+                                                    }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      
+                                      showTreeBelow(uid,0,name);
+                                      //levelBelow(uid,uid,1);
+                                      
+                                      });
+                    
+                    var fname = new Array();
+                    var fid= new Array();
+                    var fpic= new Array();
+                    var names;
+                    function userList(){
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userId=sessionStorage.getItem('userid');
+                        url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                        $.get(url2,{}, function(data){
+                              
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            fname[i]=val.name;
+                                            //alert(fname[i]);
+                                            fid[i]=val.id;
+                                            fpic[i]=val.picture;
+                                            // alert(fid[i]);
+                                            });
+                              
+                              });
+                        
+                    }
+                    
+                    function searchedUser(){
+                        
+                        var indexArray= new Array();
+                        var index;
+                        for(i=0;i<fname.length;i++){
+                            if(names==fname[i]){
+                                index=i;
+                            }
+                        }
+                        var id=fid[index];
+                        var picture=fpic[index];
+                        sessionStorage['sid'] = fid[index];
+                        sessionStorage['sname'] =fname[index];
+                        window.open('profilePage.html?id='+id, '_self');
+                        
+                    }
+                    function search(){
+                        
+                        var full_name = $("#search_name").val();
+                        window.open('searchResults.html?name='+full_name, '_self');
+                    }
+                    
+                    function invite(rid, rel){
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $.get("http://famly.com/beta/public/ws/sendInvite.php", {username:un, password:hash, reciever_id:rid, relationName:rel}, function(data){
+                              //alert(data);
+                              navigator.notification.alert("Request Sent",null,"","OK");
+                              $("#prereq").attr("style","display:none; padding:12%; position:relative;");
+                              $("#postreq").attr("style","display:inline; padding:12%; position:relative;");
+                              });
+                    }
+                    
+                    function cancelInvite(rid){
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $.get("http://famly.com/beta/public/ws/cancelInvite.php", {username:un, password:hash, reciever_id:rid}, function(data){
+                              //alert(data);
+                              navigator.notification.alert("Request Cancelled",null,"","OK");
+                              $("#postreq").attr("style","display:none; padding:12%; position:relative;");
+                              $("#prereq").attr("style","display:inline; padding:12%; position:relative;");
+                              });
+                    }
+                    
+                    
+                    
+                    function showInfo(id, sid)
+                    {
+                        //alert(id+" "+sid);
+                        $.blockUI();
+                        var summ, marriedTo=' '; parentOf=' ';
+                        $.get("http://famly.com/beta/public/ws/getFamilySummary.php", {userId:id} , function(data){
+                              summ = $.parseJSON(data);
+                              if (summ.spouse == 'none')
+                              marriedTo = '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">None</p>';
+                              else
+                              {
+                              var spouses = summ.spouse.split(',');
+                              for(i=0 ; i<spouses.length; i++)
+                              marriedTo += '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+spouses[i]+'</p>'
+                              
+                              }
+                              
+                              if(summ.son  == 'none' && summ.daughter == 'none'){
+                              parentOf = '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">None</p>'
+                              }
+                              else if(summ.son == 'none' && summ.daughter != 'none'){
+                              var daughters = summ.daughter.split(',');
+                              for(i=0 ; i<daughters.length; i++)
+                              parentOf += '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+daughters[i]+'</p>'
+                              }
+                              else if(summ.daughter == 'none' && summ.son != 'none'){
+                              var sons = summ.son.split(',');
+                              for(i=0 ; i<sons.length; i++)
+                              parentOf += '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+sons[i]+'</p>'
+                              }
+                              else{
+                              var sons = summ.son.split(',');
+                              for(i=0 ; i<sons.length; i++)
+                              {
+                              parentOf += '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+sons[i]+'</p>'
+                              }
+                              var daughters = summ.daughter.split(',');
+                              for(i=0 ; i<daughters.length; i++)
+                              {
+                              parentOf += '<p style="margin:-5px 4px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+daughters[i]+'</p>'
+                              }
+                              }
+                              $("#info"+id).empty();
+                              $("#info"+id).append('<p style="margin:0px 4px 1px 4px; color:#999; font-size:12px; font-weight:600; border-top:1px solid #999">Married to</p>'
+                                                   + marriedTo
+                                                   + '<p style="margin:0px 4px 1px 4px; color:#999; font-size:12px; font-weight:600; border-top:1px solid #999">Parent of</p>'
+                                                   + parentOf);
+                              console.log(sid);
+                              if($("#info"+id).is(":visible")){
+                              $("#info"+id).slideUp();
+                              $("#slide"+sid).height($("#li"+id).height());
+                              }
+                              else{
+                              $("#info"+id).slideDown();
+                              $("#slide"+sid).height(2 * $("#li"+id).height());
+                              }
+                              });
+                        
+                        $.unblockUI();
+                    }
+                    
+                    
+                    function showTreeBelow(id,vis,uname)
+                    {
+                        $.blockUI();
+                        summary = "";
+                        var mStat,pStat,cStat,sStat;
+                        $.get("http://famly.com/beta/public/ws/getFamilySummary.php", {userId:id} , function(data){
+                              summary = $.parseJSON(data);
+                              //alert(summary.daughter);
+                              if (summary.spouse == 'none' || summary.spouse == null)
+                              mStat = 'Single';
+                              else
+                              {
+                              mStat = 'Married to ';
+                              var spouses = summary.spouse.split(',');
+                              for(i=0 ; i<spouses.length; i++)
+                              mStat += '<span style="color:#12B6E9;">'+spouses[i]+'</span>';
+                              
+                              }
+                              
+                              if(summary.mother == 'none' && summary.father == 'none'){
+                              pStat = 'No Parents';
+                              }
+                              else if(summary.mother != 'none' && summary.father == 'none'){
+                              pStat = 'Child of <span style="color:#12B6E9;">'+summary.mother+'</span>';
+                              }
+                              else if(summary.father != 'none' && summary.father == 'none'){
+                              pStat = 'Child of <span style="color:#12B6E9;">'+summary.father+'</span>';
+                              }
+                              else
+                              pStat = 'Child of <span style="color:#12B6E9;">'+summary.father+'</span> and <span style="color:#12B6E9;">'+summary.mother+'</span>';
+                              
+                              if(summary.son  == 'none' && summary.daughter == 'none'){
+                              cStat = 'No Children';
+                              }
+                              else if(summary.son == 'none' && summary.daughter != 'none'){
+                              cStat = 'Parent to ';
+                              
+                              if(summary.daughter.indexOf(',') != -1){
+                              for(i=0 ; i<summary.daughter.length; i++)
+                              cStat += '<span style="color:#12B6E9;">'+summary.daughter[i]+'</span>';
+                              }
+                              
+                              else cStat += '<span style="color:#12B6E9;">'+summary.daughter+'</span>';
+                              }
+                              else if(summary.daughter == 'none' && summary.son != 'none'){
+                              cStat = 'Parent to ';
+                              
+                              if(summary.son.indexOf(',') != -1)
+                              for(i=0 ; i<summary.son.length; i++){
+                              cStat += '<span style="color:#12B6E9;">'+summary.son[i]+'</span>';
+                              }
+                              else cStat += '<span style="color:#12B6E9;">'+summary.son+'</span>';
+                              }
+                              else{
+                              var s=" ",d=" ";
+                              
+                              if(summary.son.indexOf(',') != -1){
+                              for(i=0 ; i<summary.son.length; i++)
+                              s += '<span style="color:#12B6E9;">'+summary.son[i]+'</span>';
+                              }
+                              else s += '<span style="color:#12B6E9;">'+summary.son+'</span>';
+                              
+                              if(summary.daughter.indexOf(',') != -1){
+                              for(i=0; i<summary.daughter.length; i++)
+                              d += '<span style="color:#12B6E9;">'+summary.daughter[i]+'</span>';
+                              }
+                              else d += '<span style="color:#12B6E9;">'+summary.daughter+'</span>';
+                              
+                              cStat = ('Parent to '+s+' '+d).replace(',','  ');
+                              }
+                              
+                              if(summary.brother  == 'none' && summary.sister == 'none'){
+                              sStat = 'No Siblings';
+                              }
+                              else if(summary.brother == 'none' && summary.sister != 'none')
+                              {
+                              sStat = 'Sibling to ';
+                              
+                              if(summary.sister.indexOf(',') != -1){
+                              for(i=0 ; i<summary.sister.length; i++)
+                              sStat += '<span style="color:#12B6E9;">'+summary.sister[i]+'</span>';
+                              }
+                              else
+                              sStat += '<span style="color:#12B6E9;">'+summary.sister+'</span>';
+                              }
+                              else if(summary.brother != 'none' && summary.sister == 'none')
+                              {
+                              sStat = 'Sibling to ';
+                              if(summary.brother.indexOf(',') != -1){
+                              for(i=0 ; i<summary.brother.length; i++)
+                              sStat += '<span style="color:#12B6E9;">'+summary.brother[i]+'</span>'
+                              }
+                              else
+                              sStat += '<span style="color:#12B6E9;">'+summary.brother+'</span>'
+                              }
+                              else
+                              {
+                              var s=" ",b=" ";
+                              if(summary.brother.indexOf(',') != -1){
+                              for(i=0 ; i<summary.brother.length; i++)
+                              b += '<span style="color:#12B6E9;">'+summary.brother[i]+'</span>'
+                              }
+                              else
+                              b += '<span style="color:#12B6E9;">'+summary.brother+'</span>'
+                              
+                              if(summary.sister.indexOf(',') != -1){
+                              for(i=0 ; i<summary.sister.length; i++)
+                              s += '<span style="color:#12B6E9;">'+summary.sister[i]+'</span>';
+                              }
+                              else
+                              s += '<span style="color:#12B6E9;">'+summary.sister+'</span>';
+                              
+                              sStat = ('Sibling to '+b+' '+s).replace(',','  ');
+                              }
+                              
+                              sessionStorage['abv'] = -1;
+                              sessionStorage['blw'] =  1;
+                              
+                              var a = sessionStorage.getItem('abv');
+                              var b = sessionStorage.getItem('blw');
+                              
+                              $("#atree").empty();
+                              $("#btree").empty();
+                              $("#treeview").empty();
+                              $("#treeview").append('  <div id="tree'+id+'" >'
+                                                    + '  <hr style="margin-left:5%; width:90%;">'
+                                                    + '<div align="center" style="position:relative; float:left; width:100%;"><img src="img/fam_up_blue.jpg"></div>'
+                                                    
+                                                    + ' <div id="contnr" style="position:relative; float:left; width:100%; background:#C5ECFB; border:none;">'
+                                                    
+                                                   + ' <div style="position:relative; float:left; width:14% !important; bottom:0; left:0">'
+                                                    + '  <div style="position:relative; float:left; height:10% !important; width:90% !important;"> '
+                                                    + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+summary.picture+'" style="position:relative; float:left; width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                                    + '  </div> '
+                                                    + '  </div> '
+                                                    
+                                                     + ' <div style="position:absolute; height:inherit !important; width:14% !important; bottom:0; left:0">'
+                                                    + '   <div id="lvlb'+b+'" onClick="levelBelow('+id+','+id+','+b+')" style="position:relative; float:left; height:50% !important; width:100% !important;"><img src="img/level-inv.png"/></div>'
+                                                    + '  <div id="lvlno'+b+'" style="position:absolute; color:#FFF; font-weight:600; font-size:100%; left:8%; bottom:4%;">+'+b+'</div>'
+                                                    + '  </div>'
+                                                    
+                                                    + ' <div style="position:relative; float:right; !important; width:14% !important;">'
+                                                    + '  <div id="lvla'+a+'" onClick="levelAbove('+id+','+id+','+a+')" style="position:relative; float:right; height:100% !important; width:100% !important;"><img src="img/level.png"/></div>'
+                                                    + '  <div id="lvlno'+a+'" style="position:absolute; color:#FFF; font-weight:600; font-size:100%; top:10%; right:8%;">'+a+'</div>'
+                                                    + '  </div>'
+                                                    
+                                                    + '  <div align="left" style="position:relative; float:left; width:68%; padding:1%;">'
+                                                    + '  <p style="color:#12B6E9; font-weight:600;">'+uname+'</p>'
+                                                    + '  <p class="det_info">'+mStat+'</p>'
+                                                    + '  <p class="det_info">'+pStat+'</p>'
+                                                    + '  <p class="det_info">'+cStat+'</p>'
+                                                    + '  <p class="det_info">'+sStat+'</p>'
+                                                    + '  </div>'
+                                                    + '  </div>'
+                                                    + '<div align="center" style="position:relative; float:left; width:100%;"><img src="img/fam_down_blue.jpg"></div>'
+                                                    + '  <hr style="position:relative; float:left; margin-left:5%; width:90%;">'
+                                                    + '  </div>');
+
+                              
+                              
+                              });
+                        $.unblockUI();
+                        
+                    }
+                    
+                    function levelBelow(id, v, lno)
+                    {
+                        $("#btree").append('   <div class = "iosSlider" id="slide'+(v+1+sessionStorage.getItem('blw'))+'">'
+                                           + '   <div class = "slider" id="slider'+(v+1+sessionStorage.getItem('blw'))+'" >'
+                                           + '   </div>'
+                                           + '   </div>'
+                                           + '  <hr style="margin-left:5%; width:90%;" id="hr'+(v+1+sessionStorage.getItem('blw'))+'" >');
+                        $.get("http://famly.com/beta/public/ws/getFamilyMembersByLevel.php", {userId:id, level:sessionStorage.getItem('blw')} , function(data2){
+                              
+                              rels = $.parseJSON(data2);
+                              if(data2 == 0){
+                              $("#hr"+(v+1+sessionStorage.getItem('blw'))).remove();
+                              $("#slider"+(v+1+sessionStorage.getItem('blw'))).remove();
+                              $("#slide"+(v+1+sessionStorage.getItem('blw'))).remove();
+                              $("#btree").append('<div align="center" style="font-weight:600; color:#DEDEDE; width:100%">No more Famly Members available<p>'
+                                                 + '  <hr style="position:relative; float:left; margin-left:5%; width:90%;">');
+                              sessionStorage['blw']++;
+                              $("#lvlb"+lno).hide();
+                              $("#lvlno"+lno).hide();
+                              }else{
+                              $(rels).each(function(j,val){
+                                           var fullname = val.full_name;
+                                           if (val.full_name.length > 13){
+                                           fullname = val.full_name.substring(0,10)+"..";
+                                           }
+                                           //alert(fullname);
+                                           var sid = (v+1+sessionStorage.getItem('blw'));
+                                           
+                                           $("#slider"+(v+1+sessionStorage.getItem('blw'))).append('<div id="li'+val.user_id+'" style=" height:auto; width:130px">'
+                                                                                                   +'<div style="height:105px !important; width:106px !important;"> '
+                                                                                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+val.profile_picture+'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                                                                                   + '  </div> '
+                                                                                                   + '   <div style="background:#DEDEDE; height:40px; width:110px">'
+                                                                                                   + '   <div style="overflow:hidden;" onClick="showTreeBelow('+val.user_id+','+v+',\''+val.full_name+'\',\''+val.profile_picture+'\')"><p style="margin:1px 1px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+ fullname +'</p></div>'
+                                                                                                   + '   <p style="margin:-5px 1px 1px 4px; color:#999; font-size:12px; font-weight:600;">'+val.relation+'</p>'
+                                                                                                   + '   </div>'
+                                                                                                   + ' <div id="info'+val.user_id+'" style="background:#DEDEDE; height:auto; width:110px; display:none">'
+                                                                                                   + '   </div>'
+                                                                                                   + ' <div onClick="showInfo('+val.user_id+','+sid+')" style="margin-top:-8px; margin-left:35%"><img src="img/fam_down_grey.jpg" height="20px" width="20px"></div>'
+                                                                                                   + '  </div>');
+                                           });
+                              $("#slide"+(v+1+sessionStorage.getItem('blw'))).slideDown();
+                              $('#slide'+(v+1+sessionStorage.getItem('blw'))).iosSlider();
+                              
+                              sessionStorage['blw']++;
+                              $("#lvlno"+lno).html("+"+sessionStorage.getItem('blw'));
+                              $.scrollTo( "#slide"+(v+1+sessionStorage.getItem('blw')), 800, {queue:true} );
+                              }
+                              });
+                    }
+                    
+                    function levelAbove(id, v, lno)
+                    {
+                        $("#atree").prepend('  <hr style="margin-left:5%; width:90%;" id="hr'+(v+sessionStorage.getItem('abv'))+'">'
+                                            +'   <div class = "iosSlider" id="slide'+(v+sessionStorage.getItem('abv'))+'">'
+                                            
+                                            + '   <div class = "slider" id="slider'+(v+sessionStorage.getItem('abv'))+'" >'
+                                            + '   </div>'
+                                            
+                                            + '   </div>');
+                        
+                        $.get("http://famly.com/beta/public/ws/getFamilyMembersByLevel.php", {userId:id, level:sessionStorage.getItem('abv')} , function(data2){
+                              //alert(data2);
+                              if(data2 == 0){
+                              $("#hr"+(v+sessionStorage.getItem('abv'))).remove();
+                              $("#slider"+(v+sessionStorage.getItem('abv'))).remove();
+                              $("#slide"+(v+sessionStorage.getItem('abv'))).remove();
+                              $("#atree").prepend('  <hr style="position:relative; float:left; margin-left:5%; width:90%;">'
+                                                  +'<div align="center" style="position:relative; float:left; font-weight:600; color:#DEDEDE; width:100%">No more Famly Members available<p>');
+                              sessionStorage['abv']--;
+                              $("#lvla"+lno).hide();
+                              $("#lvlno"+lno).hide();
+                              }else{
+                              rels = $.parseJSON(data2);
+                              $(rels).each(function(j,val){
+                                           var fullname = val.full_name;
+                                           if (val.full_name.length > 13){
+                                           fullname = val.full_name.substring(0,10)+"..";
+                                           }
+                                           //alert(fullname);
+                                           var sid = (v+sessionStorage.getItem('abv'));
+                                           
+                                           $("#slider"+(v+sessionStorage.getItem('abv'))).append('<div id="li'+val.user_id+'" style=" height:auto; width:130px">'
+                                                                                                 +'<div style="height:105px !important; width:106px !important;"> '
+                                                                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+val.profile_picture+'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                                                                                 + '  </div> '
+                                                                                                 + '   <div style="background:#DEDEDE; height:40px; width:110px">'
+                                                                                                 + '   <div style="overflow:hidden;" onClick="showTreeBelow('+val.user_id+','+v+',\''+val.full_name+'\',\''+val.profile_picture+'\')"><p style="margin:0px 1px 1px 4px; color:#12B6E9; font-size:12px; font-weight:600;">'+ fullname +'</p></div>'
+                                                                                                 + '   <p style="margin:-5px 1px 1px 4px; color:#999; font-size:12px; font-weight:600;">'+val.relation+'</p>'
+                                                                                                 + '   </div>'
+                                                                                                 + ' <div id="info'+val.user_id+'" style="background:#DEDEDE; height:auto; width:110px; display:none">'
+                                                                                                 
+                                                                                                 + '   </div>'
+                                                                                                 + ' <div onClick="showInfo('+val.user_id+',\''+sid+'\')" style="margin-top:-8px; margin-left:35%"><img src="img/fam_down_grey.jpg" height="20px" width="20px"></div>'
+                                                                                                 + '  </div>');
+                                           });
+                              
+                              $("#slide"+(v+sessionStorage.getItem('abv'))).slideDown();
+                              $('#slide'+(v+sessionStorage.getItem('abv'))).iosSlider();
+                              
+                              
+                              sessionStorage['abv']--;
+                              $("#lvlno"+lno).html(sessionStorage.getItem('abv'));
+                              //$.scrollTo("#uslide"+(v+sessionStorage.getItem('abv')), 800, {queue:true} );
+                              }
+                              });
+                    }
+                    
+                    function prof(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('profilePage.html?id='+id, '_self');
+                        
+                    }
+                    
+                    function jour(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('journals.html?jid='+id, '_self');
+                        
+                    }
+                    
+                    function goHome(){
+                        
+                        window.open('index.html', '_self');
+                        
+                    }
+                    
+                    function goAlb(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('album.html?id='+id, '_self');
+                        
+                    }
+                    </script>
+                
+    </body>
+    
+</html>

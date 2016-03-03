@@ -1,0 +1,632 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" type="text/css" href="js/modal.css" />
+        
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            <script src="bootstrap/js/bootstrap.min.js"></script>
+            <script src="js/jquery.blockUI.js"></script>
+            
+            <script src="js/cordova.js"></script>
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    
+            
+            <style type="text/css" media="screen">
+        body, html, svg { width: 100%; height: 100%; overflow: hidden; }
+        
+        div {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+        }
+        
+        * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+        
+        .layout-slider { margin-top: 30px; width: 80%; }
+        
+        .b{
+            text-shadow:none !important;
+            background:#F88E1E !important;
+            font-weight:600 !important;
+            color:#FFF !important;
+        }
+        .bttn
+        {
+            text-shadow:none !important;
+            background:#F88E1E !important;
+            font-weight:600 !important;
+            width:48px !important;
+            height:30px !important;
+        }
+        @media only screen and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+            .nmsg {
+                overflow:scroll; height:85%
+            }
+            .rmsg {
+                /* overflow:scroll; height:58% */
+                overflow:scroll; height:55%
+            }
+        }
+        @media only screen and (device-height: 480px){
+            .nmsg {
+                overflow:scroll; height:85%
+            }
+            .rmsg {
+                /* overflow:scroll; height:50% */
+                overflow:scroll; height:55%
+            }
+        }
+        
+                
+        #menu {
+            background: none repeat scroll 0 0 #333333;
+            bottom: 0;
+            opacity: 0;
+            overflow: auto;
+            position: fixed;
+            top: 0;
+            width: 70%;
+            z-index: 1;
+        }
+        #menu ul {
+            margin-left: 10px;
+            display: block;
+            height: 100%;
+            overflow-y: scroll;
+        }
+        #menu ul li a {
+            background:#333333;
+            border-bottom: 1px solid #222222;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+            color: #FFFFFF;
+            display: block;
+            font-weight: bold;
+            padding: 10px;
+            text-decoration: none;
+            text-shadow: 0 1px 0 #000000;
+            font-size:14px !important;
+        }
+        #menu ul li a.active {
+            background-color: #336C95;
+        }
+        
+        .handler {
+            display: none;
+        }
+        #handler-left.handler:checked ~ #menu {
+            opacity: 1;
+            -webkit-transition: opacity 1s ease 0s;
+        }
+        #handler-left.handler:not(:checked) ~ #menu {
+            opacity: 0;
+            -webkit-transition: opacity 10s ease 0s;
+        }
+        #handler-left.handler:checked ~ #wrapper {
+            -webkit-transform: translate3d(70%, 0px, 0px);
+            position:fixed;
+        }
+        #handler-left.handler:checked ~ #tree {
+            
+            -webkit-transform: translate3d(70%, 0px, 0px);
+            overflow:hidden;
+        }
+        #handler-left.handler:checked ~ #toppanel {
+            -webkit-transform: translate3d(70%, 0px, 0px);
+            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+        }
+        
+        #handler-left.handler:not(:checked) ~ #toppanel {
+            -webkit-transform: translate3d(0px, 0px, 0px);
+            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+        }
+        
+        #wrapper {
+            background: #F0F0F0;
+            position: absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            -webkit-transform: translate3d(0px, 0px, 0px);
+            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+            z-index: 9998;
+            padding-top: 50px;
+            width:100%;
+            height: 100%;
+            display:block;
+        }
+            
+
+        </style>
+</head>
+<body>
+   
+    
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/vivagraph.min.js"></script>
+    
+    <input type="checkbox" name="handler-left" class="handler" id="handler-left" onclick="null" />
+    
+    <div id="menu">
+        <ul>
+            <li>
+                <div class="form-search">
+                    <div class="input-append">
+                        <input id="search_name" type="text" class="span2 input-medium search-query" placeholder="Search">
+                            <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                            </div>
+                </div>
+            </li>
+            <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+            <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+            <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+            <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+            <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+            <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+            <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+            <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+            <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+            
+            
+        </ul>
+    </div>
+    
+    
+    <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="tabback">
+            <div class="tab navbar navbar-inverse navbar-fixed-top">
+                <div style="position:absolute; left:2px; top:-3px">
+                    <div class="btn-group">
+                        <button id="settngs" class="btn bttn" onClick="check()"><div style="height:20px; width:20px"><img src="img/settings.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                    </div>
+                </div>
+                <div id="clos" style="background:transparent; width:30%; height:70%; margin-left:35%">&nbsp;</div>
+                <div style="position:absolute; right:2px; top:-3px">
+                    <div class="btn-group">
+                        
+                        <button class="btn bttn" onClick="goHome()"><div style="height:20px; width:20px"><img src="img/home.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+   
+    
+    <div id='wrapper'>
+    </div>
+    
+    <script type="text/javascript">
+        
+        var userid= sessionStorage.getItem("userid");
+        var fullname = sessionStorage.getItem("fname")+" "+sessionStorage.getItem("lname");
+        var dp = sessionStorage.getItem("dp");
+        var un=sessionStorage.getItem('username');
+        var hash=sessionStorage.getItem('password');
+        
+        var graph = Viva.Graph.graph();
+        var graphics = Viva.Graph.View.svgGraphics();
+        nodeSize = 50;
+        
+        
+        
+        //$('#settngs').on({ 'touchend' : check() });
+        
+        
+        $(document).ready(function() {
+                          
+                          graph.addNode(userid, {name:fullname, url:dp, rel:'', dob:''});
+                          
+                          main(userid);
+                          
+                          userList();
+                          
+                          $("#search_name").autocomplete({
+                                                         source: fname,
+                                                         minLength: 0,
+                                                         select: function(event, ui) {
+                                                         //assign value back to the form element
+                                                         if(ui.item){
+                                                         $(event.target).val(ui.item.value);
+                                                         names=ui.item.value;
+                                                         }
+                                                         searchedUser();
+                                                         }
+                                                         }).data("autocomplete")._renderItem = function (ul, item) {
+                          var inner_html = '<a style="height:100% !important;">'
+                          +'<div style="height:30px !important; width:30px !important;"> '
+                          + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                          + '  </div> '
+                          +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                          //alert(item);
+                          return $('<li class="list_item_container"></li>')
+                          .data("item.autocomplete", item)
+                          .append(inner_html)
+                          .appendTo(ul);
+                          };
+                          
+                          function split( val ) {
+                          return val.split( /,\s*/ );
+                          }
+                          function extractLast( term ) {
+                          return split( term ).pop();
+                          }
+                          
+                          });
+        
+        function goHome(){
+            window.open('index.html', '_self');
+        }
+        
+        function search(){
+            
+            var full_name = $("#search_name").val();
+            window.open('searchResults.html?name='+full_name, '_self');
+        }
+        
+        function prof(){
+            var id = sessionStorage.getItem('userid');
+            window.open('profilePage.html?id='+id, '_self');
+            
+        }
+        
+        function jour(){
+            var id = sessionStorage.getItem('userid');
+            window.open('journals.html?jid='+id, '_self');
+            
+        }
+        
+        function goAlb(){
+            var id = sessionStorage.getItem('userid');
+            window.open('album.html?id='+id, '_self');
+            
+        }
+        
+        function check(){
+            if(document.getElementById("handler-left").checked)
+            document.getElementById("handler-left").checked=false
+            else
+            document.getElementById("handler-left").checked=true
+        }
+        
+        
+        var fname = new Array();
+        var fid= new Array();
+        var fpic= new Array();
+        var names;
+        function userList(){
+            var un=sessionStorage.getItem('username');
+            var hash=sessionStorage.getItem('password');
+            var userId=sessionStorage.getItem('userid');
+            url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+            $.get(url2,{}, function(data){
+                  
+                  data2 = $.parseJSON(data);
+                  $(data2).each(function(i,val){
+                                fname[i]=val.name;
+                                //alert(fname[i]);
+                                fid[i]=val.id;
+                                fpic[i]=val.picture;
+                                // alert(fid[i]);
+                                });
+                  
+                  });
+            
+        }
+        
+        function searchedUser(){
+            
+            var indexArray= new Array();
+            var index;
+            for(i=0;i<fname.length;i++){
+                if(names==fname[i]){
+                    index=i;
+                }
+            }
+            var id=fid[index];
+            var picture=fpic[index];
+            sessionStorage['sid'] = fid[index];
+            sessionStorage['sname'] =fname[index];
+            window.open('profilePage.html?id='+id, '_self');
+            
+        }
+        
+        function main(uid){
+            
+                var fthr, mthr, sps;
+        
+                $.get("http://famly.com/beta/public/ws/getFamilyTree.php", {userId:uid} , function(data){
+                  //alert(data);
+                  var tree = $.parseJSON(data);
+                      $.each(tree.spouse, function(key, val) {
+                             if(tree.spouse != 'none'){
+                             sps = key;
+                             graph.addNode(key, {name:val[0], url:val[1], rel:'Spouse', dob:val[2]});
+                             graph.addLink(uid,key);
+                             }
+                             });
+                      
+                      $.each(tree.mother, function(key, val) {
+                             if(tree.mother != 'none'){
+                             graph.addNode(key, {name:val[0], url:val[1], rel:'Mother', dob:val[2]});
+                             graph.addLink(uid,key);
+                             }
+                             });
+                      
+                      $.each(tree.father, function(key, val) {
+                         if(tree.father != 'none'){
+                         graph.addNode(key, {name:val[0], url:val[1], rel:'Father', dob:val[2]});
+                         graph.addLink(uid,key);
+                         }
+                         });
+                  
+                  if((tree.brother != 'none' || tree.sister != 'none'))
+                  {
+                  if(tree.brother == 'none')
+                  {
+                  
+                  $.each(tree.sister, function(key, val) {
+                         $.each(val, function(key2, val2){
+                                
+                                if(key2 == 'self'){
+                                graph.addNode(key, {name:val2[0], url:val2[1], rel:'Sister', dob:val2[2]});
+                                graph.addLink(uid,key);
+                                                                }
+                                else if(parseInt(key2)){
+                                graph.addNode(key, {name:val[0], url:val[1], rel:'Sister', dob:val[2]});
+                                graph.addLink(uid,key);
+                                                                }
+                                });
+                         });
+                  
+                  }
+                  else if(tree.sister == 'none')
+                  {
+                  
+                  $.each(tree.brother, function(key, val) {
+                         $.each(val, function(key2, val2){
+                                if(key2 == 'self'){
+                                graph.addNode(key, {name:val2[0], url:val2[1], rel:'Brother', dob:val2[2]});
+                                graph.addLink(uid,key);
+                                
+                                }
+                                
+                                else if(parseInt(key2)){
+                                graph.addNode(key, {name:val[0], url:val[1], rel:'Brother', dob:val[2]});
+                                graph.addLink(uid,key);
+                                
+                                }
+                                });
+                         });
+                  
+                  }
+                  else
+                  {
+                  
+                  $.each(tree.sister, function(key, val) {
+                         
+                         $.each(val, function(key2, val2){
+                                
+                                if(key2 == 'self'){
+                                graph.addNode(key, {name:val2[0], url:val2[1], rel:'Sister', dob:val2[2]});
+                                graph.addLink(uid,key);
+                                
+                                }
+                                else if(parseInt(key2)){
+                                graph.addNode(key, {name:val[0], url:val[1], rel:'Sister', dob:val[2]});
+                                graph.addLink(uid,key);
+                                }
+                                });
+                         });
+                  
+                  $.each(tree.brother, function(key, val) {
+                         $.each(val, function(key2, val2){
+                                
+                                if(key2 == 'self'){
+                                graph.addNode(key, {name:val2[0], url:val2[1], rel:'Brother', dob:val2[2]});
+                                graph.addLink(uid,key);
+                                }
+                                else if(parseInt(key2)){
+                                graph.addNode(key, {name:val[0], url:val[1], rel:'Brother', dob:val[2]});
+                                graph.addLink(uid,key);
+                                
+                                }
+                                });
+                         });
+                  
+                  
+                  }
+                  
+                  
+                  }
+                  
+                      
+                      
+                      if((tree.son != 'none' || tree.daughter != 'none'))
+                      {
+                      if(tree.son == 'none')
+                      {
+                      
+                      $.each(tree.daughter, function(key, val) {
+                             $.each(val, function(key2, val2){
+                                    
+                                    if(key2 == 'self'){
+                                    graph.addNode(key, {name:val2[0], url:val2[1], rel:'Daughter', dob:val2[2]});
+                                    graph.addLink(uid,key);
+                                    }
+                                    else if(parseInt(key2)){
+                                    graph.addNode(key, {name:val[0], url:val[1], rel:'Daughter', dob:val[2]});
+                                    graph.addLink(uid,key);
+                                    }
+                                    });
+                             });
+                      
+                      }
+                      else if(tree.daughter == 'none')
+                      {
+                      
+                      $.each(tree.son, function(key, val) {
+                             $.each(val, function(key2, val2){
+                                    if(key2 == 'self'){
+                                    graph.addNode(key, {name:val2[0], url:val2[1], rel:'Son', dob:val2[2]});
+                                    graph.addLink(uid,key);
+                                    
+                                    }
+                                    
+                                    else if(parseInt(key2)){
+                                    graph.addNode(key, {name:val[0], url:val[1], rel:'Son', dob:val[2]});
+                                    graph.addLink(uid,key);
+                                    
+                                    }
+                                    });
+                             });
+                      
+                      }
+                      else
+                      {
+                      
+                      $.each(tree.daughter, function(key, val) {
+                             
+                             $.each(val, function(key2, val2){
+                                    
+                                    if(key2 == 'self'){
+                                    graph.addNode(key, {name:val2[0], url:val2[1], rel:'Daughter', dob:val2[2]});
+                                    graph.addLink(uid,key);
+                                    
+                                    }
+                                    else if(parseInt(key2)){
+                                    graph.addNode(key, {name:val[0], url:val[1], rel:'Daughter', dob:val[2]});
+                                    graph.addLink(uid,key);
+                                    }
+                                    });
+                             });
+                      
+                      $.each(tree.son, function(key, val) {
+                             $.each(val, function(key2, val2){
+                                    
+                                    if(key2 == 'self'){
+                                    graph.addNode(key, {name:val2[0], url:val2[1], rel:'Son', dob:val2[2]});
+                                    graph.addLink(uid,key);
+                                    }
+                                    else if(parseInt(key2)){
+                                    graph.addNode(key, {name:val[0], url:val[1], rel:'Son', dob:val[2]});
+                                    graph.addLink(uid,key);
+                                    
+                                    }
+                                    });
+                             });
+                      
+                      
+                      }
+                      
+                      
+                      }
+                  
+                  
+                  });
+            
+        }
+        
+        
+        graphics.node(function(node) {
+                      
+                      var ui = Viva.Graph.svg('g'),
+                      
+                      
+                      svgText = Viva.Graph.svg('text')
+                      .attr('x', '25px')
+                      .attr('y', '80px')
+                      .attr('style','fill: #464141;  font-size: 10px; text-anchor: middle; stroke-width:2')
+                      .text(node.data.name),
+                      
+                      svgText2 = Viva.Graph.svg('text')
+                      .attr('x', '25px')
+                      .attr('y', '65px')
+                      .attr('style','fill: #464141; font-size: 10px; text-anchor: middle; stroke-width:2')
+                      .text(node.data.rel),
+                      
+                      svgText3 = Viva.Graph.svg('text')
+                      .attr('x', '25px')
+                      .attr('y', '95px')
+                      .attr('style','fill: #F88E1E; font-size: 9px; text-anchor: middle; stroke-width:2')
+                      .text(node.data.dob),
+                      
+                      img = Viva.Graph.svg('image')
+                      .attr('width', 49)
+                      .attr('height', 49)
+                      .attr('x', 0)
+                      .attr('y', 0)
+                      .attr('preserveAspectRatio','xMidYMid slice')
+                      .link('http://famly.com/beta/public/uploads/user_pics/thumbs/' + node.data.url),
+                      
+                      rct = Viva.Graph.svg('rect')
+                      .attr('width', nodeSize)
+                      .attr('height', nodeSize)
+                      .attr('x', 0)
+                      .attr('y', 0)
+                      .attr('rx', 2)
+                      .attr('ry', 2)
+                      .attr('style', 'fill:none; stroke:#464141; stroke-width:2');
+                      
+                      //patt.append(svgCirc);
+                      ui.append(img);
+                      ui.append(rct);
+                      ui.append(svgText3);
+                      ui.append(svgText2);
+                      ui.append(svgText);
+                      
+                      $(img).on({ 'touchend' : function(){
+                                console.log(node.id);
+                                if(node.id != userid){
+                                    main(node.id);
+                                }
+                                
+                                }
+                            });
+                      
+                      return ui;
+                      
+                      });
+        
+        graphics.placeNode(function(nodeUI, pos) {
+                           
+                           nodeUI.attr('transform',
+                                       'translate(' +
+                                       (pos.x - nodeSize/2) + ',' + (pos.y - nodeSize/2) + ')');
+                           });
+        
+        graphics.link(function(link){
+                      return Viva.Graph.svg('path')
+                      .attr('stroke', '#464141');
+                      }).placeLink(function(linkUI, fromPos, toPos) {
+                                   // linkUI - is the object returend from link() callback above.
+                                   var data = 'M' + fromPos.x + ',' + fromPos.y +
+                                   'L' + toPos.x + ',' + toPos.y;
+                                   
+                                   linkUI.attr("d", data);
+                                   
+                                   });
+        
+        
+        // Render the graph
+        var renderer = Viva.Graph.View.renderer(graph, {
+                                                graphics : graphics,
+                                                container  : document.getElementById('wrapper')
+                                                });
+        renderer.run();
+            
+        
+        
+        
+        </script>
+    
+</body>
+</html>

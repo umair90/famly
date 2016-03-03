@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+            <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+        </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                            
+                            <style>
+                                body{
+                                    background: url(img/back.jpg) repeat;
+                                }
+                                .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                                .thead{
+                                    font-weight:600;
+                                    font-size:9px;
+                                }
+                                input{
+                                    width:95%
+                                }
+                                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                                
+                                #wrapper{
+                                    padding-top:15%;
+                                }
+                                </style>
+                            <script>
+                                
+                                //$.blockUI();
+                                function back(){
+                                    //$.blockUI();
+                                    window.location.href = 'login.html';
+                                    //$.unblockUI();
+                                    
+                                }
+                                //$.unblockUI();
+                                </script>
+                            <script src="js/cordova.js"></script>
+                            <script src="js/jquery.js"></script>
+                            <script src="js/jquery.blockUI.js"></script>
+                            <script src="bootstrap/js/bootstrap.min.js"></script>
+                            <script src="js/sha1.js"></script>
+
+    </head>
+
+    <body>
+       <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top"> 
+        <div class="tabback">
+        <div class="tab navbar navbar-inverse navbar-fixed-top">
+            <div style="width:25%; margin-left:4%;">
+                <button class="btn btn-small pull-left" id="back" onClick="back();">Cancel</button>
+            </div>
+            <div style="width:25%; margin-left:72%;">
+                <button class="btn btn-small pull-right" id="reg" onClick="validate()">Register</button>
+            </div>
+            
+            </div>
+            </div>
+        </div>
+        <div id="wrapper">
+                <div id="message" style="display:none; position:relative; float:left; margin-top:10%; width:100%">
+                    <div  class="alert alert-error">
+                        <button type="button" class="close" onClick="hideAlert1()">&times;</button>
+                        <strong>Error!</strong> <span id="incorrect"> </span>
+                    </div>
+                </div>
+                
+                <table class="table table-striped" style="position:relative; float:left; margin-top:10%">
+                    
+                    <tr>
+                        <td class="thead">Username</td>
+                        <td class="tdata"><input id="textinput1" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Password</td>
+                        <td class="tdata"><input id="textinput2" type="password"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">First Name</td>
+                        <td class="tdata"><input id="textinput3" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Last Name</td>
+                        <td class="tdata"><input id="textinput4" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Email</td>
+                        <td class="tdata"><input id="textinput5" type="email"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Gender</td>
+                        <td class="tdata">
+                            <label class="radio">
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                    Male
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    Female
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Date Of Birth</td>
+                        <td class="tdata">
+                            <select id="month" style="width:30%">
+                                <option>Jan</option>
+                                <option>Feb</option>
+                                <option>Mar</option>
+                                <option>Apr</option>
+                                <option>May</option>
+                                <option>Jun</option>
+                                <option>Jul</option>
+                                <option>Aug</option>
+                                <option>Sep</option>
+                                <option>Oct</option>
+                                <option>Nov</option>
+                                <option>Dec</option>
+                            </select>
+                            <select id="days" style="width:25%">
+                            </select>
+                            <select id="year" style="width:30%">
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <script>
+            
+            var errors = "";
+            
+            for (var i=1;i<32;i++)
+            {
+                $("#days").append("<option>"+i+"</option>");
+            }
+            for (var i=2012;i>1939;i--)
+            {
+                $("#year").append("<option>"+i+"</option>");
+            }
+            
+            function validate(){
+                var un = document.getElementById( 'textinput1' ).value;
+                var pw = document.getElementById( 'textinput2' ).value;
+                var fn = document.getElementById( 'textinput3' ).value;
+                var ln = document.getElementById( 'textinput4' ).value;
+                var em = document.getElementById( 'textinput5' ).value;
+                var gender="male";
+                var atpos=em.indexOf("@");
+                var dotpos=em.lastIndexOf(".");
+                
+                
+                var userNameValid=validateUsername(un);
+                var passwordValid=validatePassword(pw);
+                var fnValid=validatefirstName(fn);
+                var lnValid=validatelastName(ln);
+                
+                
+                
+                
+                if (atpos<1 || dotpos<atpos+2 || dotpos+2>=em.length)
+                {
+                    errors += "<br>Please Enter Valid Email address !";
+                    
+                }else if( un == "" )
+                {
+                    errors += "<br>Username is required !";
+                    
+                }
+                
+                else if( pw == "" )
+                {
+                    errors += "<br>Password is required !";
+                }
+                
+                else if( fn == "" )
+                {
+                    errors += "<br>First Name is required !";
+                }
+                
+                else if( ln == "" )
+                {
+                    errors += "<br>Last Name is required !";
+                }
+                else if( em == "" )
+                {
+                    errors += "<br>Email is required  !";
+                }
+                else if( userNameValid==false )
+                {   document.getElementById( 'textinput1' ).focus();
+                    errors += "<br>Invalid Username  !";
+                }
+                else if( passwordValid==false )
+                {
+                    errors += "<br>Invalid Password  !";
+                }
+                else if( fnValid==false )
+                {
+                    errors += "<br>Invalid First Name  !";
+                }
+                else if( lnValid==false )
+                {
+                    errors += "<br>Invalid Last Name  !";
+                }
+                
+                if (errors != ""){
+                    $("#message").slideDown();
+                    $("#incorrect").html(errors);
+                    errors = "";
+                    return;
+                }
+                else{
+                    if($("#message").is(":visible"))
+                    $("#message").slideUp();
+                    
+                    if(document.getElementById("optionsRadios2").checked==true){
+                        gender=="female";}
+                    
+                    
+                    
+                    var select = document.getElementById("year");
+                    var year= select.options[select.selectedIndex].value;
+                    
+                    var select = document.getElementById("month");
+                    var month= select.options[select.selectedIndex].value;
+                    
+                    var hash=SHA1(pw);
+                    var select = document.getElementById("days");
+                    var days= select.options[select.selectedIndex].value;
+                    var monthNo;
+                    if(days<10){
+                        days=0+days;
+                    }
+                    
+                    if(month=="Jan"){
+                        monthNo="01";
+                    }else if(month=="Feb"){
+                        monthNo="02";
+                    }else if(month=="Mar"){
+                        monthNo="03";
+                    }else if(month=="Apr"){
+                        monthNo="04";
+                    }else if(month=="May"){
+                        monthNo="05";
+                    }else if(month=="Jun"){
+                        monthNo="06";
+                    }else if(month=="Jul"){
+                        monthNo="07";
+                    }else if(month=="Aug"){
+                        monthNo="08";
+                    }else if(month=="Sep"){
+                        monthNo="09";
+                    }else if(month=="Oct"){
+                        monthNo="10";
+                    }else if(month=="Nov"){
+                        monthNo="11";
+                    }else if(month=="Dec"){
+                        monthNo="12";
+                    }
+                    
+                    var dob=year+"-"+monthNo+"-"+days;
+                    url='http://famly.com/beta/public/ws/signup.php';
+                    $.post(url, {username: un, password: hash,firstname:fn,lastname:ln,email:em,gender:gender,dob:dob, social:0},function(data){
+                           
+                           if(data==1){
+                           $.blockUI();
+                           navigator.notification.alert("Signup Successful",alertDismissed,"Message","OK");
+                           }else{
+                           $.blockUI();
+                           navigator.notification.alert("Signup Failed",alertDismissed2,"Message","OK");
+                           }
+                           
+                           
+                           });
+                    
+                }
+            }   // function Validate ends
+            function onLoad() {
+                document.addEventListener("deviceready", onDeviceReady, false);
+                
+            }
+            function validateUsername(un){
+                var valid=true;
+                var filter=/^[a-zA-Z]+$/;
+                var test_bool = filter.test(un);
+                if(test_bool==false){
+                    errors += "<br>Username must only contain Alphabets!";
+                    valid=false;
+                }
+                else if(un.length<3 || un.length>50){
+                    errors += "<br>Username must be between 3 and 50!";
+                    valid=false;
+                }
+                
+                
+                return valid;
+                
+                
+            } // fun ends
+            
+            
+            function alertDismissed() {
+                $.unblockUI();
+                window.location.href="login.html";
+                
+            }
+            function alertDismissed2() {
+                $.unblockUI();
+                
+            }
+            
+            function validatefirstName(name){
+                var valid=true;
+                var filter=/^[a-zA-Z ]+$/;
+                var test_bool = filter.test(name);
+                if(test_bool==false){
+                    errors += "<br>First Name must contain Alphabets!";
+                    valid=false;
+                }
+                return valid;
+                
+                
+            }
+            
+            function validatelastName(name){
+                var valid=true;
+                var filter=/^[a-zA-Z ]+$/;
+                var test_bool = filter.test(name);
+                if(test_bool==false){
+                    errors += "<br>Last Name must contain Alphabets!";
+                    valid=false;
+                }
+                
+                
+                return valid;
+                
+                
+            }
+            
+            function validatePassword(pass){
+                if(pass.length<6){
+                    errors += "<br>Password must contain atleast 6 characters!";
+                    return false;
+                }
+                return true;
+                
+            }
+            
+            
+            
+            function onDeviceReady() {
+                // Now safe to use the Cordova API
+               
+                            
+            }
+            
+            function hideAlert1(){
+                $("#message").slideToggle();
+                errors = "";
+            }
+            </script>
+    </body>
+</html>
+
+

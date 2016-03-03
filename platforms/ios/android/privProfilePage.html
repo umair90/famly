@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+            <link href="js/slide.css" rel="stylesheet" media="screen">
+                <link href="js/slider.css" rel="stylesheet" media="screen">
+                    <link rel="stylesheet" type="text/css" href="js/modal.css" />
+                    <style>
+                        div {
+                            -webkit-touch-callout: none;
+                            -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                        }
+                        body{
+                            background: url(img/back.jpg) repeat;
+                            overflow: hidden;
+                        }
+                        * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                        
+                        .b
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            color:#FFF !important;
+                        }
+                        
+                        .bttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:45px !important;
+                            height:45px !important;
+                        }
+                        
+                        .button_back
+                        {
+                            background-image: url(img/bk.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        .button_home
+                        {
+                            background-image: url(img/home.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        .btttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:30px !important;
+                            height:20px !important;
+                            color:#FFF !important;
+                        }
+                        
+                        .dbn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:90% !important;
+                            height:20px !important;
+                            color:#FFF !important;
+                            margin-top: -8px;
+                        }
+                        
+                        .cbn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:80px !important;
+                            height:27px !important;
+                            color:#FFF !important;
+                            padding: 1% !important;
+                        }
+                        
+                        .layout-slider { margin-top: 30px; width: 80%; }
+
+                        .lbl{
+                            float:left;
+                            position:relative;
+                            width:20%;
+                            font-size:10px;
+                            color:#F88E1E;
+                            font-weight:600;
+                        }
+                        
+                        .det{
+                            float:left;
+                            position:relative;
+                            width:60%;
+                            font-size:13px;
+                            text-align:left;
+                            color:#999;
+                            font-weight:600;
+                            padding-left:5%;
+                        }
+                        .abtme{
+                            width:98%;
+                            font-size:13px;
+                            text-align:left;
+                            color:#999;
+                            font-weight:600;
+                            text-align:center;
+                        }
+                        .det_info{
+                            width:98%;
+                            text-align:left;
+                            color:#999;
+                            font-size:16px;
+                            font-weight:600;
+                            text-align:center;
+                        }
+                       
+                        .main_canvas{
+                            background: url(img/back.jpg) repeat;
+                            width:100%;
+                            float:left;
+                        }
+                        
+                        .detail_box_area{
+                            
+                            background: url(img/back.jpg) repeat;
+                            position: relative;
+                            float:left;
+                            width:100%;
+                        }
+                        .minus_row{
+                            background: url(img/back.jpg) repeat;
+                            width:100%;
+                            float:left;
+                        }
+                        .blue_content_box{
+                            
+                            width:100%;
+                            float:left;
+                            position:relative;
+                        }
+                        #stream{
+                            background: #FFF repeat;
+                            width:100%;
+                            float:left;
+                        
+                        }
+                        @media only screen and (min-height: 700px) {
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:58% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        @media only screen and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:58% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        @media only screen and (device-height: 480px){
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:50% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        
+                        #rlist{
+                            padding-left: 2%;
+                            padding-right: 2%;
+                            font-weight: 600;
+                            margin-top: 30px;
+                            background: transparent;
+                            display: inline-block;
+                            height: 83%;
+                            width: 96%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                        }
+                        #rlist li{
+                            height: 100%;
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                        }
+                        
+                        #plist{
+                            padding-left: 2%;
+                            padding-right: 2%;
+                            font-weight: 600;
+                            margin-top: 30px;
+                            background: #FFF;
+                            display: inline-block;
+                            height: 90%;
+                            width: 96%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                        }
+                        #plist li{
+                            height: 100%;
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                        }
+                        
+                        #clist{
+                            
+                            margin-top: 30px;
+                            background: #F0F0F5;
+                            display: inline-block;
+                            height: 80%;
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                        }
+                        #clist #comment{
+                            width: 80%;
+                            float: left;
+                            position: relative;
+                            margin:0px;
+                            border-bottom: 1px solid white;
+                        }
+                        
+                        #newc {
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                        }
+                        
+                        #abt{
+                            padding-left: 2%;
+                            padding-right: 2%;
+                            font-weight: 600;
+                            margin-top: 30px;
+                            background: #F0F0F5;
+                            display: inline-block;
+                            height: 90%;
+                            width: 96%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                            
+                        }
+                        #abt p{
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                        }
+                        
+                        #menu {
+                            background: none repeat scroll 0 0 #333333;
+                            bottom: 0;
+                            opacity: 0;
+                            overflow: auto;
+                            position: fixed;
+                            top: 0;
+                            width: 70%;
+                            z-index: 1;
+                        }
+                        #menu ul {
+                            margin-left: 10px;
+                            display: block;
+                            height: 100%;
+                            overflow-y: scroll;
+                        }
+                        #menu ul li a {
+                            background:#333333;
+                            border-bottom: 1px solid #222222;
+                            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                            color: #FFFFFF;
+                            display: block;
+                            font-weight: bold;
+                            padding: 10px;
+                            text-decoration: none;
+                            text-shadow: 0 1px 0 #000000;
+                        }
+                        #menu ul li a.active {
+                            background-color: #336C95;
+                        }
+                        
+                        
+                        #wrapper {
+                            background: url(img/back.jpg) repeat;
+                            position: absolute;
+                            top:0;
+                            left:0;
+                            bottom:0;
+                            right:0;
+                            z-index: 9998;
+                            padding-top: 25%;
+                            width:100%;
+                        }
+                        
+                        #activity{
+                            margin-top:5%;
+                        }
+                        </style>
+                    
+                    
+                    </head>
+    
+    <body>
+        
+        <script src="js/cordova.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.blockUI.js"></script>
+        <script src="js/jquery.iosslider.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+        
+        
+        <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+        
+        
+        <div id="menu">
+            <ul>
+                <li>
+                    <div class="form-search">
+                        <div class="input-append">
+                            <input id="search_name" type="text" class="span3 input-medium search-query" placeholder="Search">
+                                <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                </div>
+                    </div>
+                </li>
+                <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                
+                
+            </ul>
+        </div>
+        
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+            
+            <div id="panel3" class="panel3">
+                <div id="msgList"></div>
+                <div id="newMsgButton" style="display:none">
+                    <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-11px; height:25px; width:25px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>
+                </div>
+                
+                <div id="reply_post" style="display:none;">
+                    
+                    <div  class="input-append" style="margin-bottom:-7px; margin-top:-6px">
+                        <textarea id="repText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingRep(event)"></textarea>
+                        <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                         <button id="rib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                         <button id="rvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                         </div>-->
+                    </div>
+                    <div id="attachRepLink" class="input-append" style="padding-bottom:1%; display:none">
+                        <input id="repLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                        <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                    </div>
+                    <div id="repImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                        <img id="repImage" style="width:100%; height:100%; overflow:hidden">
+                            </div>
+                    <div id="repVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                        <video id="repVid" style="width:100%; height:100%; overflow:hidden">
+                            </div>
+                    <div style="margin-left:50%">
+                        <button class="btn" type="button" onClick="emptyRep(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                        <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="replyMsg()">
+                            Send
+                        </button>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+            
+            <div id="panel4" style=" z-index:999 !important">
+                
+                <div class="input-append" style="padding:3%; margin-bottom:-5px">
+                    <textarea id="statText" rows="5" placeholder="What do you want to share?" type="text" style="font-size:15px; width:82%; margin-top:4%" onkeypress="linkingStat(event)"></textarea>
+                    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                        <button id="sib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                        <button id="svb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                        <a id="locList" class="btn btn-large" type="button" style="width:0px;" href="#pop"><div style="height:14px; width:16px"><img src="img/location_post.png" style="margin-top:-10px; margin-left:-15px; "></div></a>
+                        <!--     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button> -->
+                    </div>
+                    
+                </div>
+                <div id="attachStatLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                    <input id="statLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                </div>
+                <div id="statImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <img id="statImage" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div id="statVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <video id="statVid" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div style=" padding-top:1%; margin-left:38%">
+                    <button class="btn" type="button" onClick="emptyStat(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                    <div class="btn-group">
+                        <button id="updt" class="btn" style="color:#BDBDBD; font-weight:600; z-index:999 !important">Update</button>
+                        <button id="updtView" class="btn">
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="progress progress-striped active" id="progCont" style="margin-left:5%; margin-top:5px; width:90%; display:none">
+                    <div id="prgbar" class="bar" style="width: 100%;"></div>
+                </div>
+                <div id="postview" class="layout-slider" style="margin-left:10%; display:none">
+                    <input id="Slider2" type="slider" name="price" value="1;10" />
+                </div>
+                <script>
+                    $("#Slider2").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                    </script>
+                &nbsp;
+            </div>
+            
+            <div id="panel5">
+                <div class="content clearfix" align="center">
+                    <div class="layout-slider">
+                        <input id="Slider1" type="slider" name="price" value="1;10" />
+                    </div>
+                    <script>
+                        $("#Slider1").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                        
+                        </script>
+                    
+                </div>
+            </div>
+            
+            <div id="panel7">
+                <div id="recp" style="padding-top:3%; padding-bottom:1%">
+                    <input id="msgRecp" placeholder="To" type="text" style="font-size:15px; width:90%"/>
+                </div>
+                <div class="input-append" style="margin-bottom:-5px">
+                    
+                    <textarea id="msgText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingMsg(event)"></textarea>
+                    <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                     <button id="mib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                     <button id="mvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                     <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                     </div>-->
+                    
+                </div>
+                <div id="attachMsgLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                    <input id="msgLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png"/ style="margin-top:-4px"></div></button>
+                </div>
+                <div id="msgImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <img id="msgImage" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div id="msgVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <video id="msgVid" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div style=" padding-top:1%; padding-left:50%">
+                    <button class="btn" type="button" onClick="emptyMsg(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                    <button class="btn" type="button" onClick="sendMsg()" style="color:#BDBDBD; font-weight:600">Send</button>
+                </div>
+                &nbsp;
+            </div>
+            
+            <div id="panel8" class="panel9">
+                <div id="notifList"></div>
+            </div>
+            
+            <div class="tabback">
+                <div class="tab navbar navbar-inverse navbar-fixed-top">
+                    <div style="position:absolute; left:2px; top:-3px">
+                        <div class="btn-group">
+                            <button class="btn button_back" onClick="goBack()"></button>
+                        </div>
+                    </div>
+                    <div id="clos" style="background:transparent; width:50%; height:90%; margin-left:35%">&nbsp;</div>
+                    <div style="position:absolute; right:2px; top:-3px">
+                        <div class="btn-group">
+                            <button class="btn button_home" onClick="goHome()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+                <a href="#x" class="overlay" id="commentPop"></a>
+                <div class="popup">
+                    <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Comments</div>
+                    <div id="clist">
+                    </div>
+                    <div id="newc">
+                    </div>
+                    <a class="close" href="#close"></a>
+                </div>
+
+        
+                <a href="#x" class="overlay" id="rel_pop"></a>
+                <div class="popup">
+                    <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Add As</div>
+                    <div id="rlist">
+                        <ul id="rul" class="nav nav-tabs nav-stacked">
+                        </ul>
+                    </div>
+                    <a class="close" href="#close"></a>
+                </div>
+                
+                <a href="#x" class="overlay" id="userInfo"></a>
+                <div class="popup">
+                    <div id="hd" class="navbar navbar-inverse navbar-fixed-top">About</div>
+                    <div id="abt">
+                        
+                    </div>
+                    <a class="close" href="#close"></a>
+                </div>
+                
+        <div id="wrapper">
+            <div class="detail_box_area">
+            
+                <div id="treeview" class="blue_content_box">
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+        
+                <script>
+                    
+                    var summary;
+                    var panelOpened = 4;
+                    var uid =  getUrlVars()['id'];
+                    var rqst =  getUrlVars()['status'];
+                    var name = sessionStorage.getItem("fname")+" "+sessionStorage.getItem("lname");
+                    
+                    
+                    
+                    function checkIn(name){
+                        document.getElementById('statText').value = "I am at "+name;
+                    }
+                    
+                    function showGift(url){
+                        var ref = window.open(url, '_blank', 'location=yes');
+                        //ref.addEventListener('loadstop', iabStop);
+                        //ref.addEventListener('exit', iabClose);
+                    }
+                    
+                    function check(){
+                        if(document.getElementById("handler-left").checked)
+                        document.getElementById("handler-left").checked=false
+                        else
+                        document.getElementById("handler-left").checked=true
+                    }
+                    
+                    function linkingStat(evt) {
+                        evt = (evt) ? evt : event;
+                        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                        ((evt.which) ? evt.which : 0));
+                        if (charCode == 62){
+                            $("#attachStatLink").slideDown();
+                            //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 60){
+                            //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 64){
+                            /*   $("#textarea1").autocomplete({
+                             source: ["ActionScript",
+                             "AppleScript",
+                             "Asp",
+                             "BASIC",
+                             "C",
+                             "C++",
+                             "Clojure",
+                             "COBOL",
+                             "ColdFusion",
+                             "Erlang",
+                             "Fortran",
+                             "Groovy",
+                             "Haskell",
+                             "Java",
+                             "JavaScript",
+                             "Lisp",
+                             "Perl",
+                             "PHP",
+                             "Python",
+                             "Ruby",
+                             "Scala",
+                             "Scheme"]
+                             }); */
+                        }
+                        
+                    }
+                    
+                    function linkingRep(evt) {
+                        evt = (evt) ? evt : event;
+                        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                        ((evt.which) ? evt.which : 0));
+                        if (charCode == 62){
+                            $("#attachRepLink").slideDown();
+                            //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 60){
+                            //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        
+                    }
+                    
+                    function linkingMsg(evt) {
+                        evt = (evt) ? evt : event;
+                        var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                                                                        ((evt.which) ? evt.which : 0));
+                        if (charCode == 62){
+                            $("#attachMsgLink").slideDown();
+                            //$("#textarea1").attr("style","color:#12B6E9; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        if (charCode == 60){
+                            //$("#textarea1").attr("style","color:#000; font-size:15px; width:79%; margin-top:4%");
+                        }
+                        
+                    }
+                    
+                    function emptyStat(evt) {
+                        if($("#statImageDiv").is(":visible")){
+                            $('#statImageDiv').slideUp();
+                            sessionStorage['imgAtch'] = "";
+                            $("#svb").removeAttr("disabled");
+                            $("#progCont").slideUp();
+                        }
+                        if($("#statVidDiv").is(":visible")){
+                            $('#statVidDiv').slideUp();
+                            sessionStorage['vidAtch'] = "";
+                            $("#sib").removeAttr("disabled");
+                            $("#progCont").slideUp();
+                        }
+                        $("#statText").val("");
+                        $("#statLink").val("");
+                        $("#attachStatLink").slideUp();
+                        $("div[id^=panel]").slideUp(400);
+                    }
+                    
+                    function emptyRep(evt) {
+                        if($("#repImageDiv").is(":visible")){
+                            $('#repImageDiv').slideUp();
+                            sessionStorage['imgAtch'] = "";
+                            $("#rvb").removeAttr("disabled");
+                        }
+                        if($("#repVidDiv").is(":visible")){
+                            $('#repVidDiv').slideUp();
+                            sessionStorage['vidAtch'] = "";
+                            $("#rib").removeAttr("disabled");
+                        }
+                        $("#repText").val("");
+                        $("#repLink").val("");
+                        $("#attachRepLink").slideUp();
+                        $("div[id^=panel]").slideUp(400);
+                    }
+                    
+                    function emptyMsg(evt) {
+                        if($("#msgImageDiv").is(":visible")){
+                            $('#msgImageDiv').slideUp();
+                            sessionStorage['imgAtch'] = "";
+                            $("#mvb").removeAttr("disabled");
+                        }
+                        if($("#msgVidDiv").is(":visible")){
+                            $('#msgVidDiv').slideUp();
+                            sessionStorage['vidAtch'] = "";
+                            $("#mib").removeAttr("disabled");
+                        }
+                        $("#msgRecp").val("")
+                        $("#msgText").val("");
+                        $("#msgLink").val("");
+                        $("#attachMsgLink").slideUp();
+                        $("div[id^=panel]").slideUp(400);
+                    }
+                    
+                    function showBrowser(){
+                        var ref = window.open('http://www.bing.com', '_blank', 'location=yes');
+                        ref.addEventListener('loadstop', iabStop);
+                        ref.addEventListener('exit', iabClose);
+                    }
+                    
+                    function iabStop(event){
+                        sessionStorage['url'] = event.url;
+                    }
+                    
+                    function iabClose(event){
+                        if($("#attachStatLink").is(":visible"))
+                        $("#statLink").val(sessionStorage.getItem('url'));
+                        else if($("#attachRepLink").is(":visible"))
+                        $("#repLink").val(sessionStorage.getItem('url'));
+                        else if($("#attachMsgLink").is(":visible"))
+                        $("#msgLink").val(sessionStorage.getItem('url'));
+                    }
+                    
+                    $("#clos").click(function(){
+                                     if ($("div[id^=panel]").is(":visible")){
+                                     $("div[id^=panel]").slideUp(400);
+                                     }
+                                     else{
+                                     if(panelOpened == 3)
+                                     {
+                                     showMsgs();
+                                     }
+                                     else if(panelOpened == 8)
+                                     {
+                                     showNotifs();
+                            
+                                     }
+                                     $("div[id=panel"+panelOpened+"]").slideDown(400);
+                                     }
+                                     });
+                    
+                    function showPanel(id){
+                        //window.scrollTo(0,0);
+                        if ($("div[id^=panel]").is(":visible")){
+                            $("div[id^=panel]").slideUp(400);
+                        }
+                        if(id == 3)
+                        {
+                            showMsgs();
+                        }
+                        else if(id == 8)
+                        {
+                            showNotifs();
+                            
+                        }
+                        
+                        if ($("#panel"+id).is(":visible")){
+                            $("#panel"+id).slideUp(400);
+                        }else{
+                            if(id==3){
+                                $("#panel"+id).slideDown(400);
+                            }
+                            else{
+                                
+                                $("#panel"+id).slideDown(400);
+                                //$("#statText").focus();
+                                $("#stream").show();
+                            }
+                        }
+                    }
+                    
+                    function showGiftNotifs(){
+                        url2 = 'http://famly.com/beta/public/ws/giftNotificaton.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        //$("#panel3").attr("class","panel3");
+                        var currentDate = new Date()
+                        var day = currentDate.getDate()
+                        var month = currentDate.getMonth()
+                        var year = currentDate.getFullYear()
+                        var currentTime = new Date()
+                        var hours = currentTime.getHours()
+                        var minutes = currentTime.getMinutes()
+                        var seconds = currentTime.getSeconds()
+                        var currentDateTime= new Date(year,month,day,hours,minutes,seconds,00);
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              //alert(data);
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            //alert(val.sender_name);
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            
+                                            var postDateTime=new Date(postyyyy,postmm,postdd);
+                                            var where = val.event_venue+', '+val.event_city+', '+val.event_state+', '+val.event_country;
+                                            var timeTrack=timeDifference(currentDateTime,postDateTime);
+                                            
+                                            if(val.status == 'Pending' || val.status == 'Read'){
+                                            $("#notifList").append('<div id="gnot'+val.event_id+'" style="position:relative; float:left; width:100%; background: #FFF; margin-bottom:2%"> '
+                                                                   //+ ' <a href="#pop2">'
+                                                                   + ' <div style="position:relative; float:left; height:60px !important; width:60px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.profile_picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                   + '  </div> '
+                                                                   + ' <div align="center" style="width:40%; padding:5px; position:relative; float:left"> '
+                                                                   + '  <p style="color:#12B6E9; font-weight:600">'+val.user_name +'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px;">Sent You A Gift</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                                   +'  </div> '
+                                                                   
+                                                                   + ' <div style="width:33%; position:relative; float:right"> '
+                                                                   + ' <button class="btn" type="button" onClick="giftMsg('+val.sender_id+')" style="color:#BDBDBD; font-weight:600">Say Thanks</button> '
+                                                                   
+                                                                   + '  </div> '
+                                                                   // + ' </a>'
+                                                                   + '  </div>');
+                                            }
+                                            
+                                            });
+                              
+                              });
+                    }
+                    
+                    function giftMsg(sid){
+                        var sname= fname[fid.indexOf(sid.toString())];
+                        document.getElementById('msgRecp').value=sname;
+                        $("div[id^=panel]").slideUp(400);
+                        $("div#panel7").slideDown(400);
+                        
+                    }
+                    
+                    function showEventNotifs(){
+                        url2 = 'http://famly.com/beta/public/ws/eventNotification.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        //$("#panel3").attr("class","panel3");
+                        var currentDate = new Date()
+                        var day = currentDate.getDate()
+                        var month = currentDate.getMonth()
+                        var year = currentDate.getFullYear()
+                        var currentTime = new Date()
+                        var hours = currentTime.getHours()
+                        var minutes = currentTime.getMinutes()
+                        var seconds = currentTime.getSeconds()
+                        var currentDateTime= new Date(year,month,day,hours,minutes,seconds,00);
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              //alert(data);
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            //alert(val.sender_name);
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            
+                                            var postDateTime=new Date(postyyyy,postmm,postdd);
+                                            var where = val.event_venue+', '+val.event_city+', '+val.event_state+', '+val.event_country;
+                                            var timeTrack=timeDifference(currentDateTime,postDateTime);
+                                            
+                                            if(val.status == 'Pending' || val.status == 'Read'){
+                                            $("#notifList").append('<div id="evenot'+val.event_id+'" style="position:relative; float:left; width:100%; background: #FFF; margin-bottom:2%" onClick="popEve('+val.event_id+',\''+val.event_title+'\',\''+val.event_start_date+'\',\''+val.event_end_date+'\',\''+where+'\',\''+val.event_description+'\')"> '
+                                                                   + ' <a href="#pop2">'
+                                                                   + ' <div style="position:relative; float:left; height:60px !important; width:60px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.event_user_picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                   + '  </div> '
+                                                                   + ' <div align="center" style="width:50%; padding:5px; position:relative; float:left"> '
+                                                                   + '  <p style="color:#12B6E9; font-weight:600">'+val.event_user +'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px;">Invited You To '+val.event_title+'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px;">'+val.usersWhoJoinedThisEvent+' More People Invited </p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                                   +'  </div> '
+                                                                   + ' </a>'
+                                                                   + '  </div>');
+                                            }
+                                            
+                                            });
+                              
+                              });
+                        //showGiftNotifs();
+                    }
+                    
+                    function popEve(evid, title, start, end, loc, desc){
+                        sessionStorage["notifEvent"] = evid;
+                        $("#plist2").empty();
+                        $("#plist2").append(' <p> <span class="lbl">Name: </span> <span class="det">'+title+'</span></p>'
+                                            + ' <p> <span class="lbl">Start: </span> <span class="det">'+start+'</span></p>'
+                                            + ' <p> <span class="lbl">End: </span> <span class="det">'+end+'</span></p>'
+                                            + ' <p> <span class="lbl">Location: </span> <span class="det">'+loc+'</span></p>'
+                                            + ' <p> <span class="lbl">Description: </span> <span class="det">'+desc+'</span></p>'
+                                            );
+                        respondToEventInvites("Read");
+                    }
+                    
+                    
+                    function respondToEventInvites(st){
+                        var eID = sessionStorage.getItem('notifEvent');
+                        url3 = 'http://famly.com/beta/public/ws/respondEventInvite.php';
+                        var un = sessionStorage.getItem('username');
+                        var hash = sessionStorage.getItem('password');
+                        var sevid = sessionStorage.getItem('selectedEvent');
+                        $.get(url3,{username:un, password:hash, event_id:eID, status:st}, function(data){
+                              if(st != "Read"){
+                              $("#evenot"+eID).remove();
+                              }
+                              });
+                    }
+                    
+
+                    
+                    function showNotifs(){
+                        url2 = 'http://famly.com/beta/public/ws/pendingRequestNotification.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $("#notifList").empty();
+                        //$("#panel3").attr("class","panel3");
+                        var currentDate = new Date()
+                        var day = currentDate.getDate()
+                        var month = currentDate.getMonth()
+                        var year = currentDate.getFullYear()
+                        var currentTime = new Date()
+                        var hours = currentTime.getHours()
+                        var minutes = currentTime.getMinutes()
+                        var seconds = currentTime.getSeconds()
+                        var currentDateTime= new Date(year,month,day,hours,minutes,seconds,00);
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              //alert(data);
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            //alert(val.sender_name);
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            
+                                            var postDateTime=new Date(postyyyy,postmm,postdd);
+                                            
+                                            var timeTrack=timeDifference(currentDateTime,postDateTime);
+                                            if(val.is_relation_accepted == 'Pending'){
+                                            $("#notifList").append('<div id="not'+val.id+'" style="position:relative; float:left; width:100%; background: #FFF; margin-bottom:2%"> '
+                                                                   + ' <div style="position:relative; float:left; height:60px !important; width:60px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.sender_picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                   + '  </div> '
+                                                                   + ' <div align="center" style="width:50%; padding:5px; position:relative; float:left"> '
+                                                                   + '  <p style="color:#12B6E9; font-weight:600">'+val.sender_name +'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px;">Added You As '+val.relation_name+'</p> '
+                                                                   + '  <p style="color: #BCBEBD; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                                   +'  </div> '
+                                                                   + ' <div class="btn-group btn-group-vertical" style="position:relative; float:right"> '
+                                                                   + ' <button class="btn" type="button" onClick="invitation('+val.id+','+val.user_id+',0,\''+val.relation_name+'\')" style="color:#BDBDBD; font-weight:600">Reject</button> '
+                                                                   + '  <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="invitation('+val.id+','+val.user_id+',1,\''+val.relation_name+'\')"> '
+                                                                   + '  Accept '
+                                                                   + '  </button> '
+                                                                   + '  </div> '
+                                                                   + '  </div>');
+                                            }
+                                            
+                                            });
+                              
+                              });
+                        showEventNotifs();
+                    }
+                    
+                    function invitation(nid, sid, stat, relName){
+                        var st;
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var gen=sessionStorage.getItem('gender');
+                        
+                        if (stat == 1)
+                        st = 'Accepted';
+                        else
+                        st = 'Ignore';
+                        
+                        url2 = 'http://famly.com/beta/public/ws/respondInvite.php';
+                        $.get(url2,{username:un, password:hash, status:st, sender_id:sid, relationName:relName, gender:gen}, function(data){
+                              //alert(data);
+                              $("#not"+nid).remove();
+                              });
+                    }
+                    
+                    function replyMsg(){
+                        url2 = 'http://famly.com/beta/public/ws/postReply.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var user_reply = document.getElementById("repText").value;
+                        var id=sessionStorage.getItem('friendId');
+                        //alert("reply Msg"+id);
+                        var picture=sessionStorage.getItem('dp');
+                        var full_name=sessionStorage.getItem('fullname');
+                        $.get(url2,{username: un, password: hash,friendId:id,message:user_reply},function(data){
+                              
+                              });
+                        //$("#reply_post").remove();
+                        if (user_reply != ""){
+                            $("#msgList").append('<div style="background: #FFF; border:1px solid">'
+                                                 + ' <div style="height:40px !important; width:40px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+picture+'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                 + '  </div> '
+                                                 + '  <div align="left" style="margin-left:20%; margin-top:-40px">'
+                                                 + '  <p style="color:#12B6E9; font-weight:600;">'+full_name+'</p>'
+                                                 + '  <p style="color: #BCBEBD; font-size:10px; margin-top:-15px;">Just now</p>'
+                                                 + ' <p style="width:98%; text-align:left; margin-top:-10px; color:#000">'+ user_reply +'</p>'
+                                                 + '  </div>'
+                                                 + '  </div>');
+                        }
+                        document.getElementById("repText").value="";
+                        
+                    }
+                    
+                    function continueMsg(id){
+                        url2 = 'http://famly.com/beta/public/ws/postMessages.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userId=sessionStorage.getItem('userid');
+                        sessionStorage['friendId'] =id;
+                        //alert("continueMessage"+sessionStorage['friendId'])
+                        $("div#stream").show();
+                        $("div#panel3").slideUp(400);
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        //alert(now);
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        //$("#panel3").attr("class","p3");
+                        $("#msgList").empty();
+                        $("#newMsgButton").attr("style","padding-top:5%; margin-bottom:-5px; padding-left:80%; height:15%; display:none");
+                        $("#reply_post").attr("style","display:inline");
+                        $("#msgList").removeClass("nmsg");
+                        $("#msgList").addClass("rmsg");
+                        // setInterval(function(){
+                        $.get(url2,{username: un, password: hash,friendId:id}, function(data){
+                              data3 = $.parseJSON(data);
+                              $(data3).each(function(i,val){
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            if(!$("#chat"+val.id).is(":visible")){
+                                            $("#msgList").append('<div id="chat'+val.id+'" style="background: #FFF; border:1px solid">'
+                                                                 + ' <div style="height:40px !important; width:40px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                 + '  </div> '
+                                                                 + ' <div id="realPic'+val.id+'" style=" height:15%; width:15%; margin-left:85.5%; margin-top:-50px"><img src="img/level.png"/></div>'
+                                                                 + ' <div id="realNum'+val.id+'" style="margin-top:-40px; margin-left:93%; color:#FFF; font-weight:600">+'+val.relation_level+'</div>'
+                                                                 + '  <div  align="left" style="margin-left:20%; margin-top:-20px">'
+                                                                 + '  <p style="color:#12B6E9; font-weight:600;">'+ val.full_name +'</p>'
+                                                                 + '  <p id="timeChat'+val.id+'" style="color: #BCBEBD; font-size:10px; margin-top:-15px;">'+timeTrack+', Chicago</p>'
+                                                                 + ' <p style="width:98%; text-align:left; margin-top:-10px; color:#000">'+ val.message +'</p>'
+                                                                 + '  </div>'
+                                                                 + '  </div>');
+                                            if(val.relation_level==0 || val.sender_id == userId){
+                                            // $("#realNum"+val.id).hide();
+                                            $("#realPic"+val.id).hide();
+                                            }}else{
+                                            $("#timeChat"+val.id).html(timeTrack);
+                                            }
+                                            
+                                            })
+                              
+                              });
+                        
+                        $("div#panel3").slideDown(400);
+                        // }, 500);
+                    }
+                    
+                    function newMessage(){
+                        $("div#stream").show();
+                        $("div#panel3").slideUp(400);
+                        $("div#panel7").slideDown(400);
+                        //alert("newMessage");
+                    }
+                    
+                    function sendMsg(){
+                        if(profOpen==1){
+                            
+                            var message=document.getElementById('msgText').value;
+                            
+                            if(message!=""){
+                                var un=sessionStorage.getItem('username');
+                                var hash=sessionStorage.getItem('password');
+                                
+                                url2 ='http://famly.com/beta/public/ws/sendMultipleMessage.php';
+                                $.get(url2,{members:sid,username:un,password:hash,message:message}, function(data){
+                                      if(data==1){
+                                      document.getElementById('msgRecp').value="";
+                                      document.getElementById('msgText').value="";
+                                      $("div[id^=panel]").slideUp(400);
+                                      }
+                                      });
+                            }
+                            profOpen==0;
+                            
+                        }else{
+                            var sender=document.getElementById('msgRecp').value;
+                            var names=sender.split(",");
+                            
+                            var message=document.getElementById('msgText').value;
+                            var indexArray= new Array();
+                            var k=0;
+                            
+                            // var members;
+                            for(i=0;i<fname.length;i++){
+                                for(j=0;j<names.length;j++){
+                                    if(names[j]==fname[i]){
+                                        // alert(i);
+                                        indexArray[k]=i;
+                                        k=k+1;
+                                    }
+                                }
+                            }
+                            
+                            var index;
+                            var members=new Array();
+                            for(m=0;m<indexArray.length;m++){
+                                index=indexArray[m];
+                                members[m]=fid[index];
+                                
+                            }
+                            
+                            var memberstoSend=members.toString();
+                            if(message!=""){
+                                var un=sessionStorage.getItem('username');
+                                var hash=sessionStorage.getItem('password');
+                                //alert(fname[index]);
+                                url2 ='http://famly.com/beta/public/ws/sendMultipleMessage.php';
+                                $.get(url2,{members:memberstoSend,username:un,password:hash,message:message}, function(data){
+                                      if(data==1){
+                                      document.getElementById('msgRecp').value="";
+                                      document.getElementById('msgText').value="";
+                                      $("div[id^=panel]").slideUp(400);
+                                      }
+                                      });
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    function showMsgs(){
+                        url2 = 'http://famly.com/beta/public/ws/messages.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $("#msgList").empty();
+                        $("#reply_post").attr("style","display:none");
+                        $("#msgList").removeClass("rmsg");
+                        $("#msgList").addClass("nmsg");
+                        $("#newMsgButton").attr("style","position:absolute; margin-top:3%; margin-left:90%; display:inline");
+                        //$("#panel3").attr("class","panel3");
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        //alert(now);
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              //alert(data);
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            $("#msgList").append('<div class="swipe" style="background: #FFF; border:1px solid" id="msg'+i+'" onClick="continueMsg('+ val.sender_id +')">'
+                                                                 + ' <div style="height:40px !important; width:40px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                 + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.profile.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                 + '  </div> '
+                                                                 + ' <div id="realPic'+val.id+'" style="height:15%; width:15%; margin-left:85.5%; margin-top:-50px"><img src="img/level.png"/></div>'
+                                                                 + ' <div id="realNum'+val.id+'" style="margin-top:-40px; margin-left:93%; color:#FFF; font-weight:600">+'+val.relation_level+'</div>'
+                                                                 + '  <div align="left" style="margin-left:20%; margin-top:-20px">'
+                                                                 + '  <p style="color:#12B6E9; font-weight:600;">'+ val.profile.full_name +'</p>'
+                                                                 + '  <p style="color: #BCBEBD; font-size:10px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                                 + ' <p style="width:98%; text-align:left; margin-top:-10px; color:#000">'+ val.message + '</p>'
+                                                                 + '  </div>'
+                                                                 + '  </div>');
+                                            if(val.relation_level==0){
+                                            // $("#realNum"+val.id).hide();
+                                            $("#realPic"+val.id).hide();
+                                            }
+                                            
+                                            
+                                            });
+                              
+                              /*     $("#panel3").append('<div style="padding-top:5%; margin-bottom:-5px; padding-left:80%; position:absolute">'
+                               +'  <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-13px; height:30px; width:30px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>'
+                               + ' </div>'
+                               + '  &nbsp;'); */
+                              });
+                        
+                    }
+                    
+                    function attachURL(txt, lnk){
+                        var id = sessionStorage.getItem('link');
+                        var anchor = '<a id="sharedLink'+id+'" name="'+ lnk +'" onClick="showLink('+id+')">'+ txt.match(/\>(.*?)\</)[1] +'</a>'
+                        txt = txt.replace(/\>(.*?)\</, anchor);
+                        return txt;
+                    }
+                    
+                    $(function ($) {
+                      $("#updtView").click(function () {
+                                           //$("#updt").unbind("click");
+                                           $("#postview").slideToggle();
+                                           });
+                      
+                      $("#updt").click(function () {
+                                       var stat=document.getElementById('statText').value;
+                                       if (stat == "") { stat = " ";}
+                                       var status = stat;
+                                       if($("#attachStatLink").is(":visible") && $("#statLink").val() != ""){
+                                       
+                                       if (!sessionStorage['link']) {
+                                       sessionStorage['link'] = 0;
+                                       } else {
+                                       sessionStorage['link']++;
+                                       }
+                                       status = attachURL(stat, $("#statLink").val());
+                                       
+                                       }
+                                       if($("#statImageDiv").is(":visible")){
+                                       uploadImg(sessionStorage.getItem('imgAtch'), status);
+                                       return;
+                                       }
+                                       else if($("#statVidDiv").is(":visible")){
+                                       uploadVid(sessionStorage.getItem('vidAtch'), status);
+                                       return;
+                                       }
+                                       console.log(status);
+                                       var lower_range=parseInt($('#panel4 #lower').html());
+                                       var higher_range=parseInt($('#panel4 #higher').html());
+                                       var range=lower_range+','+higher_range;
+                                       //alert(range);
+                                       url3 = 'http://famly.com/beta/public/ws/updateStatus.php';
+                                       var un=sessionStorage.getItem('username');
+                                       var hash=sessionStorage.getItem('password');
+                                       var crloc = sessionStorage.getItem('currLoc');
+                                       console.log(un+hash+crloc);
+                                       if(document.getElementById('statText').value!=""){
+                                       $.get(url3,{username:un,password:hash,type:"Text",statusUpdate:encodeURIComponent(status),location:crloc,range:range}, function(data){
+                                             document.getElementById('statText').value="";
+                                             $("div[id^=panel]").slideUp(400);
+                                             });
+                                       
+                                       }
+                                       });
+                      });
+                    
+                    $(document).ready(function() {
+                                      
+                                      userList();
+                                      $("#menu").hide();
+                                      var un=sessionStorage.getItem('username');
+                                      var hash=sessionStorage.getItem('password');
+                                      $.get('http://famly.com/beta/public/ws/NotificationCounts.php',{username: un, password: hash}, function(data){
+                                            data2 = $.parseJSON(data);
+                                            $(data2).each(function(i,val){
+                                                          if(parseInt(val.pendingRequestCount) > 0 || parseInt(val.eventCount) > 0 || parseInt(val.giftCount) > 0){
+                                                          $("#notifImg").attr("src","img/notif_new.jpg");
+                                                          //alert(val.pending_count);
+                                                          }
+                                                          });
+                                            });
+                                      
+                                      $("#activity").click(function(){
+                                                         if ($("div[id^=panel]").is(":visible")){
+                                                         $("div[id^=panel]").slideUp(400);
+                                                         }
+                                                         });
+                                      
+                                      $("#search_name").autocomplete({
+                                                                     source: fname,
+                                                                     minLength: 0,
+                                                                     select: function(event, ui) {
+                                                                     //assign value back to the form element
+                                                                     if(ui.item){
+                                                                     $(event.target).val(ui.item.value);
+                                                                     names=ui.item.value;
+                                                                     }
+                                                                     searchedUser();
+                                                                     }
+                                                                     }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li class="list_item_container"></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      function split( val ) {
+                                      return val.split( /,\s*/ );
+                                      }
+                                      function extractLast( term ) {
+                                      return split( term ).pop();
+                                      }
+                                      $("#msgRecp").bind( "keydown", function( event ) {
+                                                         if ( event.keyCode === $.ui.keyCode.TAB &&
+                                                             $( this ).data( "autocomplete" ).menu.active ) {
+                                                         event.preventDefault();
+                                                         }
+                                                         })
+                                      .autocomplete({
+                                                    minLength: 0,
+                                                    source: function( request, response ) {
+                                                    // delegate back to autocomplete, but extract the last term
+                                                    response( $.ui.autocomplete.filter(
+                                                                                       fname, extractLast( request.term ) ) );
+                                                    },
+                                                    focus: function() {
+                                                    // prevent value inserted on focus
+                                                    return false;
+                                                    },
+                                                    select: function( event, ui ) {
+                                                    var terms = split( this.value );
+                                                    // remove the current input
+                                                    terms.pop();
+                                                    // add the selected item
+                                                    terms.push( ui.item.value );
+                                                    // add placeholder to get the comma-and-space at the end
+                                                    terms.push("");
+                                                    this.value = terms.join(",");
+                                                    return false;
+                                                    }
+                                                    }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      showTreeBelow(uid,0,name);
+                                      
+                                      });
+                    
+                    var fname = new Array();
+                    var fid= new Array();
+                    var fpic= new Array();
+                    var names;
+                    
+                    function userList()
+                    {
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userId=sessionStorage.getItem('userid');
+                        url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                        $.get(url2,{}, function(data){
+                              
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            fname[i]=val.name;
+                                            //alert(fname[i]);
+                                            fid[i]=val.id;
+                                            fpic[i]=val.picture;
+                                            // alert(fid[i]);
+                                            });
+                              
+                              });
+                        
+                    }
+                    
+                    var sid;
+                    var sname;
+                    function searchedUser(){
+                        
+                        var indexArray= new Array();
+                        var index;
+                        for(i=0;i<fname.length;i++){
+                            if(names==fname[i]){
+                                index=i;
+                            }
+                        }
+                        sid=fid[index];
+                        var spicture=fpic[index];
+                        sessionStorage['sid'] = fid[index];
+                        sessionStorage['sname'] =fname[index];
+                        window.open('profilePage.html?id='+sid, '_self');
+                        
+                    }
+                    function search(){
+                        
+                        var full_name = $("#search_name").val();
+                        window.open('searchResults.html?name='+full_name, '_self');
+                    }
+                    
+                    function getUrlVars()
+                    {
+                        var vars = [], hash;
+                        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                        for(var i = 0; i < hashes.length; i++)
+                        {
+                            hash = hashes[i].split('=');
+                            vars.push(hash[0]);
+                            vars[hash[0]] = hash[1];
+                        }
+                        return vars;
+                    }
+                    
+                    
+                    function invite(rid, rel){
+                        //alert(rid + rel);
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $.get("http://famly.com/beta/public/ws/sendInvite.php", {username:un, password:hash, reciever_id:rid, relationName:rel}, function(data){
+                              //alert(data);
+                              $("#addBt").remove();
+                              $("#actionButtons").append('<a id="canBt" onClick="cancelInvite('+rid+')" class="btn btttn"><i class="icon-minus icon-white"></i> Pending</a>');
+                              });
+                    }
+                    
+                    function cancelInvite(rid){
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $.get("http://famly.com/beta/public/ws/cancelInvite.php", {username:un, password:hash, reciever_id:rid}, function(data)
+                              {
+                              //alert(data);
+                              $("#canBt").remove();
+                              $("#addBt").remove();
+                              $("#actionButtons").append('<a id="addBt" href="#rel_pop" class="btn btttn"><i class="icon-plus icon-white"></i> Invite As</a>');
+                              });
+                    }
+                    
+                    function showTreeBelow(id,vis,uname)
+                    {
+                        var reqBut;
+                        $.blockUI();
+                        var d='---',g='---';
+                        var count = 0;
+                        
+                        $.get("http://famly.com/beta/public/ws/userProfilePrivacySettings.php", {userId:id} , function(data){
+                              
+                              //alert(data);
+                              
+                              profile = $.parseJSON(data);
+                              
+                              if(rqst == 1){
+                              reqBut = '<a id="canBt" onClick="cancelInvite('+profile.user_id+')" class="btn btttn"><i class="icon-minus icon-white"></i></a>';
+                              
+                              }else{
+                              reqBut = '<a id="addBt" href="#rel_pop" class="btn btttn"><i class="icon-plus icon-white"></i></a>';
+                              }
+                              
+                              $("#treeview").empty();
+                              
+                              $("#treeview").append('<div align="center" style="position:relative; float:left; width:100%; margin-top:13%">'
+                                                    + '  <p style="color:#12B6E9; font-weight:600;">'+profile.full_name+'</p>'
+                                                    + '  <p class="det_info"><i class="icon-map-marker"></i> '+profile.city+', '+profile.state+', '+profile.country+'</p>'
+                                                    + '  <div align="center" style="height:120px !important; width:120px !important;"> '
+                                                    + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+profile.picture+'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                                    + '  </div> '
+                                                    + '<p></p>'
+                                                    + '<p></p>'
+                                                    + '<hr>'
+                                                    
+                                                    + ' <div style="color:#F88E1E; width:60%; position:relative; float:left;">'
+                                                    + '  </div>'
+                                                    + ' <div style="color:#F88E1E; width:50%; position:relative; float:right;">'
+                                                    + '<div class="btn-group" id="actionButtons">'
+                                                    + ' <a id="infoBt" href="#userInfo" class="btn btttn"><i class="icon-info-sign icon-white"></i></a>'
+                                                    + reqBut
+                                                    + '  </div>'
+                                                    + '  </div>'
+                                                    + '  </div>'
+                                                    + '<hr>'
+                                                    + '<div id="activity"></div>');
+                              
+                              $("#abt").append('<div style="margin:3%">'
+                                               + ' <p class="abtme">'+profile.about_me+'</p>'
+                                               + '<hr>'
+                                               + ' <p id="gn"> <span class="lbl">Gender: </span> <span class="det">'+g+'</span></p>'
+                                               + ' <p id="db"> <span class="lbl">D.O.B.: </span> <span class="det">'+d+'</span></p>'
+                                               + ' <p id="em"> <span class="lbl">Email: </span> <span class="det">'+profile.email+'</span></p>'
+                                               + ' <p id="ph"> <span class="lbl">Phone: </span> <span class="det">'+profile.phone+'</span></p>'
+                                               + ' <p id="ed"> <span class="lbl">Education: </span> <span class="det">'+profile.education+'</span></p>'
+                                               + ' <p id="rl"> <span class="lbl">Religion: </span> <span class="det">'+profile.religion+'</span></p>'
+                                               + ' <p id="in"> <span class="lbl">Interests: </span> <span class="det">'+profile.interests+'</span></p>'
+                                               + ' <p id="hb"> <span class="lbl">Hobbies: </span> <span class="det">'+profile.hobbies+'</span></p>'
+                                               + ' <p id="fb"> <span class="lbl">Fav. Books: </span> <span class="det">'+profile.fav_books+'</span></p>'
+                                               + ' </div>');
+                              
+                              if(parseInt(profile.is_stream_visible) == 1){
+                              userStream();
+                              }
+                              
+                              if(profile.gender != null){
+                              g = profile.gender;
+                              }
+                              
+                              if(profile.dob != null){
+                              d = profile.dob;
+                              }
+                              
+                              if(parseInt(profile.is_about_me) == 0){
+                              $(".abtme").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_gender) == 0){
+                              $("#gn").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_dob) == 0){
+                              $("#db").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_email) == 0){
+                              $("#em").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_phone) == 0){
+                              $("#ph").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_education) == 0){
+                              $("#ed").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_religion) == 0){
+                              $("#rl").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_interests) == 0){
+                              $("#in").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_hobbies) == 0){
+                              $("#hb").remove();
+                              count = count+1;
+                              }
+                              if(parseInt(profile.is_fav_books) == 0){
+                              $("#fb").remove();
+                              count = count+1;
+                              }
+                              
+                              if(count == 10){
+                              $("#infoBt").remove();
+                              }
+                              
+                              
+                              
+                              if(profile.gender == 'Male'){
+                              $("#rul").append('<li onClick="invite('+profile.user_id+', \'Son\')"><a href="#close">Son</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Brother\')"><a href="#close">Brother</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Husband\')"><a href="#close">Husband</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Father\')"><a href="#close">Father</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Cousin\')"><a href="#close">Cousin</a></li>');
+                              
+                              } else if(profile.gender == 'Female'){
+                              $("#rul").append('<li onClick="invite('+profile.user_id+', \'Daughter\')"><a href="#close">Daughter</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Sister\')"><a href="#close">Sister</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Wife\')"><a href="#close">Wife</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Mother\')"><a href="#close">Mother</a></li>'
+                                               + ' <li onClick="invite('+profile.user_id+', \'Cousin\')"><a href="#close">Cousin</a></li>');
+                              }
+                              
+                              
+                              
+                              });
+                        
+                        
+                        /*+ '  <div align="center">'
+                         
+                         + '  <p class="det_info">'+profile.email+'</p>'
+                         + '  <p class="det_info">'+profile.gender+'</p>'
+                         + '  <p class="det_info">'+profile.dob+'</p>'
+                         + '  <p class="det_info">'+profile.education+'</p>'
+                         
+                         + '  <p class="det_info">'+profile.about_me+'</p>'
+                         + '  <p class="det_info">'+profile.interests+'</p>'
+                         + '  <p class="det_info">'+profile.hobbies+'</p>'
+                         + '  </div>'*/
+                        
+                        $.unblockUI();
+                        
+                    }
+                    
+                    var profOpen=0;
+                    function profMsg(){
+                        var sname= fname[fid.indexOf(getUrlVars()['id'])];
+                        document.getElementById('msgRecp').value=sname;
+                        $("div#panel7").slideDown(400);
+                        var profOpen=1;
+                        
+                    }
+                    
+                    function profJor(){
+                        
+                        window.open('journals.html?jid='+uid, '_self');
+                    }
+                    
+                    function timeDifference(current, previous) {
+                        
+                        var msPerMinute = 60 * 1000;
+                        var msPerHour = msPerMinute * 60;
+                        var msPerDay = msPerHour * 24;
+                        var msPerMonth = msPerDay * 30;
+                        var msPerYear = msPerDay * 365;
+                        
+                        var elapsed = current - previous;
+                        
+                        if (elapsed < msPerMinute) {
+                            if(Math.round(elapsed/1000)==1){
+                                return 'A few second ago';
+                            }
+                            else{
+                                return ' A few seconds ago';
+                            }
+                            
+                        }
+                        
+                        else if (elapsed < msPerHour) {
+                            if(Math.round(elapsed/msPerMinute)==1){
+                                return  Math.round(elapsed/msPerMinute) + ' minute ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerMinute) + ' minutes ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerDay ) {
+                            if(Math.round(elapsed/msPerHour)==1){
+                                return  Math.round(elapsed/msPerHour) + ' hour ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerHour) + ' hours ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerMonth) {
+                            if(Math.round(elapsed/msPerDay)==1){
+                                return  Math.round(elapsed/msPerDay) + ' day ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerDay) + ' days ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerYear) {
+                            if(Math.round(elapsed/msPerMonth)==1){
+                                return  Math.round(elapsed/msPerMonth) + ' month ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerMonth) + ' months ago';
+                            }
+                        }
+                        
+                        else {
+                            if(Math.round(elapsed/msPerYear)==1){
+                                return Math.round(elapsed/msPerYear) + ' year ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerYear) + ' years ago';
+                            }
+                        }
+                    }
+                    
+                    var parseMonth = function (value) {
+                        
+                        switch (value) {
+                            case "Jan":
+                            return "01";
+                            case "Feb":
+                            return "02";
+                            case "Mar":
+                            return "03";
+                            case "Apr":
+                            return "04";
+                            case "May":
+                            return "05";
+                            case "Jun":
+                            return "06";
+                            case "Jul":
+                            return "07";
+                            case "Aug":
+                            return "08";
+                            case "Sep":
+                            return "09";
+                            case "Oct":
+                            return "10";
+                            case "Nov":
+                            return "11";
+                            case "Dec":
+                            return "12";
+                            default:
+                            return value;
+                        }};
+                    
+                    
+                    function sharePanel(id){
+                        if($("div#share_"+id).is(":visible")){
+                            $("div#share_"+id).slideUp();
+                            
+                        }
+                        else{
+                            // alert("else")
+                            $("#Slider"+id).slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                            $("div#share_"+id).slideDown();
+                            
+                        }
+                    }
+                    
+                    function Share(post_id,id){
+                        var lower_Sharerange=parseInt($('#share_'+id+' #lower').html());
+                        var higher_Sharerange=parseInt($('#share_'+id+' #higher').html());
+                        var range=lower_Sharerange+','+higher_Sharerange;
+                        url='http://famly.com/beta/public/ws/sharePost.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var location=sessionStorage.getItem('currLoc');
+                        $.get(url,{username: un, password: hash,shareWith:range,location:location,postId:post_id}, function(data){
+                              if(data==1){
+                              $("#share_"+id).slideUp();
+                              }
+                              
+                              });
+                    }
+                    
+                    function like(id){
+                        $("#liked_"+id).unbind("click");
+                        url3 = 'http://famly.com/beta/public/ws/likePost.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        $.get(url3,{postId:id,username:un,password:hash}, function(data){
+                              if(data==1){
+                              $("#liked_"+id).attr("src","img/loved.png");
+                              $("#likeCount_"+id).attr("style","position:absolute; font-size:11px; color:red; width:35%; margin-top:-20px; margin-left:42%")
+                              var num=$("#likeCount_"+id).html();
+                              var val=parseInt(num);
+                              val=val+1;
+                              $("#likeCount_"+id).html(val);
+                              }
+                              });
+                        
+                    }
+                    
+                    function commentPanel(id){
+                        //alert(id);
+                        /*     if($("div#comm_"+id).is(":visible")){
+                         $("div#comm_"+id).slideUp("slow");
+                         setTimeout(function() {
+                         $("div#comm_"+id).empty();
+                         }, 1000);
+                         }else{ */
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        //alert(now);
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        var picture=sessionStorage.getItem('dp');
+                        url3 = 'http://famly.com/beta/public/ws/comments.php';
+                        $("#clist").empty();
+                        $("#newc").empty();
+                        $.get(url3,{postId:id}, function(data){
+                              //alert(data);
+                              data4 = $.parseJSON(data);
+                              $(data4).each(function(i,val){
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            $("#clist").append('<div id="comment" style="position:relative; float:left; z-index:2; background: #F0F0F5; width:100%">'
+                                                               + ' <div style="position:absolute; height:30px !important; width:30px !important; box-shadow:none; margin:2% 1% 1% 1%"> '
+                                                               + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " class="pull-left" > '
+                                                               + '  </div> '
+                                                               + '  <div align="left" style="margin-left:18%">'
+                                                               + '  <p style="color:#12B6E9; font-size:12px; font-weight:600;">'+ val.full_name +'</p>'
+                                                               + '  <p style="color:#999; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                               + ' <p style="color:#000; line-height:1.5; font-size:13px; width:98%; text-align:left; margin-top:-10px">'+val.comments+'</p>'
+                                                               + '  </div>'
+                                                               + '  </div>');
+                                            
+                                            })
+                              $("#newc").append('<div id="newComm'+id+'" class="input-append" style="position:relative; float:left; background: transparent;">'
+                                                //    + ' <div style="position:relative; float:left; height:30px !important; width:30px !important; box-shadow:none; margin:1%"> '
+                                                //    + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ picture +'" style="width:100%; height:100%; overflow:hidden  " class="pull-left" > '
+                                                //     + '  </div> '
+                                                + '<input style="width:70%" id="appendedInputButton'+id+'" type="text" placeholder="Add Comment">'
+                                                + ' <button class="btn cbn" onClick="javascript:addComment('+ id +')">Comment</button>'
+                                                
+                                                + '  </div>');
+                              
+                              });
+                        
+                        $("div#comm_"+id).slideDown("slow");
+                        //  }
+                    }
+                    
+                    function addComment(id){
+                        url='http://famly.com/beta/public/ws/addComment.php';
+                        var user_comment =document.getElementById("appendedInputButton"+id).value;
+                        var picture=sessionStorage.getItem('dp');
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userid=sessionStorage.getItem('userid');
+                        var picture=sessionStorage.getItem('dp');
+                        var full_name=sessionStorage.getItem('fullname');
+                        $.get(url,{username: un, password: hash,postId:id,comments:user_comment}, function(data){
+                              if(data==1){
+                              var num=$("#commentCount_"+id).html();
+                              var val=parseInt(num);
+                              val=val+1;
+                              $("#commentCount_"+id).html(val);
+                              }
+                              });
+                        //$("#newComm"+id).remove();
+                        $("#clist").append('<div id="comment'+id+'" style="background: #F0F0F5;">'
+                                           + ' <div style="position:absolute; height:30px !important; width:30px !important; margin:1% 1% 1% 1%"> '
+                                           + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ picture +'" style="width:100%; height:100%; overflow:hidden"/> '
+                                           + '  </div> '
+                                           + '  <div align="left" style="margin-left:18%">'
+                                           + '  <p style="color:#12B6E9; font-size:12px; font-weight:600;">'+full_name+'</p>'
+                                           + '  <p style="color: #000; font-size:12px; margin-top:-15px;">Just now</p>'
+                                           + ' <p style="color:#000; line-height:1.5; font-size:12px; width:98%; text-align:left; margin-top:-10px">' + user_comment + '</p>'
+                                           + '  </div>'
+                                           + '  </div>');
+                        
+                    }
+
+                    
+                    setInterval(function() {
+                                var un=sessionStorage.getItem('username');
+                                var hash=sessionStorage.getItem('password');
+                                // Do something every 1 min
+                                $.get(url2,{username: un, password: hash}, function(data){
+                                      data2 = $.parseJSON(data);
+                                      $(data2).each(function(i,val){
+                                                    if(parseInt(val.pending_count) > 0){
+                                                    $("#notifImg").attr("src","img/notif_new.jpg");
+                                                    //alert(val.pending_count);
+                                                    }
+                                                    });
+                                      });
+                                }, 60000);
+                    
+                    
+                    
+                    function userStream()
+                    {
+                        url='http://famly.com/beta/public/ws/postedByMe.php';
+                        url2 = 'http://famly.com/beta/public/ws/NotificationCounts.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var id = getUrlVars()["id"];
+                        //////////////////
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        //alert(now);
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        
+                        $.get(url2,{username: un, password: hash}, function(data){
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            if(parseInt(val.pendingRequestCount) > 0 || parseInt(val.eventCount) > 0 ){
+                                            $("#notifImg").attr("src","img/notif_new.jpg");
+                                            //alert(val.pending_count);
+                                            }
+                                            });
+                              });
+                        
+                        
+                        $.get(url,{userId:id}, function(data){
+                              // alert(data);
+                              
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            var postDate=val.created_at;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            
+                                            if(val.likes_count>0){
+                                            var img='img/loved.png';
+                                            var color='red';
+                                            }
+                                            else{
+                                            var img='img/unloved.png';
+                                            var color='#FFF';
+                                            }
+                                            
+                                            if(!$("#post"+val.user_wall_post_id).is(":visible")){
+                                            if((val.relation_level>=lower && val.relation_level<=higher)|| (val.relation_level==0)){
+                                            if(val.type == "Text")
+                                            {
+                                            $("#activity").prepend('<div id="post'+val.user_wall_post_id+'" style="background: #FFF; box-shadow:5px 5px 5px #B7B7B7; margin-bottom:4%; position:relative; float:left; width:100%"> '
+                                                                              + ' <div style="position:relative; float:left; height:10% !important; width:14% !important; border:2px solid #DEDEDE; box-shadow:none; margin:1%"> '
+                                                                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                              + '  </div> '
+                                                                              + ' <div id="realPic'+val.user_wall_post_id+'" style="position:relative; float:right; height:10% !important; width:15% !important;"><img src="img/level.png" style="width:100%; height:100%; overflow:hidden"/></div>'
+                                                                              + ' <div id="realNum'+val.user_wall_post_id+'" style="position:absolute; top:3%; right:2%; color:#FFF; font-weight:600; width:5%;">+'+ val.relation_level +'</div>'
+                                                                              + '  <p style="position:relative; float:left; color:#12B6E9; font-weight:600; width:62%; margin:1%">'+ val.full_name +'</p> '
+                                                                               
+                                                                               + '  <div style="position:relative; float:left; width:62%; margin-left:1%;"> ' 
+                                                                              + '  <div style="position:relative; float:left; height:5% !important; width:12% !important;"> '
+                                                                              
+                                                                              + ' <img src="img/update_post.png" style="width:100%; height:100%; overflow:hidden;"> '
+                                                                              + '  </div> '
+                                                                               
+                                                                              
+                                                                              + ' <p id="time'+val.user_wall_post_id+'" style="position:relative; float:right;color:#BCBEBD; font-size:10px; width:85%; line-height:12px">'+timeTrack+'<br><span id="locOf'+val.user_wall_post_id+'" >Near '+val.post_location+'</span></p> '
+                                                                            
+                                                                              
+                                                                               + '  </div> '
+                                                                              + '  <p style="text-align:left; position:relative; float:left; width:70%; margin-left:17%;">'+ decodeURIComponent(val.contents) +'</p> '
+                                                                              
+                                                                              + ' <div class="btn-group" style="position:relative; float:right; width:60%; height:40%"> '
+                                                                               
+                                                                              +' <a style="position:relative; float:left; width:32%; padding:none;"><img src="img/share.png" onClick="javascript:sharePanel('+val.user_wall_post_id+')"/></a>'
+                                                                               
+                                                                              + ' <a href="#commentPop" style="position:relative; float:left; width:32%; padding:none" onClick="commentPanel('+val.user_wall_post_id+')"><img src="img/comments.png" /><div id="commentCount_'+val.user_wall_post_id+'" align="right" style="position:absolute; font-size:11px; color:#FFF; width:40%; margin-top:-20px; margin-left:42%">'+ val.comments_count +'</div></a>'
+                                                                               
+                                                                              + ' <a style="position:relative; float:left; width:32%; background:transparent; border:none; box-shadow:none; padding:none"><img id="liked_'+val.user_wall_post_id+'" src="'+img+'" onClick="javascript:like('+val.user_wall_post_id+')"/><div id="likeCount_'+val.user_wall_post_id+'" align="right" style="position:absolute; font-size:11px; color:'+color+'; width:40%; margin-top:-20px; margin-left:42%">'+ val.likes_count +'</div></a>'
+                                                                              + '  </div> '
+                                                                           //   +' <div id="comm_'+val.user_wall_post_id+'" class="panel6" style="z-index:1; overflow:scroll"></div>'
+                                                                              +' <div id="share_'+val.user_wall_post_id+'" class="panel8" style="z-index:1; overflow:scroll">'
+                                                                              + '<div class="layout-slider" style="margin-left:10%">'
+                                                                              + '<input id="Slider'+val.user_wall_post_id+'" type="slider" value="-5;5" />'
+                                                                              + '</div>'
+                                                                              + '<button style="margin:4% 2% 2% 70%; color:#BDBDBD; font-weight:600" class="btn" onClick="Share('+val.post_id+','+val.user_wall_post_id+')">Share</button>'
+                                                                              +' </div>'
+                                                                              + '  </div>');
+                                                          
+                                                          } else if(val.type == "Photo")
+                                                          {
+                                                            var upt = val.user_post_text;
+                                                            if(upt == null){
+                                                                upt=" ";
+                                                            }
+                                                          $("#activity").prepend('<div id="post'+val.user_wall_post_id+'" style="background: #FFF; box-shadow:5px 5px 5px #B7B7B7; margin-bottom:4%; position:relative; float:left; width:100%"> '
+                                                                              + ' <div style="position:absolute; top:1; height:10% !important; width:14% !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                              + '  </div> '
+                                                                              + ' <div id="realPic'+val.user_wall_post_id+'" style="position:absolute; height:15%; width:15%; margin-left:85%;"><img src="img/level.png"/></div>'
+                                                                              + ' <div id="realNum'+val.user_wall_post_id+'" style="position:absolute; margin-top:4px; margin-left:93%; color:#FFF; font-weight:600">+'+ val.relation_level +'</div>'
+                                                                              + '  <p style=" margin-left:15%; margin-top:2%; color:#12B6E9; font-weight:600">&nbsp;&nbsp;'+ val.full_name +'</p> '
+                                                                              + '  <div class="thumbnail" style="border:none; box-shadow:none; margin-left:17%; margin-top:-10px"> '
+                                                                              + ' &nbsp;<img src="img/image_post.png" height="12%" width="10%" alt="" class="pull-left"> '
+                                                                              + '  </div> '
+                                                                              + '  <div style="margin-top:-30px"> '
+                                                                              + '  <span id="time'+val.user_wall_post_id+'" style="margin-left:27%; color: #BCBEBD; font-size:10px;">'+timeTrack+'</span><br/> '
+                                                                              + '  <div style="margin-top:-8px; margin-left:27%"><span id="locOf'+val.user_wall_post_id+'">Near '+val.post_location+'</span></div> '
+                                                                              + ' <span style="margin-left:15%;">&nbsp;' +upt+ '</span>'
+                                                                              + '  <ul class="thumbnails" style="padding-left:4%; padding-top:3%;"> '
+                                                                              + '        <li class="span4"> '
+                                                                              + '            <div class="thumbnail"> '
+                                                                              + '                <img src="http://famly.com/beta/public/uploads/wall_images/' +val.contents+ '" alt=""> '
+                                                                              + '            </div> '
+                                                                              + '        </li> '
+                                                                              + '     </ul> '
+                                                                              + '  </div> '
+                                                                               + ' <div class="btn-group" style="position:relative; float:right; width:60%; height:40%"> '
+                                                                               
+                                                                               +' <a style="position:relative; float:left; width:32%; padding:none;"><img src="img/share.png" onClick="javascript:sharePanel('+val.user_wall_post_id+')"/></a>'
+                                                                               
+                                                                               + ' <a href="#commentPop" style="position:relative; float:left; width:32%; padding:none" onClick="commentPanel('+val.user_wall_post_id+')"><img src="img/comments.png" /><div id="commentCount_'+val.user_wall_post_id+'" align="right" style="position:absolute; font-size:11px; color:#FFF; width:35%; margin-top:-20px; margin-left:42%">'+ val.comments_count +'</div></a>'
+                                                                               
+                                                                               + ' <a style="position:relative; float:left; width:32%; background:transparent; border:none; box-shadow:none; padding:none"><div><img id="liked_'+val.user_wall_post_id+'" src="'+img+'" onClick="javascript:like('+val.user_wall_post_id+')"/><div id="likeCount_'+val.user_wall_post_id+'" align="right" style="position:absolute; font-size:11px; color:'+color+'; width:35%; margin-top:-20px; margin-left:42%">'+ val.likes_count +'</div></div></a>'
+                                                                               + '  </div> '
+                                                                               //   +' <div id="comm_'+val.user_wall_post_id+'" class="panel6" style="z-index:1; overflow:scroll"></div>'
+                                                                               +' <div id="share_'+val.user_wall_post_id+'" class="panel8" style="z-index:1; overflow:scroll">'
+                                                                               + '<div class="layout-slider" style="margin-left:10%">'
+                                                                               + '<input id="Slider'+val.user_wall_post_id+'" type="slider" value="-5;5" />'
+                                                                               + '</div>'
+                                                                               + '<button style="margin:4% 2% 2% 70%; color:#BDBDBD; font-weight:600" class="btn" onClick="Share('+val.post_id+','+val.user_wall_post_id+')">Share</button>'
+                                                                               +' </div>'
+                                                                               + '  </div>');
+                                                          
+                                                          }else if(val.type == "Video")
+                                                          {
+                                                          var upt = val.user_post_text;
+                                                          if(upt == null){
+                                                          upt=" ";
+                                                          }
+                                                          
+                                                          $("#activity").prepend('<div id="post'+val.user_wall_post_id+'" style="background: #FFF; box-shadow:5px 5px 5px #B7B7B7; margin-bottom:4%; position:relative; float:left; width:100%"> '
+                                                                              + ' <div style="position:absolute; top:1; height:10% !important; width:14% !important; border:2px solid #DEDEDE; box-shadow:none; margin:1% 1% 1% 1%"> '
+                                                                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ val.picture +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                                              + '  </div> '
+                                                                              + ' <div id="realPic'+val.user_wall_post_id+'" style="position:absolute; height:15%; width:15%; margin-left:85%;"><img src="img/level.png"/></div>'
+                                                                              + ' <div id="realPic'+val.user_wall_post_id+'" style="position:absolute; margin-top:4px; margin-left:93%; color:#FFF; font-weight:600">+'+ val.relation_level +'</div>'
+                                                                              + '  <p style=" margin-left:15%; margin-top:2%; color:#12B6E9; font-weight:600">&nbsp;&nbsp;'+ val.full_name +'</p> '
+                                                                              + '  <div class="thumbnail" style="border:none; box-shadow:none; margin-left:17%; margin-top:-10px"> '
+                                                                              + ' &nbsp;<img src="img/vid_post.png" height="12%" width="10%" alt="" class="pull-left"> '
+                                                                              + '  </div> '
+                                                                              + '  <div style="margin-top:-30px"> '
+                                                                              + '  <span id="time'+val.user_wall_post_id+'" style="margin-left:27%; color: #BCBEBD; font-size:10px;">'+timeTrack+'</span><br/> '
+                                                                              + '  <div style="margin-top:-8px; margin-left:27%"><span id="locOf'+val.user_wall_post_id+'">Near '+val.post_location+'</span></div> '
+                                                                              + ' <span style="margin-left:15%;">&nbsp;' +upt+ '</span>'
+                                                                              + '  <ul class="thumbnails" style="padding-left:4%; padding-top:3%;"> '
+                                                                              + '        <li class="span4"> '
+                                                                              + '            <div class="thumbnail"> '
+                                                                              + '                <video src="http://famly.com/beta/public/' +val.contents+ '" style="width:100%; -webkit-transform-style: preserve-3d;"> '
+                                                                              + '            </div> '
+                                                                              + '        </li> '
+                                                                              + '     </ul> '
+                                                                              + '  </div> '
+                                                                               + ' <div class="btn-group" style="position:relative; float:right; width:60%; height:40%"> '
+                                                                               
+                                                                               +' <a style="position:relative; float:left; width:32%; padding:none;"><img src="img/share.png" onClick="javascript:sharePanel('+val.user_wall_post_id+')"/></a>'
+                                                                               
+                                                                               + ' <a href="#commentPop" style="position:relative; float:left; width:32%; padding:none" onClick="commentPanel('+val.user_wall_post_id+')"><img src="img/comments.png" /><div id="commentCount_'+val.user_wall_post_id+'" align="right" style="position:absolute; font-size:11px; color:#FFF; width:35%; margin-top:-20px; margin-left:42%">'+ val.comments_count +'</div></a>'
+                                                                               
+                                                                               + ' <a style="position:relative; float:left; width:32%; background:transparent; border:none; box-shadow:none; padding:none"><div><img id="liked_'+val.user_wall_post_id+'" src="'+img+'" onClick="javascript:like('+val.user_wall_post_id+')"/><div id="likeCount_'+val.user_wall_post_id+'" align="right" style="position:absolute; font-size:11px; color:'+color+'; width:35%; margin-top:-20px; margin-left:42%">'+ val.likes_count +'</div></div></a>'
+                                                                               + '  </div> '
+                                                                               //   +' <div id="comm_'+val.user_wall_post_id+'" class="panel6" style="z-index:1; overflow:scroll"></div>'
+                                                                               +' <div id="share_'+val.user_wall_post_id+'" class="panel8" style="z-index:1; overflow:scroll">'
+                                                                               + '<div class="layout-slider" style="margin-left:10%">'
+                                                                               + '<input id="Slider'+val.user_wall_post_id+'" type="slider" value="-5;5" />'
+                                                                               + '</div>'
+                                                                               + '<button style="margin:4% 2% 2% 70%; color:#BDBDBD; font-weight:600" class="btn" onClick="Share('+val.post_id+','+val.user_wall_post_id+')">Share</button>'
+                                                                               +' </div>'
+                                                                               + '  </div>');
+                                            
+                                            }
+                                            
+                                            if(val.post_location == "---")
+                                            {
+                                            $("#locOf"+val.user_wall_post_id).attr("style","color: #FFF; font-size:10px;")
+                                            }
+                                            else
+                                            {
+                                            $("#locOf"+val.user_wall_post_id).attr("style","color: #BCBEBD; font-size:10px;")
+                                            }
+                                            
+                                            if(val.relation_level==0){
+                                            $("#realNum"+val.user_wall_post_id).hide();
+                                            $("#realPic"+val.user_wall_post_id).hide();
+                                            sessionStorage['dp']=val.picture;
+                                            }
+                                            
+                                            }}else{   // if post is visible
+                                            $("#time"+val.user_wall_post_id).html(timeTrack);
+                                            
+                                            
+                                            }
+                                            
+                                            //});
+                                            
+                                            
+                                            
+                                            })
+                              
+                              
+                              //setTimeout(loadMedia(), 10000);
+                              
+                              });
+                        
+                    }
+                    
+                    function prof(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('profilePage.html?id='+id, '_self');
+                        
+                    }
+                    
+                    function jour(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('journals.html?jid='+id, '_self');
+                        
+                    }
+                    
+                    
+                    function goHome(){
+                        window.open('index.html', '_self');
+                    }
+                    
+                    function goBack(){
+                        window.open('searchResults.html?name='+sessionStorage.getItem('searchedUsers'), '_self');
+                        
+                    }
+                    
+                    function goAlb(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('album.html?id='+id, '_self');
+                        
+                    }
+                    </script>
+                
+    </body>
+    
+</html>

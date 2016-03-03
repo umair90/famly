@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            
+                            <style>
+                                div {
+                                    -webkit-touch-callout: none;
+                                    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                                }
+                                body{
+                                    background: url(img/back.jpg) repeat;
+                                    overflow:hidden;
+                                }
+                                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                                
+                                .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                               
+                                #wrapper {
+                                    background: url(img/back.jpg) repeat;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    -webkit-transform: translate3d(0px, 0px, 0px);
+                                    -webkit-transition: -webkit-transform 0.5s ease-in-out 0s;
+                                    z-index: 999;
+                                    padding-top: 100px;
+                                    width:100%;
+                                    overflow-x:hidden;
+                                    overflow-y:scroll;
+                                }
+                            
+                                
+                                </style>
+
+                            <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+                            <script src="js/cordova.js"></script>
+                            <script src="js/jquery.js"></script>
+                            <script src="js/jquery.blockUI.js"></script>
+                            <script src="js/iscroll.js"></script>
+                            <script src="bootstrap/js/bootstrap.min.js"></script>
+                            <script src="js/sha1.js"></script>
+                                                        </head>
+    <body>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+
+        
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+            
+            <div id="panel3" class="panel3">
+                <div id="msgList"></div>
+                <div id="newMsgButton" style="display:none">
+                    <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-11px; height:25px; width:25px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>
+                </div>
+                
+                <div id="reply_post" style="display:none;">
+                    
+                    <div  class="input-append" style="margin-bottom:-7px; margin-top:-6px">
+                        <textarea id="repText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingRep(event)"></textarea>
+                        <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                         <button id="rib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                         <button id="rvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                         </div>-->
+                    </div>
+                    <div id="attachRepLink" class="input-append" style="padding-bottom:1%; display:none">
+                        <input id="repLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                        <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                    </div>
+                    <div id="repImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                        <img id="repImage" style="width:100%; height:100%; overflow:hidden">
+                            </div>
+                    <div id="repVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                        <video id="repVid" style="width:100%; height:100%; overflow:hidden">
+                            </div>
+                    <div style="margin-left:50%">
+                        <button class="btn" type="button" onClick="emptyRep(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                        <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="replyMsg()">
+                            Send
+                        </button>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+            
+            <div id="panel4" style=" z-index:999 !important">
+                
+                <div class="input-append" style="padding-top:5%; margin-bottom:-5px">
+                    <textarea id="statText" rows="5" placeholder="What do you want to share?" type="text" style="font-size:15px; width:79%; margin-top:4%" onkeypress="linkingStat(event)"></textarea>
+                    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                        <button id="sib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                        <button id="svb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                        <a id="locList" class="btn btn-large" type="button" style="width:0px;" href="#pop"><div style="height:14px; width:16px"><img src="img/location_post.png" style="margin-top:-10px; margin-left:-15px; "></div></a>
+                        <!--     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                         <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button> -->
+                    </div>
+                    
+                </div>
+                <div id="attachStatLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                    <input id="statLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                </div>
+                <div id="statImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <img id="statImage" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div id="statVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <video id="statVid" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div style=" padding-top:1%; margin-left:38%">
+                    <button class="btn" type="button" onClick="emptyStat(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                    <div class="btn-group">
+                        <button id="updt" class="btn" style="color:#BDBDBD; font-weight:600; z-index:999 !important">Update</button>
+                        <button id="updtView" class="btn">
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="progress progress-striped active" id="progCont" style="margin-left:5%; margin-top:5px; width:90%; display:none">
+                    <div id="prgbar" class="bar" style="width: 100%;"></div>
+                </div>
+                <div id="postview" class="layout-slider" style="margin-left:10%; display:none">
+                    <input id="Slider2" type="slider" name="price" value="1;10" />
+                </div>
+                <script>
+                    $("#Slider2").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                    </script>
+                &nbsp;
+            </div>
+            
+            
+            <div id="panel7">
+                <div id="recp" style="padding-top:3%; padding-bottom:1%">
+                    <input id="msgRecp" placeholder="To" type="text" style="font-size:15px; width:90%"/>
+                </div>
+                <div class="input-append" style="margin-bottom:-5px">
+                    
+                    <textarea id="msgText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingMsg(event)"></textarea>
+                    <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                     <button id="mib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                     <button id="mvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                     <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                     </div>-->
+                    
+                </div>
+                <div id="attachMsgLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                    <input id="msgLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png"/ style="margin-top:-4px"></div></button>
+                </div>
+                <div id="msgImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <img id="msgImage" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div id="msgVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                    <video id="msgVid" style="width:100%; height:100%; overflow:hidden">
+                        </div>
+                <div style=" padding-top:1%; padding-left:50%">
+                    <button class="btn" type="button" onClick="emptyMsg(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                    <button class="btn" type="button" onClick="sendMsg()" style="color:#BDBDBD; font-weight:600">Send</button>
+                </div>
+                &nbsp;
+            </div>
+            
+            <div id="panel8" class="panel9">
+                <div id="notifList"></div>
+            </div>
+            
+            <div class="tabback">
+                <div class="tab navbar navbar-inverse navbar-fixed-top">
+                    <div style="width:25%; margin-left:4%;">
+                        <button class="btn btn-small pull-left" id="back" onClick="back();">Cancel</button>
+                    </div>
+                    <div style="width:25%; margin-left:72%;">
+                        <button class="btn btn-small pull-right" id="reg" onClick="save()">Save</button>
+                    </div>
+                    
+                </div>
+            </div>
+                
+        </div> <!--panel -->
+                
+        <div id="wrapper">
+        
+            <div style="position: relative; float:left; width:96%; margin:2%">
+                
+                <div id="message" style="margin-top:80px; margin-left:4%; display:none">
+                    <div  class="alert alert-info">
+                        <button type="button" class="close" onClick="hideAlert1()">&times;</button>
+                        <strong>Error!</strong> <span id="incorrect"> </span>
+                    </div>
+                </div>
+    
+                <ul class="nav nav-list">
+                    
+                    <li class="nav-header">Change Password</li>
+                    <li><input id="oPass" type="password" value="" style="width:95%" placeholder="Current Password"></li>
+                    <li><input id="nPass" type="password" value="" style="width:95%" placeholder="New Password"></li>
+                    <li><input id="cPass" type="password" value="" style="width:95%" placeholder="Confirm New Password"></li>
+                    
+                </ul>
+            </div>
+            
+
+        </div>
+        
+        <script>
+
+            var errors = '';
+            function back(){
+                window.location.href='accSettings.html';
+            }
+            
+            function hideAlert1(){
+                $("#message").hide();
+                errors = "";
+            }
+            
+            
+                        
+            function save(){
+                $.blockUI();
+                var old_pw = document.getElementById('oPass').value;
+                var new_pw = document.getElementById('nPass').value;
+                var confirm_pw = document.getElementById('cPass').value;
+                var hash_old_pw=SHA1(old_pw);
+                var hash_new_pw=SHA1(new_pw);
+                var hash_confirm_pw=SHA1(confirm_pw);
+                var passwordValid=validatePassword(new_pw);
+                
+                if(passwordValid==false)
+                {
+                    errors += "<br>Invalid Password!";
+                }
+                else if (hash_old_pw!=sessionStorage.getItem('password')){
+                    errors += "<br>Old Password Doesn't match !";
+                    
+                }
+                else if (hash_confirm_pw!=hash_new_pw){
+                    errors += "<br>New Password Doesn't match !";
+                    
+                }
+                else if(old_pw == "")
+                {
+                    errors += "<br>Current Password is required !";
+                }
+                else if(new_pw == "")
+                {
+                    errors += "<br>New Password is required !";
+                }
+                else if(confirm_pw == "")
+                {
+                    errors += "<br>New Password doesn't match !";
+                }
+                
+                else{
+                    var un=sessionStorage.getItem('username');
+                    url='http://famly.com/beta/public/ws/changePassword.php';
+                    $.post(url,{username:un,password:hash_old_pw,newPass:hash_new_pw},function(data){
+                           if (data==1){
+                           sessionStorage['password']=hash_new_pw;
+                           window.location.href='accSettings.html';
+                           }
+                           });
+                    
+                }
+                
+                if (errors != ""){
+                    $("#message").show();
+                    $("#incorrect").html(errors2);
+                    errors = "";
+                }
+            }
+
+            function validatePassword(pass){
+                if(pass.length<6){
+                    //$("#message").attr("style","display:inline;");
+                    errors += "<br>Password must contain atleast 6 characters";
+                    return false;
+                }
+                
+                console.log("Password validated");
+                return true;
+                
+            }
+                        
+            </script>
+
+    </body>
+</html>
+
+

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+            <link href="js/slide.css" rel="stylesheet" media="screen">
+                    <link rel="stylesheet" type="text/css" href="js/modal.css" />
+                    <style>
+                        div {
+                            -webkit-touch-callout: none;
+                            -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                        }
+                        body{
+                            background: url(img/me_bk.jpg) repeat;
+                            overflow:hidden;
+                        }
+                        * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                        
+                        .b{
+                            background:#C5ECFB;
+                            color:#12B6E9; font-weight:600;
+                        }
+                        .bttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:48px !important;
+                            height:30px !important;
+                            color:#FFF !important;
+                        }
+                        .btttn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:100% !important;
+                            height:30px !important;
+                            color:#FFF !important;
+                            margin-top: -5px;
+                        }
+                        
+                        .button_addEve
+                        {
+                            background-image: url(img/addEve.png); /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                        }
+                        
+                        .button_home
+                        {
+                            background-image: url(img/home.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        .button_menu
+                        {
+                            background-image: url(img/settings.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+
+                        .dbn1
+                        {
+                            position:relative;
+                            float:left;
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:37% !important;
+                            height:20px !important;
+                            color:#FFF !important;
+                            margin: 2%;
+                        }
+
+                        .dbn2
+                        {
+                            position:relative;
+                            float:right;
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:37% !important;
+                            height:20px !important;
+                            color:#FFF !important;
+                            margin: 2%;
+                        }
+
+                        .gbn
+                        {
+                            text-shadow:none !important;
+                            background:#F88E1E !important;
+                            font-weight:600 !important;
+                            width:90% !important;
+                            height:20px !important;
+                            color:#FFF !important;
+                            margin-top: -8px;
+                        }
+                        
+                        .layout-slider { margin-top: 30px; width: 80%; }
+                        
+                        .det_info{
+                            width:98%;
+                            text-align:left;
+                            margin-top:-10px;
+                            color:#999;
+                            font-size:11px;
+                            font-weight:600
+                        }
+                        /* slider container */
+                        .iosSlider {
+                            /* required */
+                            overflow: hidden;
+                            width: 320px;
+                            height: auto;
+                        }
+                        
+                        /* slider */
+                        .iosSlider .slider {
+                            /* required */
+                            width: 120px;
+                            height: 200px;
+                            
+                            
+                        }
+                        
+                        /* slide */
+                        .iosSlider .slider .slide {
+                            /* required */
+                            float: left;
+                            width: 220px;
+                            height: auto;
+                        }
+                        
+                        DIV.list_item_container {
+                            height:5px !important;
+                        }
+                        DIV.image {
+                            float: left;
+                            position:relative;
+                            padding:0% 3% 0% 3%;
+                        }
+                        
+                        .main_canvas{
+                            
+                            width:100%;
+                             float:left;
+                             }
+                        
+                        .detail_box_area{
+                            
+                            background: url(img/me_bk.jpg) repeat;
+                            position: relative;
+                            float:left;
+                            width:100%;
+                        }
+                        .minus_row{
+                            
+                            width:100%;
+                            float:left;      
+                        }
+                        .blue_content_box{
+                            
+                            width:100%;
+                            float:left;
+                            position:relative;      
+                        }
+                        .plus_row{
+                            
+                            width:100%;
+                            float:left;
+                                  
+                        }
+                        
+                        @media only screen and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:58% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        @media only screen and (device-height: 480px){
+                            .nmsg {
+                                overflow:scroll; height:85%
+                            }
+                            .rmsg {
+                                /* overflow:scroll; height:50% */
+                                overflow:scroll; height:55%
+                            }
+                        }
+                        
+                        #menu {
+                            background: none repeat scroll 0 0 #333333;
+                            bottom: 0;
+                            overflow: auto;
+                            position: fixed;
+                            top: 0;
+                            width: 70%;
+                            z-index: 1;
+                        }
+                        #menu ul {
+                            margin-left: 10px;
+                            display: block;
+                            height: 100%;
+                            overflow-y: scroll;
+                        }
+                        #menu ul li a {
+                            background:#333333;
+                            border-bottom: 1px solid #222222;
+                            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                            color: #FFFFFF;
+                            display: block;
+                            font-weight: bold;
+                            padding: 10px;
+                            text-decoration: none;
+                            text-shadow: 0 1px 0 #000000;
+                        }
+                        #menu ul li a.active {
+                            background-color: #336C95;
+                        }
+                        
+                        .handler {
+                            display: none;
+                        }
+                        #handler-left.handler:checked ~ #menu {
+                            opacity: 1;
+                            -webkit-transition: opacity 1s ease 0s;
+                        }
+                        #handler-left.handler:not(:checked) ~ #menu {
+                            opacity: 0;
+                            -webkit-transition: opacity 10s ease 0s;
+                        }
+                        #handler-left.handler:checked ~ #wrapper {
+                            -webkit-transform: translate3d(70%, 0px, 0px);
+                            position:fixed;
+                        }
+                        #handler-left.handler:checked ~ #toppanel {
+                            -webkit-transform: translate3d(70%, 0px, 0px);
+                            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+                        }
+                        
+                        #handler-left.handler:not(:checked) ~ #toppanel {
+                            -webkit-transform: translate3d(0px, 0px, 0px);
+                            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+                        }
+                        #handler-left.handler:checked ~ #wrapper #content {
+                            overflow: hidden;
+                        }
+                        #wrapper {
+                            background: url(img/me_bk.jpg) repeat;
+                            position: absolute;
+                            top:0;
+                            left:0;
+                            bottom:0;
+                            right:0;
+                            -webkit-transform: translate3d(0px, 0px, 0px);
+                            -webkit-transition: -webkit-transform 0.1s ease-in-out 0s;
+                            z-index: 9998;
+                            padding-top: 60px;
+                            width:100%;
+                        }
+
+                        #mlist{
+                            padding-left: 2%;
+                            padding-right: 2%;
+                            font-weight: 600;
+                            margin-top: 30px;
+                            background: #FFF;
+                            display: inline-block;
+                            height: 83%;
+                            width: 95%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                        }
+                        #mlist p{
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                        }
+                        
+                        #glist{
+                            padding-left: 2%;
+                            padding-right: 2%;
+                            font-weight: 600;
+                            margin-top: 30px;
+                            background: #F0F0F5;
+                            display: inline-block;
+                            height: 83%;
+                            width: 96%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                        }
+                        #glist li{
+                            height: 100%;
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                        }
+                        #tlist{
+                            
+                            margin-top: 30px;
+                            background: #F0F0F5;
+                            display: inline-block;
+                            height: 78%;
+                            width: 100%;
+                            float: left;
+                            position: relative;
+                            overflow: scroll;
+                        }
+                        #tlist #trib{
+                            width: 80%;
+                            float: left;
+                            position: relative;
+                            margin:0px;
+                            border-bottom: 1px solid white;
+                        }
+                        
+                        #newt{
+                            float: left;
+                            position: relative;
+                            width:100%;
+                            height:5%;
+                            padding:none;
+                        }
+                        </style>
+                    
+                                        
+    </head>
+    
+    <body>
+        
+        <script src="js/cordova.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.blockUI.js"></script>
+        <script src="js/jquery.iosslider.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+        
+        
+        <input type="checkbox" name="handler-left" class="handler" id="handler-left" onclick="null" />
+        
+        <div id="menu">
+            <ul>
+                <li>
+                    <div class="form-search">
+                        <div class="input-append">
+                            <input id="search_name" type="text" class="span2 input-medium search-query" placeholder="Search">
+                                <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                </div>
+                    </div>
+                </li>
+                <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                
+                
+            </ul>
+        </div>
+        
+            <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+                    
+                    
+                <div class="tabback">
+                    <div class="tab">
+                        <div style="position:absolute; left:2px; top:1px ">
+                            <div class="btn-group">
+                                <button id="menuShow" class="btn button_menu" onClick="slide()"></button>
+                            </div>
+                        </div>
+                        <div id="clos" style="background:transparent; width:50%; height:90%; margin-left:35%">&nbsp;</div>
+                        <div style="position:absolute; right:2px; top:1px">
+                            <div class="btn-group">
+                                <button class="btn button_addEve" onClick="add()"></button>
+                                <button class="btn button_home" onClick="goHome()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+        
+        <a href="#x" class="overlay" id="gift_pop"></a>
+        <div class="popup">
+            <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Select A Gift</div>
+            <div id="glist">
+            </div>
+            <a class="close" href="#close"></a>
+            <a class="btn gbn" onClick="loadMoreGifts()"><i class="icon-refresh icon-white"></i> Show More Gifts</a>
+        </div>
+        
+        <a href="#x" class="overlay" id="tridet"></a>
+        <div class="popup">
+            <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Tributes</div>
+            <div id="tlist">
+                
+            </div>
+            <a class="close" href="#close"></a>
+            <div id="newt">
+            </div>
+        </div>
+
+                
+            <div id="wrapper">
+                
+                        <div id="memos">
+                         
+                        </div>
+            </div>
+            
+                
+            </div>
+        
+                <script>
+                    
+                    var monthNames = new Array("January", "February", "March",
+                                               "April", "May", "June", "July", "August", "September",
+                                               "October", "November", "December");
+                    
+                    function profGift(pageNo) {
+                        sessionStorage['currentGiftPage'] = pageNo;
+                        if(pageNo == '0') {
+                            $("#glist").empty();
+                            $("#glist").append('<ul id="gifts" class="nav nav-tabs nav-stacked"></ul>');
+                        }
+                        
+                        url2='http://api.gifts.com/v2/search/product.json?api_key=w7dz9ckaz7grxffqpnzkg8mv&limit=30&sort=relevance&page='+pageNo;
+                        $.get(url2,{}, function(data){
+                              data2 = JSON.stringify(data.products);
+                              data3 = JSON.parse(data2);
+                              //alert(data2);
+                              $(data3).each(function(i,val){
+                                            $("#gifts").append('<li onClick="showGift(\''+val.merchantStoreUrl+'\')" style="position:relative; float:left; width:100%; border-bottom:2px solid #DEDEDE" >'
+                                                               + ' <div style="position:relative; float:left; height:50px !important; width:50px !important; box-shadow:none; margin:3%"> '
+                                                               + '  <img src="'+ val.largeProductImageUrl +'" style="width:100%; height:100%; overflow:hidden  " alt="loading" > '
+                                                               + '  </div> '
+                                                               +  ' <div style="position:relative; float:left; width:70%; font-size:13px; color:#12B6E9; line-height:14px; margin-top:3%">'+val.title+'<p style="font-weight:none; font-size:11px; line-height:14px; color: #999;">'+decodeURIComponent(val.description.substring(0,140))+'...</p><p style="font-size:12px; color:#12B6E9;  line-height:12px;">$'+val.price+' <span style="color: #999;">at</span> '+val.merchantName+'</p></div></li>');
+                                            });
+                              
+                              
+                              });
+                    }
+                    
+                    function loadMoreGifts(){
+                        var nextPage = parseInt(sessionStorage.getItem('currentGiftPage')) + 1;
+                        profGift(nextPage);
+                    }
+                    
+                    function showGift(url){
+                        var ref = window.open(url, '_blank', 'location=yes');
+                        //ref.addEventListener('loadstop', iabStop);
+                        //ref.addEventListener('exit', iabClose);
+                    }
+                    
+                    function check(){
+                        if(document.getElementById("handler-left").checked)
+                        document.getElementById("handler-left").checked=false
+                        else
+                        document.getElementById("handler-left").checked=true
+                    }
+                    
+                    function goHome(){
+                        
+                        window.open('index.html', '_self');
+                        
+                    }
+                    
+                    function trib(id){
+                        window.open('tributes.html?id='+id, '_self');
+                    }
+                    
+                    
+                    $(document).ready(function() {
+                                      userList();
+                                      showMemos();
+                                      
+                                      $("#search_name").autocomplete({
+                                                                     source: fname,
+                                                                     minLength: 0,
+                                                                     select: function(event, ui) {
+                                                                     //assign value back to the form element
+                                                                     if(ui.item){
+                                                                     $(event.target).val(ui.item.value);
+                                                                     names=ui.item.value;
+                                                                     }
+                                                                     searchedUser();
+                                                                     }
+                                                                     }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li class="list_item_container"></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      function split( val ) {
+                                      return val.split( /,\s*/ );
+                                      }
+                                      function extractLast( term ) {
+                                      return split( term ).pop();
+                                      }
+                                      $("#msgRecp").bind( "keydown", function( event ) {
+                                                         if ( event.keyCode === $.ui.keyCode.TAB &&
+                                                             $( this ).data( "autocomplete" ).menu.active ) {
+                                                         event.preventDefault();
+                                                         }
+                                                         })
+                                      .autocomplete({
+                                                    minLength: 0,
+                                                    source: function( request, response ) {
+                                                    // delegate back to autocomplete, but extract the last term
+                                                    response( $.ui.autocomplete.filter(
+                                                                                       fname, extractLast( request.term ) ) );
+                                                    },
+                                                    focus: function() {
+                                                    // prevent value inserted on focus
+                                                    return false;
+                                                    },
+                                                    select: function( event, ui ) {
+                                                    var terms = split( this.value );
+                                                    // remove the current input
+                                                    terms.pop();
+                                                    // add the selected item
+                                                    terms.push( ui.item.value );
+                                                    // add placeholder to get the comma-and-space at the end
+                                                    terms.push("");
+                                                    this.value = terms.join(",");
+                                                    return false;
+                                                    }
+                                                    }).data("autocomplete")._renderItem = function (ul, item) {
+                                      var inner_html = '<a style="height:100% !important;">'
+                                      +'<div style="height:30px !important; width:30px !important;"> '
+                                      + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                                      + '  </div> '
+                                      +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                                      //alert(item);
+                                      return $('<li></li>')
+                                      .data("item.autocomplete", item)
+                                      .append(inner_html)
+                                      .appendTo(ul);
+                                      };
+                                      
+                                      
+                                      });
+                    
+                    var fname = new Array();
+                    var fid= new Array();
+                    var fpic= new Array();
+                    var names;
+                    function userList(){
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userId=sessionStorage.getItem('userid');
+                        url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                        $.get(url2,{}, function(data){
+                              
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            fname[i]=val.name;
+                                            //alert(fname[i]);
+                                            fid[i]=val.id;
+                                            fpic[i]=val.picture;
+                                            // alert(fid[i]);
+                                            });
+                              
+                              });
+                        
+                    }
+                    
+                    function searchedUser(){
+                        
+                        var indexArray= new Array();
+                        var index;
+                        for(i=0;i<fname.length;i++){
+                            if(names==fname[i]){
+                                index=i;
+                            }
+                        }
+                        var id=fid[index];
+                        var picture=fpic[index];
+                        window.open('profilePage.html?id='+id, '_self');
+                        
+                    }
+                    
+                    function search(){
+                        
+                        var full_name = $("#search_name").val();
+                        window.open('searchResults.html?name='+full_name, '_self');
+                    }
+                    
+                    function getUrlVars()
+                    {
+                        var vars = [], hash;
+                        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                        for(var i = 0; i < hashes.length; i++)
+                        {
+                            hash = hashes[i].split('=');
+                            vars.push(hash[0]);
+                            vars[hash[0]] = hash[1];
+                        }
+                        return vars;
+                    }
+                    
+                    
+                    function timeDifference(current, previous) {
+                        
+                        var msPerMinute = 60 * 1000;
+                        var msPerHour = msPerMinute * 60;
+                        var msPerDay = msPerHour * 24;
+                        var msPerMonth = msPerDay * 30;
+                        var msPerYear = msPerDay * 365;
+                        
+                        var elapsed = current - previous;
+                        
+                        if (elapsed < msPerMinute) {
+                            if(Math.round(elapsed/1000)==1){
+                                return 'A few second ago';
+                            }
+                            else{
+                                return ' A few seconds ago';
+                            }
+                            
+                        }
+                        
+                        else if (elapsed < msPerHour) {
+                            if(Math.round(elapsed/msPerMinute)==1){
+                                return  Math.round(elapsed/msPerMinute) + ' minute ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerMinute) + ' minutes ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerDay ) {
+                            if(Math.round(elapsed/msPerHour)==1){
+                                return  Math.round(elapsed/msPerHour) + ' hour ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerHour) + ' hours ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerMonth) {
+                            if(Math.round(elapsed/msPerDay)==1){
+                                return  Math.round(elapsed/msPerDay) + ' day ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerDay) + ' days ago';
+                            }
+                        }
+                        
+                        else if (elapsed < msPerYear) {
+                            if(Math.round(elapsed/msPerMonth)==1){
+                                return  Math.round(elapsed/msPerMonth) + ' month ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerMonth) + ' months ago';
+                            }
+                        }
+                        
+                        else {
+                            if(Math.round(elapsed/msPerYear)==1){
+                                return Math.round(elapsed/msPerYear) + ' year ago';
+                            }
+                            else{
+                                return  Math.round(elapsed/msPerYear) + ' years ago';
+                            }
+                        }
+                    }  
+                    
+                    var parseMonth = function (value) {
+                        
+                        switch (value) {
+                            case "Jan":
+                            return "01";
+                            case "Feb":
+                            return "02";
+                            case "Mar":
+                            return "03";
+                            case "Apr":
+                            return "04";
+                            case "May":
+                            return "05";
+                            case "Jun":
+                            return "06";
+                            case "Jul":
+                            return "07";
+                            case "Aug":
+                            return "08";
+                            case "Sep":
+                            return "09";
+                            case "Oct":
+                            return "10";
+                            case "Nov":
+                            return "11";
+                            case "Dec":
+                            return "12";
+                            default:
+                            return value;
+                        }};
+                    
+                    
+                    function showMemos(){
+                        url='http://famly.com/beta/public/ws/getMemorials.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        
+                        $.get(url,{username: un, password: hash}, function(data){
+                              $.blockUI();
+                              //alert(data);
+                              
+                              if(data == '[]')
+                              {
+                              navigator.notification.alert("No Tributes Available",null,"Message!!","OK");
+                              
+                              }
+                              else{
+                              data2 = $.parseJSON(data);
+                              $(data2).each(function(i,val){
+                                            
+                                            var postDate=new Date(val.created_at.substring(0, val.created_at.indexOf(' ')).replace(/-/g,'/'));
+                                            var cDate = postDate.getDate();
+                                            var cMonth = postDate.getMonth();
+                                            var cYear = postDate.getFullYear();
+                                            
+                                        $("#memos").append(' <div style="position:relative; float:left; margin:3%; width:95%; background:#C5ECFB; border-radius:5px;">'
+                                                    +' <div align="center" style="position:relative; float:left; height:75px !important; width:75px !important; border:2px solid #DEDEDE; box-shadow:none; margin:1%;">'
+                                                    +' <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+val.profile_picture_of_memo+'" style="width:100%; height:100%; overflow:hidden" alt="loading" >'
+                                                    +'  </div>'
+                                                    +' <div style="position:relative; float:left; width:70%; margin:1%;">'
+                                                    +' <p style="overflow:hidden; color:#12B6E9; font-size:13px; font-weight:600; line-height:14px">'+ val.first_name+' '+val.last_name +'</p>'
+                                                    +' <p style="overflow:hidden; color:#999; font-size:11px; line-height:10px">'+val.dob+'-'+val.dop+'</p>'
+                                                    +' <p style="overflow:hidden; color:#999; font-size:11px;">By '+ val.user_name +'<br> On '+ monthNames[cMonth] + ' ' +cDate  + ' , ' +cYear  +'</p>'
+                                                    +'  </div> '       
+                                                    + '  <p style="position:relative; float:left; text-align:center; width:95%; color:#999; font-size:12px; font-weight:600; margin:2%;">'+ decodeURIComponent(val.description) +'</p> '
+                                                    
+                                                    +' <a class="btn dbn1" onClick="trib('+ val.id +')">Add Tribute</a>'
+                                                    +' <a class="btn dbn2" onClick="profGift(0)" href="#gift_pop">Add Gift</a>'
+                                                    +'</div>');
+                                            });
+                              }
+                              
+                              $.unblockUI();
+                              });
+
+                    }
+                    
+                    function popMemo(user, cDte, pic, fname, lname, yb, yp, desc){
+                        var postDate=new Date(cDte.substring(0, cDte.indexOf(' ')).replace(/-/g,'/'));
+                        var cDate = postDate.getDate();
+                        var cMonth = postDate.getMonth();
+                        var cYear = postDate.getFullYear();
+                        
+                        $("#mlist").empty();
+                        $("#mlist").append('<div style="position:relative; float:left;"> '
+                                                        + ' <div style="position:relative; float:left;  height:55px !important; width:55px !important; border:2px solid #DEDEDE; box-shadow:none; margin-top:1%;"> '
+                                                        + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ pic +'" style="width:100%; height:100%; overflow:hidden" alt="loading" > '
+                                                        + '  </div> '
+                                                        + '  <div style="position:relative; float:left; width:70%; margin-top:3%; margin-left:2%;"> '
+                                                        + '  <p style=" position:relative; float:left; width:100%; color:#12B6E9; font-weight:600; line-height:12px">'+ fname+' '+ lname +'</p> '
+                                                        + '  <p style="position:relative; float:left; color: #BCBEBD; font-size:11px; width:100%; line-height:14px">By '+ user +'<br> On '+ monthNames[cMonth] + ' ' +cDate  + ', ' +cYear  +'</p>'
+                                                        + '  </div> '
+                                                        + '  <p style="text-align:left; width:100%; color: #BCBEBD; font-size:12px;">'+ decodeURIComponent(desc) +'</p> '
+                                                        
+                                                        + '  </div>');
+                    }
+
+                    function tributePanel(id){
+                       
+                        var currentDate = new Date();
+                        var now = currentDate.toUTCString();
+                        
+                        var date = now.split(",");
+                        var Cdatefinal=date[0]+" "+date[1];
+                        var Cdatefinal1=date[1];
+                        var Cdatefinal2=Cdatefinal1.split(" ");
+                        var dddd=date[0]+" "+Cdatefinal2[2]+" "+Cdatefinal2[1]+" "+Cdatefinal2[3]+" "+Cdatefinal2[4]+" "+Cdatefinal2[5];
+                        var time=Cdatefinal2[4].split(":");
+                        var posthour = time[0];
+                        var postminute = time[1];
+                        var postsecond = time[2];
+                        var month=parseMonth(Cdatefinal2[2]);
+                        month=month-1;
+                        var day=Cdatefinal2[1];
+                        var ddddd=new Date(Cdatefinal2[3],month,day,posthour,postminute,postsecond,00);
+                        var picture=sessionStorage.getItem('dp');
+                        url3 = 'http://famly.com/beta/public/ws/getTributes.php';
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+
+                        $("#tlist").empty();
+                        $("#newt").empty();
+                        
+                        $("#newt").append('<div>'
+                                          + ' <div style="position:relative; float:left; height:25px !important; width:25px !important; box-shadow:none; margin:1%"> '
+                                          + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ picture +'" style="width:100%; height:100%; overflow:hidden " class="pull-left" > '
+                                          + '  </div> '
+                                          + '<input id="appendedInputButton'+id+'" onkeypress="newTrib(event,'+id+')" type="text" placeholder="Add Comment">'
+                                          + '  </div>');
+                        
+                        $.get(url3,{username: un, password: hash, memo_id:id}, function(data){
+                              //alert(data);
+                              data4 = $.parseJSON(data);
+                              $(data4).each(function(i,val){
+                                            var postDate=val.tribute_time;
+                                            var date = postDate.split("-");
+                                            var postyyyy = date[0];
+                                            var postmm = date[1]-1;
+                                            var day_time = date[2];
+                                            var day = day_time.split(" ");
+                                            var postdd= day[0];
+                                            var postTime=day[1];
+                                            var time=postTime.split(":");
+                                            var posthour = time[0];
+                                            var postminute = time[1];
+                                            var postsecond = time[2];
+                                            var postDateTime=new Date(postyyyy,postmm,postdd,posthour,postminute,postsecond,00);
+                                            var timeTrack=timeDifference(ddddd,postDateTime);
+                                            //alert(now+' '+ddddd+' '+postDateTime);
+                                            $("#tlist").append('<div id="trib" style="position:relative; float:left; z-index:2; background: #F0F0F5; width:100%">'
+                                                               + ' <div style="position:absolute; height:30px !important; width:30px !important; box-shadow:none; margin:2% 1% 1% 1%"> '
+                                                               + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ val.created_by_profile_picture +'" style="width:100%; height:100%; overflow:hidden  " class="pull-left" > '
+                                                               + '  </div> '
+                                                               + '  <div align="left" style="margin-left:18%">'
+                                                               + '  <p style="color:#12B6E9; font-size:12px; font-weight:600;">'+ val.created_by_username +'</p>'
+                                                               + '  <p style="color:#999; font-size:12px; margin-top:-15px;">'+timeTrack+'</p>'
+                                                               + ' <p style="color:#000; line-height:1.5; font-size:13px; width:98%; text-align:left; margin-top:-10px">'+val.tribute_desc+'</p>'
+                                                               + '  </div>'
+                                                               + '  </div>');
+                                            
+                                            })
+                              
+                              
+                              });
+                        
+                        //$("div#comm_"+id).slideDown("slow");
+                        //  }
+                    }
+                    
+                    function newTrib(event, id){
+                        //console.log(event.keyCode);
+                        if (event.keyCode == 13){
+                            addTribute(id);
+                        }
+                    }
+
+                    
+                    function addTribute(id){
+                        url='http://famly.com/beta/public/ws/addTribute.php';
+                        var user_trib =document.getElementById("appendedInputButton"+id).value;
+                         document.getElementById("appendedInputButton"+id).value="";
+                        var picture=sessionStorage.getItem('dp');
+                        var un=sessionStorage.getItem('username');
+                        var hash=sessionStorage.getItem('password');
+                        var userid=sessionStorage.getItem('userid');
+                        var picture=sessionStorage.getItem('dp');
+                        var full_name=sessionStorage.getItem('fullname');
+                        $.get(url,{username:un, password:hash, memorial_id:id, desc:user_trib, gift_id:0}, function(data){
+                              if(data==1){ 
+                              document.getElementById("appendedInputButton"+id).value="";
+                              }
+                              });
+                        //$("#newComm"+id).remove();
+                        $("#tlist").append('<div id="trib" style="background: #F0F0F5;">'
+                                           + ' <div style="position:absolute; height:30px !important; width:30px !important; margin:1% 1% 1% 1%"> '
+                                           + '  <img src="http://famly.com/beta/public/uploads/user_pics/thumbs/'+ picture +'" style="width:100%; height:100%; overflow:hidden"/> '
+                                           + '  </div> '
+                                           + '  <div align="left" style="margin-left:18%">'
+                                           + '  <p style="color:#12B6E9; font-size:12px; font-weight:600;">'+full_name+'</p>'
+                                           + '  <p style="color: #999; font-size:12px; margin-top:-15px;">Just now</p>'
+                                           + ' <p style="color:#000; line-height:1.5; font-size:12px; width:98%; text-align:left; margin-top:-10px">' + user_trib + '</p>'
+                                           + '  </div>'
+                                           + '  </div>');
+                        
+                    }
+
+                    
+                    function prof(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('profilePage.html?id='+id, '_self');
+                        
+                    }
+                    
+                    function jour(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('journals.html?jid='+id, '_self');
+                        
+                    }
+                    
+                    function add(){
+                        
+                        window.open('addMemo.html', '_self');
+                        
+                    }
+                    
+                    function goAlb(){
+                        var id = sessionStorage.getItem('userid');
+                        window.open('album.html?id='+id, '_self');
+                        
+                    }
+                    </script>
+                
+    </body>
+    
+</html>

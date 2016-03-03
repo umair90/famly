@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            
+            <style>
+                div {
+                    -webkit-touch-callout: none;
+                    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+                }
+                body{
+                    background: url(img/back.jpg) repeat;
+                    overflow:hidden;
+                }
+                .b
+                {
+                    text-shadow:none !important;
+                    background:#F88E1E !important;
+                    font-weight:600 !important;
+                    color:#FFF !important;
+                }
+                /* To set it to none use a totally transparent RGBA */
+                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                
+                .bttn
+                {
+                    text-shadow:none !important;
+                    background:#F88E1E !important;
+                    font-weight:600 !important;
+                    width:48px !important;
+                    height:30px !important;
+                }
+                .button_home
+                {
+                    background-image: url(img/home.png) !important; /* 16px x 16px */
+                    background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                    
+                }
+                .button_back
+                {
+                    background-image: url(img/bk.png) !important; /* 16px x 16px */
+                    background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                }
+                
+                .thead{
+                    font-weight:600;
+                    font-size:9px;
+                }
+                
+                .layout-slider { margin-top: 30px; width: 80%; }
+                
+                @media only screen and (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+                    .nmsg {
+                        overflow:scroll; height:85%
+                    }
+                    .rmsg {
+                        /* overflow:scroll; height:58% */
+                        overflow:scroll; height:55%
+                    }
+                }
+                @media only screen and (device-height: 480px){
+                    .nmsg {
+                        overflow:scroll; height:85%
+                    }
+                    .rmsg {
+                        /* overflow:scroll; height:50% */
+                        overflow:scroll; height:55%
+                    }
+                }
+                
+                #menu {
+                    background: none repeat scroll 0 0 #333333;
+                    bottom: 0;
+                    opacity: 0;
+                    overflow: auto;
+                    position: fixed;
+                    top: 0;
+                    width: 70%;
+                    z-index: 1;
+                }
+                #menu ul {
+                    margin-left: 10px;
+                    display: block;
+                    height: 100%;
+                    overflow-y: scroll;
+                }
+                #menu ul li a {
+                    background:#333333;
+                    border-bottom: 1px solid #222222;
+                    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                    color: #FFFFFF;
+                    display: block;
+                    font-weight: bold;
+                    font-size: 16px;
+                    padding: 15px;
+                    text-decoration: none;
+                    text-shadow: 0 1px 0 #000000;
+                }
+                #menu ul li a.active {
+                    background-color: #336C95;
+                }
+                
+                .handler {
+                    display: none;
+                }
+                #handler-left.handler:checked ~ #menu {
+                    opacity: 1;
+                    -webkit-transition: opacity 1s ease 0s;
+                }
+                #handler-left.handler:checked ~ #wrapper {
+                    -webkit-transform: translate3d(40%, 0px, 0px);
+                    position:fixed;
+                }
+                #handler-left.handler:not(:checked) ~ #menu {
+                    opacity: 0;
+                    -webkit-transition: opacity 10s ease 0s;
+                }
+                #handler-left.handler:checked ~ #toppanel {
+                    -webkit-transform: translate3d(40%, 0px, 0px);
+                }
+                #wrapper {
+                    background: url(img/back.jpg) repeat;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    -webkit-transform: translate3d(0px, 0px, 0px);
+                    -webkit-transition: -webkit-transform 0.5s ease-in-out 0s;
+                    z-index: 999;
+                    padding-top: 100px;
+                    width:100%;
+                }
+                
+                #wrapper ul {
+                    display: block;
+                    height: 100%;
+                    overflow-y: scroll;
+                }
+                #wrapper ul li a{
+                    background: #FFF;
+                    border-bottom: 1px solid #222222;
+                    font-size: 16px;
+                    display: block;
+                    font-weight: bold;
+                    padding: 10px;
+                }
+                
+                </style>
+            
+            <script src="js/jquery.scrollTo-1.4.3.1-min.js"></script>
+            <script src="js/cordova.js"></script>
+            <script src="js/jquery.js"></script>
+            <script src="js/jquery.blockUI.js"></script>
+            <script src="js/iscroll.js"></script>
+            <script src="bootstrap/js/bootstrap.min.js"></script>
+            <script src="js/sha1.js"></script>
+            <script type="text/javascript" charset="utf-8" src="js/ajaxfileupload.js"></script>
+            <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+            </head>
+    <body>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+            <link rel="stylesheet" href="slider/stylesheets/jslider.css" type="text/css">
+                <link rel="stylesheet" href="slider/stylesheets/jslider.round.css" type="text/css">
+                    <script type="text/javascript" src="slider/javascripts/jquery.dependClass.js"></script>
+                    <script type="text/javascript" src="slider/javascripts/jquery.slider.js"></script>
+                    
+                    
+                    <input type="checkbox" name="handler-left" class="handler" id="handler-left" onclick="null" />
+                    
+                    <div id="menu">
+                        <ul>
+                            <li>
+                                <div class="form-search">
+                                    <div class="input-append">
+                                        <input id="search_name" type="text" class="span3 input-medium search-query" placeholder="Search">
+                                            <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                            </div>
+                                </div>
+                            </li>
+                            <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                            <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                            <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                            <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                            <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                            <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                            <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                            <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                            <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                            
+                            
+                        </ul>
+                    </div>
+                    
+                    <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+                        
+                        <div id="panel3" class="panel3">
+                            <div id="msgList"></div>
+                            <div id="newMsgButton" style="display:none">
+                                <button class="btn" type="button" style="width:30px; height:30px; background:#F88E1E;" onClick="newMessage()"><div style="margin-left:-11px; height:25px; width:25px"><img src="img/newMsg.png"/ style="margin-top:-4px"></div></button>
+                            </div>
+                            
+                            <div id="reply_post" style="display:none;">
+                                
+                                <div  class="input-append" style="margin-bottom:-7px; margin-top:-6px">
+                                    <textarea id="repText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingRep(event)"></textarea>
+                                    <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                                     <button id="rib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                     <button id="rvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                                     <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                                     </div>-->
+                                </div>
+                                <div id="attachRepLink" class="input-append" style="padding-bottom:1%; display:none">
+                                    <input id="repLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                                    <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                                </div>
+                                <div id="repImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                    <img id="repImage" style="width:100%; height:100%; overflow:hidden">
+                                        </div>
+                                <div id="repVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                    <video id="repVid" style="width:100%; height:100%; overflow:hidden">
+                                        </div>
+                                <div style="margin-left:50%">
+                                    <button class="btn" type="button" onClick="emptyRep(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                                    <button class="btn" style="color:#BDBDBD; font-weight:600" onClick="replyMsg()">
+                                        Send
+                                    </button>
+                                </div>
+                                &nbsp;
+                            </div>
+                        </div>
+                        
+                        <div id="panel4" style=" z-index:999 !important">
+                            
+                            <div class="input-append" style="padding-top:5%; margin-bottom:-5px">
+                                <textarea id="statText" rows="5" placeholder="What do you want to share?" type="text" style="font-size:15px; width:79%; margin-top:4%" onkeypress="linkingStat(event)"></textarea>
+                                <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                                    <button id="sib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                    <button id="svb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                    <a id="locList" class="btn btn-large" type="button" style="width:0px;" href="#pop"><div style="height:14px; width:16px"><img src="img/location_post.png" style="margin-top:-10px; margin-left:-15px; "></div></a>
+                                    <!--     <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                                     <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button> -->
+                                </div>
+                                
+                            </div>
+                            <div id="attachStatLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                                <input id="statLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                                <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png" style="margin-top:-4px"></div></button>
+                            </div>
+                            <div id="statImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                <img id="statImage" style="width:100%; height:100%; overflow:hidden">
+                                    </div>
+                            <div id="statVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                <video id="statVid" style="width:100%; height:100%; overflow:hidden">
+                                    </div>
+                            <div style=" padding-top:1%; margin-left:38%">
+                                <button class="btn" type="button" onClick="emptyStat(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                                <div class="btn-group">
+                                    <button id="updt" class="btn" style="color:#BDBDBD; font-weight:600; z-index:999 !important">Update</button>
+                                    <button id="updtView" class="btn">
+                                        <span class="caret"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="progress progress-striped active" id="progCont" style="margin-left:5%; margin-top:5px; width:90%; display:none">
+                                <div id="prgbar" class="bar" style="width: 100%;"></div>
+                            </div>
+                            <div id="postview" class="layout-slider" style="margin-left:10%; display:none">
+                                <input id="Slider2" type="slider" name="price" value="1;10" />
+                            </div>
+                            <script>
+                                $("#Slider2").slider({ from: 1, to: 10, step: 1, smooth: true, round: 0, limits: false, skin: "round" });
+                                </script>
+                            &nbsp;
+                        </div>
+                        
+                        
+                        <div id="panel7">
+                            <div id="recp" style="padding-top:3%; padding-bottom:1%">
+                                <input id="msgRecp" placeholder="To" type="text" style="font-size:15px; width:90%"/>
+                            </div>
+                            <div class="input-append" style="margin-bottom:-5px">
+                                
+                                <textarea id="msgText" rows="3" placeholder="Message" type="text" style="font-size:15px; width:90%; margin-top:4%" onkeypress="linkingMsg(event)"></textarea>
+                                <!--    <div class="btn-group btn-group-vertical" style="margin-top:-1px">
+                                 <button id="mib" class="btn btn-large" type="button" style="width:35px;" onClick="addImage()"><div style="height:14px; width:20px"><img src="img/image_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                 <button id="mvb" class="btn btn-large" type="button" style="width:35px;" onClick="addVideo()"><div style="height:14px; width:20px"><img src="img/vid_post.png" style="margin-top:-10px; margin-left:-20px; "></div></button>
+                                 <button class="btn btn-large" type="button" style="width:35px;" onClick="addLoc()"><div style="height:14px; width:20px"><img src="img/location_post.png" style="height:20px; width:13px; margin-top:-10px; margin-left:-20px; "/></div></button>
+                                 <button class="btn btn-large" type="button" style="width:35px;"><div style="height:14px; width:20px"><img src="img/schedule_post.png" style="margin-top:-8px; margin-left:-15px; "/></div></button>
+                                 </div>-->
+                                
+                            </div>
+                            <div id="attachMsgLink" class="input-append" style="padding-top:0%; padding-bottom:3%; display:none">
+                                <input id="msgLink" placeholder="Add Link"  type="text" style="font-size:15px; width:78%"/>
+                                <button class="btn" type="button" style="width:35px;" onClick="showBrowser()"><div style="margin-left:-5px; height:20px; width:20px"><img src="img/link.png"/ style="margin-top:-4px"></div></button>
+                            </div>
+                            <div id="msgImageDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                <img id="msgImage" style="width:100%; height:100%; overflow:hidden">
+                                    </div>
+                            <div id="msgVidDiv" style="position:absolute; margin-left:5%; padding-top:2%; height:30px !important; width:30px !important; display:none">
+                                <video id="msgVid" style="width:100%; height:100%; overflow:hidden">
+                                    </div>
+                            <div style=" padding-top:1%; padding-left:50%">
+                                <button class="btn" type="button" onClick="emptyMsg(event)" style="color:#BDBDBD; font-weight:600">Cancel</button>
+                                <button class="btn" type="button" onClick="sendMsg()" style="color:#BDBDBD; font-weight:600">Send</button>
+                            </div>
+                            &nbsp;
+                        </div>
+                        
+                        <div id="panel8" class="panel9">
+                            <div id="notifList"></div>
+                        </div>
+                        
+                        <div class="tabback">
+                            <div class="tab navbar navbar-inverse navbar-fixed-top">
+                                <div style="position:absolute; left:2px; top:-3px">
+                                    <div class="btn-group">
+                                        <button id="menuShow" class="btn button_back" onClick="goBack()"></button>
+                                    </div>
+                                </div>
+                                <div id="clos" style="background:transparent; width:50%; height:90%; margin-left:35%">&nbsp;</div>
+                                <div style="position:absolute; right:2px; top:-3px">
+                                    <div class="btn-group">
+                                        <button class="btn button_home" onClick="goHome()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div> <!--panel -->
+                    
+                    <div id="wrapper">
+                        
+                        <div style="position: relative; float:left; width:96%; margin:2%">
+                            
+                            <ul class="nav nav-tabs nav-stacked">
+                                <li><a href="changeName.html"><i class="icon-chevron-right pull-right"></i> Change Name</a></li>
+                                <li><a href="changePass.html"><i class="icon-chevron-right pull-right"></i> Change Password</a></li>
+                                <li><a href="changeEmail.html"><i class="icon-chevron-right pull-right"></i> Change Email</a></li>
+                            </ul>
+                        </div>
+                        
+                        
+                    </div>
+        
+        <script>
+
+            $(document).ready(function() {
+                              userList();
+                              
+                              $("#search_name").autocomplete({
+                                                             source: fname,
+                                                             minLength: 0,
+                                                             select: function(event, ui) {
+                                                             //assign value back to the form element
+                                                             if(ui.item){
+                                                             $(event.target).val(ui.item.value);
+                                                             names=ui.item.value;
+                                                             }
+                                                             searchedUser();
+                                                             }
+                                                             }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li class="list_item_container"></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+                              
+                              
+                              });
+            
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function searchedUser(){
+                
+                var indexArray= new Array();
+                var index;
+                for(i=0;i<fname.length;i++){
+                    if(names==fname[i]){
+                        index=i;
+                    }
+                }
+                var id=fid[index];
+                var picture=fpic[index];
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+           
+            function search(){
+                
+                var full_name = $("#search_name").val();
+                window.location.href= 'searchResults.html?name='+full_name;
+            }
+            
+            function check(){
+                if(document.getElementById("handler-left").checked)
+                document.getElementById("handler-left").checked=false
+                else
+                document.getElementById("handler-left").checked=true
+            }
+            
+            function prof(){
+                var id = sessionStorage.getItem('userid');
+                window.location.href='profilePage.html?id='+id;
+                
+            }
+            
+            function jour(){
+                var id = sessionStorage.getItem('userid');
+                window.location.href='journals.html?jid='+id;
+                
+            }
+            
+            function back(){
+                window.location.href='settings.html';
+            }
+            
+            function goHome(){
+                
+                window.location.href='index.html';
+                
+            }
+            function goBack(){
+                
+                window.location.href='settings.html';
+                
+            }
+            
+            function hideAlert1(){
+                $("#message").slideToggle();
+                errors = "";
+            }
+            
+            function save1(){
+            
+                var fn = document.getElementById('fname').value;
+                var ln = document.getElementById('lname').value;
+                var fnValid=validatefirstName(fn);
+                var lnValid=validatelastName(ln);
+               // var userNameValid=validateUsername(un);
+                 if( fn == "" )
+                {
+                    //$("#message").attr("style","display:inline;");
+                    //$("#incorrect").text("First Name is required");
+                    errors += "<br>First Name is required";
+                }
+                else if( ln == "" )
+                {
+                    //$("#message").attr("style","display:inline;");
+                    //$("#incorrect").text("Last Name is required");
+                    errors += "<br>Last Name is required";
+                }
+                else if( fnValid==false )
+                {
+                    console.log("It shouldnt login, firstname is invalid")
+                    // errors2 += "<br>Invalid Username  !";
+                }
+                else if( lnValid==false )
+                {
+                    console.log("It shouldnt login, lastname is invalid")
+                    // errors2 += "<br>Invalid Username  !";
+                }else{
+                    var un=sessionStorage.getItem('username');
+                    var hash=sessionStorage.getItem('password');
+                    url='http://famly.com/beta/public/ws/changeName.php';
+                    $.post(url, {username: un, password: hash, firstName:fn ,lastName:ln },function(data){
+                           if (data==1){
+                           sessionStorage['fname']=fn;
+                           sessionStorage['lname']=ln;
+                           }
+                           });
+                    if($("#message").is(":visible"))
+                    $("#message").slideUp();
+                    $("#unameUpdate").slideToggle();
+                    
+                }if (errors != ""){
+                    $("#message").slideDown();
+                    $("#incorrect").html(errors);
+                    errors = "";
+                }
+                
+            }
+            
+                        
+            function save2(){
+                
+                var old_pw = document.getElementById('oPass').value;
+                var new_pw = document.getElementById('nPass').value;
+                var confirm_pw = document.getElementById('cPass').value;
+                var hash_old_pw=SHA1(old_pw);
+                var hash_new_pw=SHA1(new_pw);
+                var hash_confirm_pw=SHA1(confirm_pw);
+                var passwordValid=validatePassword(new_pw);
+                
+                if(passwordValid==false)
+                {
+                    errors2 += "<br>Invalid Password!";
+                }
+                else if (hash_old_pw!=sessionStorage.getItem('password')){
+                    errors2 += "<br>Old Password Doesn't match !";
+                    
+                }
+                else if (hash_confirm_pw!=hash_new_pw){
+                    errors2 += "<br>New Password Doesn't match !";
+                    
+                }
+                else if(old_pw == "")
+                {
+                    errors2 += "<br>Current Password is required !";
+                }
+                else if(new_pw == "")
+                {
+                    errors2 += "<br>New Password is required !";
+                }
+                else if(confirm_pw == "")
+                {
+                    errors2 += "<br>New Password doesn't match !";
+                }
+                
+                else{
+                    var un=sessionStorage.getItem('username');
+                    url='http://famly.com/beta/public/ws/changePassword.php';
+                    $.post(url,{username:un,password:hash_old_pw,newPass:hash_new_pw},function(data){
+                           if (data==1){
+                           sessionStorage['password']=hash_new_pw;
+                           }
+                           });
+                    if($("#message2").is(":visible"))
+                    $("#message2").slideUp();
+                    $("#passUpdate").slideToggle();
+                    
+                }
+                
+                if (errors2 != ""){
+                    $("#message2").slideDown();
+                    $("#incorrect2").html(errors2);
+                    errors2 = "";
+                }
+            }
+
+            
+                        
+            </script>
+
+    </body>
+</html>
+
+

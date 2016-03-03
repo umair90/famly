@@ -1,0 +1,116 @@
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    cursor: default;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height:130%;
+    visibility: hidden;
+    z-index: 100000 !important;
+
+    -webkit-transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    -ms-transition: opacity .5s;
+    -o-transition: opacity .5s;
+    transition: opacity .5s;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+.popup {
+    background-color:  #F88E1E;
+    display: inline-block;
+    height: 80%;
+    width: 80%;
+    left: 10%;
+    opacity: 0;
+    padding: 0px;
+    position: fixed;
+    text-align: justify;
+    top: 10%;
+    visibility: hidden;
+    z-index: 1000001 !important;
+    overflow: auto;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+
+    -webkit-transition: opacity .5s, top .5s;
+    -moz-transition: opacity .5s, top .5s;
+    -ms-transition: opacity .5s, top .5s;
+    -o-transition: opacity .5s, top .5s;
+    transition: opacity .5s, top .5s;
+}
+.overlay:target+.popup {
+    top: 10%;
+    opacity: 1;
+    visibility: visible;
+}
+.close {
+    background: transparent;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-decoration: none;
+    top: -5px;
+    width: 30px;
+    opacity: 1;
+
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+}
+.close:before {
+    color: #fff;
+    content: "x";
+    font-size: 24px;
+}
+.close:hover {
+   // background-color: rgba(64, 128, 128, 0.8);
+}
+.popup {
+    padding:3px;
+    background: #F88E1E;
+}
+.popup li{
+    background: #fff;
+}
+.popup p, .popup div {
+    margin-bottom: 10px;
+}
+.popup #hd {
+    text-align: center;
+    width: 95%;
+    top: 0; left: 0; right: 0;
+    position: absolute;
+    color: #FFF;
+    font-weight: 600 !important;
+    padding: 5px;
+    overflow: hidden;
+}
+
+#places a{
+    font-weight: 600;
+}
+
+#plist{
+    margin-top: 30px;
+}

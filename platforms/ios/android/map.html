@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+            
+            <link rel="stylesheet" href="js/leaflet.css" />
+            <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+                <link href="js/slide.css" rel="stylesheet" media="screen">
+                    <link rel="stylesheet" type="text/css" href="js/modal.css" />
+            <script src="js/leaflet.js"></script>
+                    <script src="js/leaflet-src.js"></script>
+                    
+                        <style>
+                            body {
+                                padding: 0;
+                                margin: 0;
+                            }
+                            #map {
+                                height: 110%;
+                                margin-top: -35px
+                            }
+                            
+                            .b
+                            {
+                                text-shadow:none !important;
+                                background:#F88E1E !important;
+                                font-weight:600 !important;
+                                color:#FFF !important;
+                            }
+                            /* To set it to none use a totally transparent RGBA */
+                            * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+                            .bttn
+                            {
+                                text-shadow:none !important;
+                                background:#F88E1E !important;
+                                font-weight:600 !important;
+                                width:48px !important;
+                                height:30px !important;
+                            }
+                            .button_home
+                        {
+                            background-image: url(img/home.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                        .button_menu
+                        {
+                            background-image: url(img/settings.png) !important; /* 16px x 16px */
+                            background-color: #F88E1E !important; /* make the button transparent */
+                            background-repeat: no-repeat !important;  /* make the background image appear only once */
+                            background-position: 4px 4px !important;  /* equivalent to 'top left' */
+                            background-size: 30px 25px !important;
+                            height: 35px !important;
+                            width:40px !important;
+                            vertical-align: middle !important;
+                            
+                        }
+                            
+                             #menu {
+                            background: none repeat scroll 0 0 #333333;
+                            bottom: 0;
+                            overflow: auto;
+                            position: fixed;
+                            top: 0;
+                            width: 70%;
+                            z-index: 1;
+                        }
+                        #menu ul {
+                            margin-left: 10px;
+                            display: block;
+                            height: 100%;
+                            overflow-y: scroll;
+                        }
+                        #menu ul li a {
+                            background:#333333;
+                            border-bottom: 1px solid #222222;
+                            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+                            color: #FFFFFF;
+                            display: block;
+                            font-weight: bold;
+                            padding: 10px;
+                            text-decoration: none;
+                            text-shadow: 0 1px 0 #000000;
+                        }
+                        #menu ul li a.active {
+                            background-color: #336C95;
+                        }
+                            
+                           
+                            
+                            #wrapper {
+                                background: url(img/back.jpg) repeat;
+                                position: absolute;
+                                top:0;
+                                left:0;
+                                bottom:0;
+                                right:0;
+                                z-index: 9998;
+                                padding-top: 100px;
+                                width:100%;
+                            }
+                            
+                            
+            
+                            
+                </style>
+                
+                <script src="js/cordova.js"></script>
+                <script src="bootstrap/js/bootstrap.min.js"></script>
+                <script src="js/jquery.blockUI.js"></script>
+                <script src="js/jquery.js"></script>
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    </head>
+    <body>
+        
+        
+        <div id="menu">
+            <ul>
+                <li>
+                    <div class="form-search">
+                        <div class="input-append">
+                            <input id="search_name" type="text" class="span2 input-medium search-query" placeholder="Search">
+                                <button onClick="search()" class="btn b"><i class="icon-search icon-white"></i></button>
+                                </div>
+                    </div>
+                </li>
+                <li><a href="index.html"><i class="icon-home icon-white"></i>  Home</a></li>
+                <li><a href="javascript:prof()"><i class="icon-user icon-white"></i>  My Profile</a></li>
+                <li><a href="me.html"><i class="icon-th icon-white"></i>  My Famly</a></li>
+                <li><a href="tree.html"><i class="icon-leaf icon-white"></i>  My Famly Tree</a></li>
+                <li><a href="map.html"><i class="icon-globe icon-white"></i>  My Famly Map</a></li>
+                <li><a href="javascript:goAlb()"><i class="icon-picture icon-white"></i>  My Famly Gallery</a></li>
+                        <li><a href="events.html"><i class="icon-calendar icon-white"></i>  My Famly Events</a></li>
+                <li><a href="memorials.html"><i class="icon-star icon-white"></i>  My Famly Memos</a></li>
+                <li><a href="javascript:jour()"><i class="icon-book icon-white"></i>  My Famly Journals</a></li>
+                <li><a href="settings.html"><i class="icon-cog icon-white"></i>  Settings</a></li>
+                
+            </ul>
+        </div>
+        
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+            
+            
+            
+            <div class="tabback">
+                <div class="tab navbar navbar-inverse navbar-fixed-top">
+                    <div style="position:absolute; left:2px; top:-3px">
+                        <div class="btn-group">
+                            <button id="menuShow" class="btn button_menu" onClick="slide()"></button>
+                        </div>
+                    </div>
+                    <div id="clos" style="background:transparent; width:50%; height:90%; margin-left:35%">&nbsp;</div>
+                    <div style="position:absolute; right:2px; top:-3px">
+                        <div class="btn-group">
+                            <button class="btn button_home" onClick="goHome()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div> <!--panel -->
+        
+        <a href="#x" class="overlay" id="pop"></a>
+        <div class="popup">
+            <div id="hd" class="navbar navbar-inverse navbar-fixed-top">Check In</div>
+            <div id="plist">
+            </div>
+            <a class="close" href="#close"></a>
+        </div>
+        
+         <div id="wrapper">
+        <div id="map"></div>
+             </div>
+        
+        <script>
+            
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            
+            $(document).ready(function() {
+                              userList();
+                              
+                              $("#search_name").autocomplete({
+                                                             source: fname,
+                                                             minLength: 0,
+                                                             select: function(event, ui) {
+                                                             //assign value back to the form element
+                                                             if(ui.item){
+                                                             $(event.target).val(ui.item.value);
+                                                             names=ui.item.value;
+                                                             }
+                                                             searchedUser();
+                                                             }
+                                                             }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li class="list_item_container"></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+                              
+                              
+                              
+                              
+                              });
+            
+            
+            function split( val ) {
+                return val.split( /,\s*/ );
+            }
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+            
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function searchedUser(){
+                
+                var indexArray= new Array();
+                var index;
+                for(i=0;i<fname.length;i++){
+                    if(names==fname[i]){
+                        index=i;
+                    }
+                }
+                var id=fid[index];
+                var picture=fpic[index];
+                sessionStorage['sid'] = fid[index];
+                sessionStorage['sname'] =fname[index];
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+
+            
+            
+            $("#locList").click(function () {
+                                $("#plist").append('<ul id="places" class="nav nav-tabs nav-stacked">'
+                                                   +'</ul>');
+                                
+                                var ll = sessionStorage.getItem('lat')+','+sessionStorage.getItem('lng');
+                                url2='https://api.foursquare.com/v2/venues/search?ll='+ll+'&oauth_token=Z43OVSOUCMXIQLR0D1RRAXQBCUO05VYRRWZLFAR1QZF5BMKV&v=20130410';
+                                $.get(url2,{}, function(data){
+                                      data2 = JSON.stringify(data.response.venues);
+                                      data3 = JSON.parse(data2);
+                                      $(data3).each(function(i,val){
+                                                    addrs = val.location.address+', ';
+                                                    cty = val.location.city;
+                                                    if(val.location.address == null)
+                                                    addrs = ' ';
+                                                    if(val.location.city == null)
+                                                    cty = ' ';
+                                                    $("#places").append('<li onClick="checkIn(\''+val.name+'\')"><a href="#close">'+val.name+'<p style="font-size:12px; color: #BCBEBD">'+addrs+cty+'</p></a></li>');
+                                                    });
+                                      
+                                      });
+                                
+                                });
+            
+            function slide(){
+                if ($("#toppanel").hasClass('isSlided') && $("#wrapper").hasClass('isSlided')){
+        			$("#toppanel").animate({"left":"0px"}, "fast").removeClass('isSlided');
+             		$("#wrapper").animate({"left":"0px"}, "fast").removeClass('isSlided');
+    			} else {
+        			$("#toppanel").animate({"left":"70%"}, "fast").addClass('isSlided');
+             		$("#wrapper").animate({"left":"70%"}, "fast").addClass('isSlided');
+    			}
+            		
+           	   }
+            
+            function checkIn(name){
+                document.getElementById('statText').value = "I am at "+name;
+            }
+
+            
+            var latitude=sessionStorage.getItem('lat');
+            var longitude=sessionStorage.getItem('lng');
+            var uid = sessionStorage.getItem('userid');
+            var dp = sessionStorage.getItem('dp');
+            var map = L.map('map').setView([latitude, longitude], 13);
+            
+            L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+                        maxZoom: 18,
+                        attribution: ''
+                        }).addTo(map);
+            
+            var myIcon = L.divIcon({className:'' ,html: '<div onClick="prof('+uid+')" style="padding:4px; position:relative; float:left; background:#F88E1E; border-radius:10px">'
+                                   +'<div style="position:relative; float:left; height:50px !important; width:50px !important;" align="center"> '
+                                   + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ dp +'" style=" width:100%; height:100%; overflow:hidden;"/> '
+                                   + '  </div><div align="center" style="color:#FFF; position:relative; float:left; font-weight:600; font-size:10px">I AM HERE<div></div>'});
+            
+            if(latitude != '---'){
+            L.marker([latitude, longitude], {icon: myIcon}).addTo(map);
+            }
+            
+            
+            function userListSearch(id, picture, name, lat, lng){
+                var myIcon = L.divIcon({className:'' ,html: '<div onClick="prof('+id+')" style="padding:4px; position:relative; float:left; background:#F88E1E; border-radius:10px">'
+                    +'<div style="position:relative; float:left; height:50px !important; width:50px !important;" align="center"> '
+                    + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ picture +'" style=" width:100%; height:100%; overflow:hidden;"/> '
+                    + '  </div><div align="center" style="color:#FFF; position:relative; float:left; font-weight:600; font-size:10px">'+name+'<div></div>'});
+                L.marker([lat, lng], {icon: myIcon}).addTo(map);
+                
+            }
+            
+            function prof(id){
+                window.open('profilePage.html?id='+id, '_self');
+            }
+           
+            function check(){
+                if(document.getElementById("handler-left").checked)
+                document.getElementById("handler-left").checked=false
+                else
+                document.getElementById("handler-left").checked=true
+            }
+            
+            var userId=sessionStorage.getItem('userid');
+            url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+            $.get(url2,{}, function(data){
+                  data2 = $.parseJSON(data);
+                  $(data2).each(function(i,val){
+                                userListSearch(val.id, val.picture, val.name, val.lat, val.lng);
+                                });
+                  });
+            
+            
+            function prof(){
+                var id = sessionStorage.getItem('userid');
+                window.open('profilePage.html?id='+id, '_self');
+                
+            }
+            
+            function jour(){
+                var id = sessionStorage.getItem('userid');
+                window.open('journals.html?jid='+id, '_self');
+                
+            }
+            
+            function goHome(){
+                
+                window.open('index.html', '_self');
+                
+            }
+            
+            function goAlb(){
+                var id = sessionStorage.getItem('userid');
+                window.open('album.html?id='+id, '_self');
+                
+            }
+            </script>
+    </body>
+</html>

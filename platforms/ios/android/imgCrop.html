@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery.Jcrop.min.js"></script>
+        <link rel="stylesheet" href="js/jquery.Jcrop.min.css" type="text/css" />
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            <script src="bootstrap/js/bootstrap.min.js"></script>
+            <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+                <script type="text/javascript" charset="utf-8" src="js/ajaxfileupload.js"></script>
+                <script src="js/jquery.blockUI.js"></script>
+        <script type="text/javascript">
+            
+            function ajaxFileUpload()
+            {
+                //checkForm();
+                
+                $.blockUI();
+                var userId=sessionStorage.getItem('userid');
+                var cx = parseInt($('#x').val())+30;
+                var cy = parseInt($('#y').val())+45;
+                var cw = parseInt($('#w').val())+50;
+                var ch = parseInt($('#h').val())+50;
+                //var coords=sessionStorage.getItem('coords');
+                //starting setting some animation when the ajax starts and completes
+                //alert(cx+' '+cy+' '+cw+' '+ch);
+                
+                $.ajaxFileUpload
+                (
+                 {
+                 url:'http://famly.com/beta/public/ws/doajaxfileupload.php?user_id='+userId+'&x='+cx+'&y='+cy+'&w='+cw+'&h='+ch,
+                 secureuri:false,
+                 fileElementId:'fileToUpload',
+                 success: function (data)
+                 {
+                 //alert(data);
+                 $.unblockUI();
+                 goBack();
+                 //$("#progCont").slideUp();
+                 
+                 },
+                 error: function (data, status, e)
+                 {
+                 //$("#progCont").slideUp();
+                 //navigator.notification.alert(e,null,"Message","OK");
+                 }
+                 }
+                 );
+                
+            }
+
+            
+            // convert bytes into friendly format
+            function bytesToSize(bytes) {
+                var sizes = ['Bytes', 'KB', 'MB'];
+                if (bytes == 0) return 'n/a';
+                var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
+            };
+            
+            // check for selected crop region
+            function checkForm() {
+                if (parseInt($('#w').val())) return true;
+                $('.error').html('Please select a crop region and then press Upload').show();
+                return false;
+            };
+            
+            // update info by cropping (onChange and onSelect events handler)
+            function updateInfo(c) {
+                $('#x').val(c.x);
+                $('#y').val(c.y);
+                $('#w').val(c.w);
+                $('#h').val(c.h);
+               // sessionStorage['coords'] = "";
+               // sessionStorage['coords'] = "x="+e.x+"&y="+e.y+"&w="+e.w+"&h="+e.h;
+                
+                
+            };
+            
+            // clear info by cropping (onRelease event handler)
+            function clearInfo() {
+                
+            };
+            
+            function fileSelectHandler() {
+                
+                // get selected file
+                var oFile = $('#fileToUpload')[0].files[0];
+                
+                // hide all errors
+                $('.error').hide();
+                
+                // check for image type (jpg and png are allowed)
+                var rFilter = /^(image\/jpeg|image\/png)$/i;
+                if (! rFilter.test(oFile.type)) {
+                    $('.error').html('Please select a valid image file (jpg and png are allowed)').show();
+                    return;
+                }
+                
+                // check for file size
+             /*   if (oFile.size > 2250 * 1024) {
+                    $('.error').html('You have selected too big file, please select a one smaller image file').show();
+                    return;
+                }*/
+                
+                // preview element
+                var oImage = document.getElementById('preview');
+                $('.error').html('Please select a crop region and then press Upload').show();
+                // prepare HTML5 FileReader
+                var oReader = new FileReader();
+                oReader.onload = function(e) {
+                    
+                    // e.target.result contains the DataURL which we can use as a source of the image
+                    oImage.src = e.target.result;
+                    oImage.onload = function () { // onload event handler
+                        
+                        // display step 2
+                        $('.step2').fadeIn(500);
+                        
+                        // display some basic image info
+                        var sResultFileSize = bytesToSize(oFile.size);
+                        $('#filesize').val(sResultFileSize);
+                        $('#filetype').val(oFile.type);
+                        $('#filedim').val(oImage.naturalWidth + ' x ' + oImage.naturalHeight);
+                        
+                        // Create variables (in this scope) to hold the Jcrop API and image size
+                        var jcrop_api, boundx, boundy;
+                        
+                        // destroy Jcrop if it is existed
+                        if (typeof jcrop_api != 'undefined')
+                        jcrop_api.destroy();
+                        
+                        // initialize Jcrop
+                        $('#preview').Jcrop({
+                                            minSize: [32, 32], // min crop size
+                                            aspectRatio : 1, // keep aspect ratio 1:1
+                                            bgFade: true, // use fade effect
+                                            bgOpacity: .3, // fade opacity
+                                            setSelect:   [ 0, 0, 50, 50 ],
+                                            onChange: updateInfo,
+                                            onSelect: updateInfo,
+                                            onRelease: clearInfo
+                                            }, function(){
+                                            
+                                            // use the Jcrop API to get the real image size
+                                            var bounds = this.getBounds();
+                                            boundx = bounds[0];
+                                            boundy = bounds[1];
+                                            
+                                            // Store the Jcrop API in the jcrop_api variable
+                                            jcrop_api = this;
+                                            });
+                    };
+                };
+                
+                // read selected file as DataURL
+                oReader.readAsDataURL(oFile);
+            }
+
+            
+            function goHome(){
+                
+                window.open('index.html', '_self');
+                
+            }
+            function goBack(){
+                
+                window.open('profileEdit.html', '_self');
+                
+            }
+            
+            </script>
+        
+        
+        <style type="text/css">
+            
+            div {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+            }
+            body{
+                background: url(img/back.jpg) repeat;
+                overflow:hidden;
+            }
+            * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+            
+            .b
+            {
+                text-shadow:none !important;
+                background:#F88E1E !important;
+                font-weight:600 !important;
+                width:15% !important;
+                color:#FFF !important;
+            }
+            
+            .bttn
+            {
+                text-shadow:none !important;
+                background:#F88E1E !important;
+                font-weight:600 !important;
+                width:48px !important;
+                height:30px !important;
+            }
+            
+
+            
+            #target {
+                background-color: #ccc;
+                width: 500px;
+                height: 330px;
+                font-size: 24px;
+                display: block;
+            }
+            
+            #wrapper {
+                background: url(img/back.jpg) repeat;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 999;
+                padding-top: 70px;
+                margin: 2%;
+                width:95%;
+            }
+            </style>
+        
+    </head>
+    <body>
+        
+        
+        <div id="toppanel" class="navbar navbar-inverse navbar-fixed-top">
+            
+            <div class="tabback">
+                <div class="tab navbar navbar-inverse navbar-fixed-top">
+                    <div style="position:absolute; left:2px; top:-3px">
+                        <div class="btn-group">
+                            <button class="btn bttn" onClick="goBack()"><div style="height:20px; width:20px"><img src="img/bk.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                            <!--     <button class="btn bttn" onClick="window.open('me.html', '_self');"><div style="height:30px; width:30px"><img src="img/me.jpg"  style="margin-top:-5px; margin-left:-22px; "></div></button>
+                             <button class="btn bttn" onClick="showPanel(8)"><div style="height:30px; width:30px"><img id="notifImg" src="img/notif.jpg" style="margin-top:-5px; margin-left:-8px; "></div></button>-->
+                        </div>
+                    </div>
+                    <div id="clos" style="background:transparent; width:30%; height:70%; margin-left:35%">&nbsp;</div>
+                    <div style="position:absolute; right:2px; top:-3px">
+                        <div class="btn-group">
+                            <button class="btn bttn" onClick="goHome()"><div style="height:20px; width:20px"><img src="img/home.png" style="margin-top:-5px; margin-left:1px; "></div></button>
+                            <!-- <button class="btn bttn" onClick="showPanel(4)"><div style="height:30px; width:30px"><img src="img/updates.jpg"  style="margin-top:-5px; margin-left:-8px; "></div></button>
+                             <button class="btn bttn" onClick="showPanel(5)"><div style="height:30px; width:30px"><img src="img/view.jpg" style="margin-top:-5px; margin-left:-22px; "></div></button> -->
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div> <!--panel -->
+        
+        <div id="wrapper">
+            
+                <!-- hidden crop params -->
+                <input type="hidden" id="x" name="x" />
+                <input type="hidden" id="y" name="y" />
+                <input type="hidden" id="w" name="w" />
+                <input type="hidden" id="h" name="h" />
+                
+                <div><input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelectHandler()" style="width:70%"/>
+                <button class="btn b pull-right" onClick="ajaxFileUpload()"><i class="icon-arrow-up icon-white"></i></button></div>
+                
+                <div class="error"></div>
+                
+                <div class="step2" style="margin-top:2%">
+                    <img id="preview"/>
+                   
+                </div>
+        </div>
+    </body>
+    
+</html>

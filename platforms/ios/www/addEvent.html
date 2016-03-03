@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" id="viewport">
+        <script type="text/javascript">
+                var viewPortWidth = window.screen.width;
+                function setViewport() {
+                    if ((navigator.userAgent.toLowerCase().indexOf("android")!=-1)) {
+                        
+                        var vPort = "width="+viewPortWidth+", maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=yes";
+                        document.getElementById("viewport").setAttribute("content", vPort);
+                    }
+                }
+                setViewport();
+                </script>
+        <link href="js/slide.css" rel="stylesheet" media="screen">
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+                            
+                            <style>
+                                body{
+                                    background: url(img/back.jpg) repeat;
+                                }
+                                .btn
+                                {
+                                    text-shadow:none !important;
+                                    background:#F88E1E !important;
+                                    font-weight:600 !important;
+                                    width:100% !important;
+                                    height:30px !important;
+                                    color:#FFF !important;
+                                }
+                                .thead{
+                                    font-weight:600;
+                                    font-size:9px;
+                                }
+                                * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+                                
+                                input{
+                                    width:95%;
+                                }
+                                #wrapper{
+                                    padding-top:25%;
+                                }
+                                </style>
+                
+                            <script src="js/cordova.js"></script>
+                            <script src="js/jquery.js"></script>
+                            <script src="js/jquery.blockUI.js"></script>
+                            <script src="bootstrap/js/bootstrap.min.js"></script>
+                            <script src="js/sha1.js"></script>
+                <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+                <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+    </head>
+
+    <body>
+        <div id="toppanel" style="position:fixed !important; z-index:9999" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="tabback">
+            <div class="tab navbar navbar-inverse navbar-fixed-top">
+            <div style="width:25%; margin-left:4%;">
+                <button class="btn btn-small pull-left" id="back" onClick="javascript:back();">Cancel</button>
+            </div>
+            <div style="width:25%; margin-left:72%;">
+                <button class="btn btn-small pull-right" id="reg" onClick="javascript:save()">Save</button>
+            </div>
+            
+        </div>
+        </div>
+        </div>
+        <div id="wrapper">
+                <table class="table table-striped">
+                    
+                    <tr>
+                        <td class="thead">Event Name</td>
+                        <td class="tdata"><input id="textinput1" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Event Type</td>
+                        <td class="tdata">
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios" id="etype1" value="option1" checked>
+                                    Public
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" name="optionsRadios" id="etype2" value="option2">
+                                    Invitation Based
+                            </label>
+                            <input id="textinput2" type="text" placeholder="Invite Members" style="margin-top:1%; display:none">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Event Description</td>
+                        <td class="tdata"><textarea id="textinput3" rows=3 type="text" style="width:95%"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Start Date</td>
+                        <td class="tdata">
+                            <input id="eventStartdt" type="datetime-local" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="thead">End Date</td>
+                        <td class="tdata">
+                           <input id="eventEnddt" type="datetime-local">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="thead">Event Location</td>
+                        <td class="tdata">
+                            <input id="textinput6" type="text" placeholder="Venue">
+                            <input id="textinput7" type="text" style="width:30%" placeholder="City">
+                            <input id="textinput8" type="text" style="width:30%" placeholder="State">
+                            <input id="textinput9" type="text" style="width:30%" placeholder="Country">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="thead"></td>
+                        <td class="tdata">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                                    Add Reminder
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+         </div>
+        <script>
+            
+            var eventType = "Public";
+            var inviteeList = " ";
+            var d = new Date();
+            var curr_date = d.getDate();
+            var curr_month = d.getMonth()+1;
+            var curr_year = d.getFullYear();
+            var fname = new Array();
+            var fid= new Array();
+            var fpic= new Array();
+            var names;
+            
+            if(curr_month.toString().length == 1){
+                curr_month = "0"+curr_month
+            }
+            
+            $(document).ready(function() {
+                              
+                              userList();
+                              
+                              $('.radio').click(function() {
+                                                if($('#etype1').is(':checked'))
+                                                {
+                                                    $("#textinput2").attr("style","margin-top:2%; display:none");
+                                                    eventType = "Public";
+                                                }
+                                                else if($('#etype2').is(':checked'))
+                                                {
+                                                    $("#textinput2").attr("style","margin-top:2%; display:inline");
+                                                    eventType = "Invitation Only";
+                                                }
+                                                
+                                                });
+                              
+                              $("#textinput2").bind( "keydown", function( event ) {
+                                                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                                                        $( this ).data( "autocomplete" ).menu.active ) {
+                                                    event.preventDefault();
+                                                    }
+                                                    })
+                              .autocomplete({
+                                            minLength: 0,
+                                            source: function( request, response ) {
+                                            // delegate back to autocomplete, but extract the last term
+                                            response( $.ui.autocomplete.filter(
+                                                                               fname, extractLast( request.term ) ) );
+                                            },
+                                            focus: function() {
+                                            // prevent value inserted on focus
+                                            return false;
+                                            },
+                                            select: function( event, ui ) {
+                                            var terms = split( this.value );
+                                            // remove the current input
+                                            terms.pop();
+                                            // add the selected item
+                                            terms.push( ui.item.value );
+                                            inviteeList += fid[fname.indexOf(ui.item.value)]+",";
+                                            // add placeholder to get the comma-and-space at the end
+                                            terms.push("");
+                                            this.value = terms.join(",");
+                                            return false;
+                                            }
+                                            }).data("autocomplete")._renderItem = function (ul, item) {
+                              var inner_html = '<a style="height:100% !important;">'
+                              +'<div style="height:30px !important; width:30px !important;"> '
+                              + '  <img src="http://famly.com/beta/public/uploads/user_pics/'+ fpic[fname.indexOf(item.value)] +'" style="width:100%; height:100%; overflow:hidden; border:2px solid #DEDEDE"/> '
+                              + '  </div> '
+                              +'<span style="position:absolute; margin-left:40px; height:100% !important; width:80% !important; overflow:hidden; margin-top:-20px; font-size:11px">' + item.value + '</span><p></p><p></p><p></p><p></p></a>';
+                              //alert(item);
+                              return $('<li></li>')
+                              .data("item.autocomplete", item)
+                              .append(inner_html)
+                              .appendTo(ul);
+                              };
+
+                              
+                              });
+           
+           
+            function userList(){
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var userId=sessionStorage.getItem('userid');
+                url2 = 'http://famly.com/beta/public/ws/userList.php?userId='+userId;
+                $.get(url2,{}, function(data){
+                      
+                      data2 = $.parseJSON(data);
+                      $(data2).each(function(i,val){
+                                    fname[i]=val.name;
+                                    //alert(fname[i]);
+                                    fid[i]=val.id;
+                                    fpic[i]=val.picture;
+                                    // alert(fid[i]);
+                                    });
+                      
+                      });
+                
+            }
+            
+            function split( val ) {
+                return val.split( /,\s*/ );
+            }
+            function extractLast( term ) {
+                return split( term ).pop();
+            }
+            
+            function sendInvites(eID){
+                inviteeList[inviteeList.lastIndexOf(',')] = " ";
+                console.log(eID+"-"+inviteeList.replace(' ',''));
+                eurl='http://famly.com/beta/public/ws/sendEventInvite.php';
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                $.get(eurl,{username:un, password:hash, event_id:eID, invitee:inviteeList.replace(' ','')}, function(data){
+                      //alert(data);
+                      highlightEve(curr_month, curr_year);
+                      }
+                    );
+            }
+            
+            function save(){
+                url='http://famly.com/beta/public/ws/createEvent.php';
+                var un=sessionStorage.getItem('username');
+                var hash=sessionStorage.getItem('password');
+                var event_name=document.getElementById('textinput1').value;
+                var event_desc=document.getElementById('textinput3').value;
+               // var start_date=document.getElementById('textinput4').value;
+                //var end_date=document.getElementById('textinput5').value;
+                var venue=document.getElementById('textinput6').value;
+                var city=document.getElementById('textinput7').value;
+                var state=document.getElementById('textinput8').value;
+                var country=document.getElementById('textinput9').value;
+                var dateStart=document.getElementById('eventStartdt').value;
+                var parsedateStart = dateStart.split("T");
+                var event_start_date=parsedateStart[0];
+                var timeStart=parsedateStart[1];
+                var parsetimeStart=timeStart.split(".");
+                var event_start_time=parsetimeStart[0];
+                var event_start_date_time= event_start_date+" "+event_start_time;
+                
+               
+                var dateEnd=document.getElementById('eventEnddt').value;
+                var parsedateEnd = dateEnd.split("T");
+                var event_end_date=parsedateEnd[0];
+                var timeEnd=parsedateEnd[1];
+                var parsetimeEnd=timeEnd.split(".");
+                var event_end_time=parsetimeEnd[0];
+                var event_end_date_time= event_end_date+" "+event_end_time;
+                
+              
+               
+                
+                $.get(url,{username: un, password: hash, event_title :event_name, event_type:eventType, event_start_date:event_start_date_time,event_end_date:event_end_date_time, event_country:country, event_city:city, event_state:state, event_venue:venue, event_description:encodeURIComponent(event_desc)}, function(data){
+                      //alert(data);
+                      if(data != -1){
+                       
+                      if(eventType == "Invitation Only"){
+                            sendInvites(parseInt(data));
+                      }
+                      else
+                      highlightEve(curr_month, curr_year);
+                    }
+                });
+            }
+            
+            function back(){
+                $.blockUI();
+                window.location.href='events.html'
+            }
+            
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+          
+            var activeDates = new Array();
+            function highlightEve(month, year){
+                var k = 0;
+                if(month.toString().length == 1){
+                    month = '0'+month;
+                }
+                url3 = 'http://famly.com/beta/public/ws/getEventsByMonth.php';
+                var un = sessionStorage.getItem('username');
+                var hash = sessionStorage.getItem('password');
+                $.get(url3,{username:un, password:hash, date:month+'-'+year}, function(data){
+                      //alert(data);
+                      if (data != ''){
+                      data3 = $.parseJSON(data);
+                      $(data3).each(function(i,val){
+                                    var s = parseInt(val.event_start_date.substring(0,10).substring(8,10));
+                                    var e = parseInt(val.event_end_date.substring(0,10).substring(8,10));
+                                    for(var d = s; d <= e; d++){
+                                    var ds = d;
+                                    if(d.toString().length == 1){
+                                    ds = '0'+d;
+                                    }
+                                    activeDates[k]=year+'-'+month+'-'+ds;
+                                    k++;
+                                    }
+                                    });
+                      localStorage["theDates"] = JSON.stringify(activeDates);
+                      //alert(localStorage["theDates"]);
+                      window.location.href='events.html';
+                      }
+                      });
+            }
+
+            
+          
+            
+            
+            </script>
+    </body>
+</html>
+
+
